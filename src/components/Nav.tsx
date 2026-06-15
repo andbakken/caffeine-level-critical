@@ -8,7 +8,7 @@ export async function Nav() {
     <header className="border-b-[3px] border-line bg-bg-2/80 backdrop-blur sticky top-0 z-40">
       <nav className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3 flex-wrap">
         <Link href="/" className="heading text-gold text-lg sm:text-xl">
-          ☕ BrewQuest
+          ☕ Quest of the Roasted Bean
         </Link>
         <div className="flex items-center gap-2 sm:gap-4 text-base sm:text-lg">
           <Link href="/leaderboard" className="hover:text-accent-2">

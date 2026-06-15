@@ -19,7 +19,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col gap-8">
       <section className="text-center py-4">
-        <h1 className="heading text-gold text-2xl sm:text-4xl">☕ BrewQuest</h1>
+        <h1 className="heading text-gold text-2xl sm:text-4xl">☕ Quest of the Roasted Bean</h1>
         <p className="text-ink-dim mt-3">
           Hvem drikker mest på IT-avdelingen? Skann en kopp og finn ut.
         </p>

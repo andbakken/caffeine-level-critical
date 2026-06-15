@@ -17,7 +17,7 @@ const pixelBody = VT323({
 });
 
 export const metadata: Metadata = {
-  title: "BrewQuest",
+  title: "Quest of the Roasted Bean",
   description: "Spor kaffe, te og kakao for IT-avdelingen ☕",
 };
 

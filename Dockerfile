@@ -1,4 +1,4 @@
-# BrewQuest – produksjonsbilde (Next.js 16 + Prisma 7 + pg driver adapter)
+# Quest of the Roasted Bean – produksjonsbilde (Next.js 16 + Prisma 7 + pg driver adapter)
 
 # ---- avhengigheter ----
 FROM node:24-bookworm-slim AS deps

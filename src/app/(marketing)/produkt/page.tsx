@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Produkt — BrewQuest",
+  title: "Produkt — Quest of the Roasted Bean",
   description:
-    "Alt i BrewQuest: NFC-skanning, toppliste, regelstyrte merker, statistikk og full admin-kontroll. Sammenlign selvhostet og hostet.",
+    "Alt i Quest of the Roasted Bean: NFC-skanning, toppliste, regelstyrte merker, statistikk og full admin-kontroll. Sammenlign selvhostet og hostet.",
 };
 
 const DETAILS = [
@@ -68,7 +68,7 @@ export default function ProductPage() {
           Hele kaffekonkurransen, i én liten app
         </h1>
         <p className="text-ink-dim text-lg sm:text-xl max-w-2xl leading-relaxed">
-          BrewQuest gjør hverdagens kaffepauser om til et lett spill med poeng,
+          Quest of the Roasted Bean gjør hverdagens kaffepauser om til et lett spill med poeng,
           merker og topplister — bygget for team som liker å konkurrere litt.
         </p>
       </section>
@@ -92,7 +92,7 @@ export default function ProductPage() {
           Slik fungerer NFC-brikkene
         </h2>
         <p className="text-ink-dim text-lg text-center max-w-3xl mx-auto leading-relaxed">
-          En BrewQuest-brikke inneholder bare en nettlenke. Telefonen åpner lenken
+          En Quest of the Roasted Bean-brikke inneholder bare en nettlenke. Telefonen åpner lenken
           ved skanning, og koppen logges på sekundet. Samme mekanisme uansett om du
           hoster selv eller lar oss gjøre det.
         </p>
@@ -103,17 +103,17 @@ export default function ProductPage() {
               Brikken peker på din lokale adresse på bedriftens nett, f.eks.
             </p>
             <code className="bg-[#100d22] border-[3px] border-line px-3 py-2 text-base break-all">
-              http://brewquest.lokal/t/&lt;token&gt;
+              http://quest-of-the-roasted-bean.lokal/t/&lt;token&gt;
             </code>
           </div>
           <div className="pixel-panel p-6 flex flex-col gap-3" style={{ borderColor: "var(--color-gold)" }}>
             <h3 className="font-display text-sm text-gold">Hostet</h3>
             <p className="text-ink-dim text-base leading-relaxed">
-              Brikken peker på ditt BrewQuest-domene. Riktig bedrift gjenkjennes
+              Brikken peker på ditt Quest of the Roasted Bean-domene. Riktig bedrift gjenkjennes
               automatisk fra token-en:
             </p>
             <code className="bg-[#100d22] border-[3px] border-line px-3 py-2 text-base break-all">
-              https://app.brewquest.no/t/&lt;token&gt;
+              https://app.quest-of-the-roasted-bean.no/t/&lt;token&gt;
             </code>
           </div>
         </div>

@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Last ned & installer — BrewQuest",
+  title: "Last ned & installer — Quest of the Roasted Bean",
   description:
-    "Kjør BrewQuest gratis på din egen maskin med Docker. Alle avhengigheter er inkludert — følg de fem stegene.",
+    "Kjør Quest of the Roasted Bean gratis på din egen maskin med Docker. Alle avhengigheter er inkludert — følg de fem stegene.",
 };
 
 function Code({ children }: { children: React.ReactNode }) {
@@ -45,7 +45,7 @@ export default function DownloadPage() {
           Last ned & installer
         </h1>
         <p className="text-ink-dim text-lg leading-relaxed">
-          Kjør BrewQuest gratis på din egen maskin eller server. Docker pakker{" "}
+          Kjør Quest of the Roasted Bean gratis på din egen maskin eller server. Docker pakker{" "}
           <span className="text-ink">alt</span> — app, database (PostgreSQL) og alle
           avhengigheter. Du trenger ikke installere Node, en database eller noe annet.
         </p>
@@ -88,10 +88,10 @@ export default function DownloadPage() {
         <Code>docker --version</Code>
       </Step>
 
-      <Step n="2" title="Hent BrewQuest">
+      <Step n="2" title="Hent Quest of the Roasted Bean">
         <p>Last ned siste utgave og pakk den ut, eller hent den med git:</p>
-        <Code>{`git clone https://github.com/brewquest/brewquest.git
-cd brewquest`}</Code>
+        <Code>{`git clone https://github.com/andbakken/quest-of-the-roasted-bean.git
+cd quest-of-the-roasted-bean`}</Code>
         <p className="text-sm">
           (Foretrekker du uten git? Last ned ZIP-en fra utgivelsessiden og pakk den
           ut i en mappe.)
@@ -113,7 +113,7 @@ ADMIN_NICKNAME=GameMaster
 ADMIN_PIN=1234
 
 # Database-passord (kan stå som det er for lokal kjøring)
-POSTGRES_PASSWORD=brewquest`}</Code>
+POSTGRES_PASSWORD=quest-of-the-roasted-bean`}</Code>
       </Step>
 
       <Step n="4" title="Start alt med ett kommando">
@@ -168,7 +168,7 @@ POSTGRES_PASSWORD=brewquest`}</Code>
           <Code>{`docker compose pull
 docker compose up -d`}</Code>
           <p className="text-ink">Ta sikkerhetskopi av databasen:</p>
-          <Code>docker compose exec db pg_dump -U brewquest brewquest &gt; backup.sql</Code>
+          <Code>docker compose exec db pg_dump -U quest-of-the-roasted-bean quest-of-the-roasted-bean &gt; backup.sql</Code>
           <p className="text-ink">Stopp appen:</p>
           <Code>docker compose down</Code>
         </div>

@@ -19,7 +19,7 @@ export default async function TapPage({ params }: { params: Promise<{ token: str
       <div className="max-w-md mx-auto text-center py-12">
         <p className="text-6xl mb-4">🤖💥</p>
         <h1 className="heading text-danger text-lg">Ukjent tagg</h1>
-        <p className="text-ink-dim mt-3">Denne NFC-taggen er ikke registrert i BrewQuest.</p>
+        <p className="text-ink-dim mt-3">Denne NFC-taggen er ikke registrert i Quest of the Roasted Bean.</p>
         <Link href="/" className="pixel-btn mt-6 inline-block">
           Til dashboard
         </Link>

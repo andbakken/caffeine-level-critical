@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { OfficeScene } from "@/components/OfficeScene";
 
 export const metadata: Metadata = {
-  title: "BrewQuest — gjør kaffepausen til en konkurranse",
+  title: "Quest of the Roasted Bean — gjør kaffepausen til en konkurranse",
   description:
     "Spor kaffe, te og kakao på jobben med NFC-tagger, toppliste og merker. Kjør gratis selvhostet med Docker, eller la oss hoste det for deg.",
 };
@@ -41,7 +41,7 @@ export default function LandingPage() {
             Gjør kaffepausen til en konkurranse
           </h1>
           <p className="text-ink-dim text-lg sm:text-xl leading-relaxed">
-            BrewQuest sporer kaffe, te og kakao for hele teamet — med NFC-skanning,
+            Quest of the Roasted Bean sporer kaffe, te og kakao for hele teamet — med NFC-skanning,
             toppliste og merker. Bygg en liten, sunn rivalisering rundt
             kaffemaskinen. ☕
           </p>
@@ -161,7 +161,7 @@ export default function LandingPage() {
           Klar til å koke i gang?
         </h2>
         <p className="text-ink-dim text-lg max-w-xl">
-          Sett opp BrewQuest for teamet ditt i dag — og finn ut hvem som egentlig
+          Sett opp Quest of the Roasted Bean for teamet ditt i dag — og finn ut hvem som egentlig
           holder kontoret i gang.
         </p>
         <a href="#priser" className="pixel-btn pixel-btn-gold">

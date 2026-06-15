@@ -1,4 +1,4 @@
-// BrewQuest data model
+// Quest of the Roasted Bean data model
 // Prisma 7 — new `prisma-client` generator + better-sqlite3 driver adapter (no Rust engine).
 
 generator client {
