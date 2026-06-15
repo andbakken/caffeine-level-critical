@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AchievementManager, type AdminAchievement } from "@/components/AchievementManager";
 import { copyToClipboard } from "@/lib/clipboard";
@@ -56,6 +56,15 @@ export function AdminClient({
   const [tagLabel, setTagLabel] = useState("");
 
   const [copied, setCopied] = useState<number | null>(null);
+
+  // Base-URL for brikke-lenker. Brikkene må peke på en adresse mobilene kan nå
+  // (maskinens nettverks-/Tailscale-adresse), IKKE localhost. Kan overstyres med
+  // NEXT_PUBLIC_TAG_BASE_URL; ellers brukes adressen admin er åpnet på.
+  const [tagBase, setTagBase] = useState("");
+  useEffect(() => {
+    setTagBase(process.env.NEXT_PUBLIC_TAG_BASE_URL || window.location.origin);
+  }, []);
+  const baseIsLocal = /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])/i.test(tagBase);
 
   function flash(error: string | null, message: string | null = null) {
     setErr(error);
@@ -146,7 +155,7 @@ export function AdminClient({
   }
 
   async function copyLink(tag: Tag) {
-    const url = `${window.location.origin}/t/${tag.token}`;
+    const url = `${tagBase || window.location.origin}/t/${tag.token}`;
     const success = await copyToClipboard(url);
     if (success) {
       setCopied(tag.id);
@@ -230,6 +239,16 @@ export function AdminClient({
           </p>
         </form>
 
+        {baseIsLocal && (
+          <div className="pixel-panel px-4 py-3 text-base text-danger" style={{ borderColor: "var(--color-danger)" }}>
+            ⚠ Du er på <span className="font-display">localhost</span>. Brikke-lenkene under
+            blir da uleselige for mobiler (de prøver å nå seg selv → uendelig lasting).
+            Åpne admin via maskinens nettverksadresse — f.eks.{" "}
+            <span className="font-display">http://192.0.2.3:3000/admin</span> — og kopier
+            lenken på nytt. (Eller sett <span className="font-display">NEXT_PUBLIC_TAG_BASE_URL</span>.)
+          </div>
+        )}
+
         {tags.length === 0 ? (
           <p className="text-ink-dim text-base">Ingen tagger ennå.</p>
         ) : (
@@ -246,7 +265,10 @@ export function AdminClient({
                     {t.label ? ` · ${t.label}` : ""}
                   </div>
                   <div className="text-ink-dim text-sm font-display">
-                    /t/{t.token} · {t.drink?.displayName ?? "velger"} · {t.scanCount} skann
+                    {t.drink?.displayName ?? "velger"} · {t.scanCount} skann
+                  </div>
+                  <div className="text-accent-2 text-sm font-display break-all select-all mt-1">
+                    {tagBase}/t/{t.token}
                   </div>
                 </div>
                 <button
