@@ -17,7 +17,7 @@
       "no": "Norsk",
       "en": "English"
     },
-    "madeFor": "made for the IT department"
+    "madeFor": "Track your team's drink habits"
   },
   "Landing": {
     "metaTitle": "Quest of the Roasted Bean — turn the coffee break into a competition",
@@ -143,7 +143,7 @@
     "logout": "Log out"
   },
   "Home": {
-    "tagline": "Who drinks the most in the IT department? Scan a cup and find out.",
+    "tagline": "Who drinks the most at the office? Scan a cup and find out.",
     "greeting": "Hi {name} — log a cup",
     "makeProfile": "Create a profile to log your own cups and collect badges!",
     "join": "Join",

@@ -78,7 +78,7 @@ export function AppNav({ nickname, isAdmin }: { nickname: string; isAdmin: boole
       </nav>
 
       {open && (
-        <div className="md:hidden border-t-2 border-line bg-bg-2 px-4 py-4 flex flex-col gap-4 text-lg">
+        <div className="border-t-2 border-line bg-bg-2 px-4 py-4 flex flex-col gap-4 text-lg">
           {links}
           <div className="pt-2 border-t border-line/50">
             <LocaleSwitcher />
