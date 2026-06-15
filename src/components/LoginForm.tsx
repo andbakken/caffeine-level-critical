@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export function LoginForm() {
+  const t = useTranslations("Auth");
   const router = useRouter();
   const params = useSearchParams();
   const next = params.get("next") || "/dashboard";
@@ -26,13 +28,13 @@ export function LoginForm() {
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
-        setError(data.error ?? "Innlogging feilet");
+        setError(data.error ?? t("loginFailed"));
         return;
       }
       router.push(next);
       router.refresh();
     } catch {
-      setError("Noe gikk galt");
+      setError(t("somethingWrong"));
     } finally {
       setLoading(false);
     }
@@ -40,9 +42,9 @@ export function LoginForm() {
 
   return (
     <form onSubmit={submit} className="pixel-panel p-6 max-w-md mx-auto flex flex-col gap-4">
-      <h1 className="heading text-gold text-xl">Logg inn</h1>
+      <h1 className="heading text-gold text-xl">{t("loginTitle")}</h1>
       <label className="flex flex-col gap-1">
-        <span className="text-ink-dim text-base">Kallenavn</span>
+        <span className="text-ink-dim text-base">{t("nickname")}</span>
         <input
           className="pixel-input"
           value={nickname}
@@ -52,7 +54,7 @@ export function LoginForm() {
         />
       </label>
       <label className="flex flex-col gap-1">
-        <span className="text-ink-dim text-base">PIN</span>
+        <span className="text-ink-dim text-base">{t("pin")}</span>
         <input
           className="pixel-input"
           type="password"
@@ -64,12 +66,12 @@ export function LoginForm() {
       </label>
       {error && <p className="text-danger text-base">⚠ {error}</p>}
       <button className="pixel-btn" disabled={loading}>
-        {loading ? "..." : "Start spillet"}
+        {loading ? "..." : t("startGame")}
       </button>
       <p className="text-base text-ink-dim text-center">
-        Ny spiller?{" "}
+        {t("newPlayer")}{" "}
         <Link href="/register" className="text-accent-2">
-          Lag profil
+          {t("createProfile")}
         </Link>
       </p>
     </form>

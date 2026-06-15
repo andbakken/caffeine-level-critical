@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
 export function AppNav({ nickname, isAdmin }: { nickname: string; isAdmin: boolean }) {
+  const t = useTranslations("Nav");
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
@@ -19,17 +21,17 @@ export function AppNav({ nickname, isAdmin }: { nickname: string; isAdmin: boole
   const links = (
     <>
       <Link href="/dashboard" className="hover:text-accent-2" onClick={close}>
-        Dashbord
+        {t("dashboard")}
       </Link>
       <Link href="/leaderboard" className="hover:text-accent-2" onClick={close}>
-        Toppliste
+        {t("leaderboard")}
       </Link>
       <Link href="/stats" className="hover:text-accent-2" onClick={close}>
-        Statistikk
+        {t("stats")}
       </Link>
       {isAdmin && (
         <Link href="/admin" className="hover:text-gold" onClick={close}>
-          Admin
+          {t("admin")}
         </Link>
       )}
       <Link
@@ -45,7 +47,7 @@ export function AppNav({ nickname, isAdmin }: { nickname: string; isAdmin: boole
         onClick={logout}
         className="text-ink-dim hover:text-danger text-left cursor-pointer"
       >
-        Logg ut
+        {t("logout")}
       </button>
     </>
   );

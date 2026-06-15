@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Celebration } from "@/components/Celebration";
 import type { AwardedBadge } from "@/lib/consumption";
@@ -29,6 +30,7 @@ export function TapClient({
   nickname: string;
 }) {
   const router = useRouter();
+  const t = useTranslations("Tap");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [badges, setBadges] = useState<AwardedBadge[]>([]);
   const autoRan = useRef(false);
@@ -44,7 +46,7 @@ export function TapClient({
         });
         const data = await res.json();
         if (!res.ok || !data.ok) {
-          setStatus({ kind: "error", message: data.error ?? "Noe gikk galt" });
+          setStatus({ kind: "error", message: data.error ?? t("somethingWrong") });
           return;
         }
         const drink: Drink =
@@ -53,10 +55,10 @@ export function TapClient({
         if (data.newBadges?.length) setBadges(data.newBadges);
         router.refresh();
       } catch {
-        setStatus({ kind: "error", message: "Nettverksfeil" });
+        setStatus({ kind: "error", message: t("networkError") });
       }
     },
-    [token, fixedDrink, drinks, router],
+    [token, fixedDrink, drinks, router, t],
   );
 
   // ett-tapp-tagg: logg automatisk med en gang
@@ -70,10 +72,10 @@ export function TapClient({
   return (
     <div className="max-w-md mx-auto text-center flex flex-col gap-6 py-6">
       <div className="pixel-panel p-4">
-        <p className="text-ink-dim text-base">Stasjon</p>
+        <p className="text-ink-dim text-base">{t("station")}</p>
         <p className="heading text-accent-2 text-lg">{stationName}</p>
         <p className="text-ink-dim text-base mt-1">
-          Innlogget som <span className="text-gold">{nickname}</span>
+          {t("loggedInAs")} <span className="text-gold">{nickname}</span>
         </p>
       </div>
 
@@ -86,7 +88,7 @@ export function TapClient({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            Registrerer<span className="blink">_</span>
+            {t("registering")}<span className="blink">_</span>
           </motion.p>
         )}
 
@@ -104,15 +106,15 @@ export function TapClient({
             </p>
             <p className="text-ink-dim text-base mt-1">
               {status.cooldown
-                ? "Du registrerte nettopp en — venter litt 😅"
-                : `+1 ${status.drink.displayName}`}
+                ? t("justRegisteredWait")
+                : t("plus", { drink: status.drink.displayName })}
             </p>
             <div className="flex flex-col gap-3 mt-5">
               <button className="pixel-btn" onClick={() => log(status.drink.key)}>
-                Logg en til
+                {t("logAnother")}
               </button>
               <Link href="/dashboard" className="pixel-btn pixel-btn-ghost">
-                Til dashboard
+                {t("toDashboard")}
               </Link>
             </div>
           </motion.div>
@@ -122,14 +124,14 @@ export function TapClient({
           <motion.div key="error" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <p className="text-danger heading text-base">⚠ {status.message}</p>
             <button className="pixel-btn mt-4" onClick={() => log()}>
-              Prøv igjen
+              {t("tryAgain")}
             </button>
           </motion.div>
         )}
 
         {status.kind === "idle" && !fixedDrink && (
           <motion.div key="picker" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <p className="heading text-base mb-4">Hva drakk du?</p>
+            <p className="heading text-base mb-4">{t("whatDidYouDrink")}</p>
             <div className="grid grid-cols-3 gap-3">
               {drinks.map((d) => (
                 <button

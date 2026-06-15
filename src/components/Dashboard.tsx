@@ -1,22 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedNumber } from "@/components/AnimatedNumber";
 import type { Overview } from "@/lib/stats";
 
-function timeAgo(iso: string): string {
-  const diff = Date.now() - new Date(iso).getTime();
-  const min = Math.floor(diff / 60000);
-  if (min < 1) return "nå nettopp";
-  if (min < 60) return `${min} min siden`;
-  const h = Math.floor(min / 60);
-  if (h < 24) return `${h} t siden`;
-  return `${Math.floor(h / 24)} d siden`;
-}
-
 export function Dashboard({ initial }: { initial: Overview }) {
+  const t = useTranslations("Stats");
   const [data, setData] = useState<Overview>(initial);
+
+  const timeAgo = (iso: string): string => {
+    const diff = Date.now() - new Date(iso).getTime();
+    const min = Math.floor(diff / 60000);
+    if (min < 1) return t("agoNow");
+    if (min < 60) return t("agoMin", { min });
+    const h = Math.floor(min / 60);
+    if (h < 24) return t("agoHour", { h });
+    return t("agoDay", { d: Math.floor(h / 24) });
+  };
 
   useEffect(() => {
     let alive = true;
@@ -43,13 +45,13 @@ export function Dashboard({ initial }: { initial: Overview }) {
   return (
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-3 gap-3">
-        <BigStat label="I dag" value={data.totalToday} color="var(--color-gold)" />
-        <BigStat label="Denne uka" value={data.totalWeek} color="var(--color-accent-2)" />
-        <BigStat label="Totalt" value={data.totalAll} color="var(--color-accent)" />
+        <BigStat label={t("today")} value={data.totalToday} color="var(--color-gold)" />
+        <BigStat label={t("thisWeek")} value={data.totalWeek} color="var(--color-accent-2)" />
+        <BigStat label={t("total")} value={data.totalAll} color="var(--color-accent)" />
       </div>
 
       <div className="pixel-panel p-4">
-        <h2 className="heading text-accent-2 text-base mb-4">I dag per drikke</h2>
+        <h2 className="heading text-accent-2 text-base mb-4">{t("todayPerDrink")}</h2>
         <div className="flex flex-col gap-3">
           {data.drinkStats.map((d) => (
             <div key={d.key} className="flex items-center gap-3">
@@ -69,7 +71,7 @@ export function Dashboard({ initial }: { initial: Overview }) {
       </div>
 
       <div className="pixel-panel p-4">
-        <h2 className="heading text-accent-2 text-base mb-4">Siste 7 dager</h2>
+        <h2 className="heading text-accent-2 text-base mb-4">{t("last7days")}</h2>
         <div className="flex items-end justify-between gap-2 h-40">
           {data.last7.map((d, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
@@ -87,7 +89,7 @@ export function Dashboard({ initial }: { initial: Overview }) {
       </div>
 
       <div className="pixel-panel p-4">
-        <h2 className="heading text-accent-2 text-base mb-4">Live-feed</h2>
+        <h2 className="heading text-accent-2 text-base mb-4">{t("liveFeed")}</h2>
         <ul className="flex flex-col gap-2">
           <AnimatePresence initial={false}>
             {data.recent.map((r) => (
@@ -105,14 +107,14 @@ export function Dashboard({ initial }: { initial: Overview }) {
                 />
                 <span className="text-2xl">{r.drinkIcon}</span>
                 <span className="text-gold">{r.nickname}</span>
-                <span className="text-ink-dim">tok {r.drinkName.toLowerCase()}</span>
-                {r.source === "tag" && <span title="Skannet tagg">📟</span>}
+                <span className="text-ink-dim">{t("took", { drink: r.drinkName.toLowerCase() })}</span>
+                {r.source === "tag" && <span title={t("scannedTag")}>📟</span>}
                 <span className="text-ink-dim ml-auto text-sm">{timeAgo(r.createdAt)}</span>
               </motion.li>
             ))}
           </AnimatePresence>
           {data.recent.length === 0 && (
-            <li className="text-ink-dim">Ingen kopper logget ennå. Vær den første! ☕</li>
+            <li className="text-ink-dim">{t("noneYet")}</li>
           )}
         </ul>
       </div>

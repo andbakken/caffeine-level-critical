@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Avatar } from "@/components/Avatar";
 
 type Dept = { id: number; name: string };
@@ -19,6 +20,7 @@ export function MeClient({
   departments: Dept[];
   color: string;
 }) {
+  const t = useTranslations("Me");
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -38,10 +40,10 @@ export function MeClient({
     const res = await fetch("/api/me/avatar", { method: "POST", body: fd });
     const data = await res.json();
     if (!res.ok || !data.ok) {
-      setErr(data.error ?? "Opplasting feilet");
+      setErr(data.error ?? t("uploadFailed"));
       return;
     }
-    setMsg("Bilde oppdatert!");
+    setMsg(t("photoUpdated"));
     router.refresh();
   }
 
@@ -62,10 +64,10 @@ export function MeClient({
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
-        setErr(data.error ?? "Lagring feilet");
+        setErr(data.error ?? t("saveFailed"));
         return;
       }
-      setMsg("Lagret!");
+      setMsg(t("saved"));
       setPin("");
       router.refresh();
     } finally {
@@ -86,19 +88,19 @@ export function MeClient({
         <div className="flex flex-col gap-2">
           <input ref={fileRef} type="file" accept="image/*" hidden onChange={uploadAvatar} />
           <button className="pixel-btn pixel-btn-ghost !py-2" onClick={() => fileRef.current?.click()}>
-            Last opp bilde
+            {t("uploadPhoto")}
           </button>
-          <span className="text-ink-dim text-sm">PNG/JPG/WEBP/GIF, maks 2 MB</span>
+          <span className="text-ink-dim text-sm">{t("photoHint")}</span>
         </div>
       </div>
 
       <form onSubmit={save} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1">
-          <span className="text-ink-dim text-base">Kallenavn</span>
+          <span className="text-ink-dim text-base">{t("nickname")}</span>
           <input className="pixel-input" value={nick} onChange={(e) => setNick(e.target.value)} />
         </label>
         <label className="flex flex-col gap-1">
-          <span className="text-ink-dim text-base">Avdeling</span>
+          <span className="text-ink-dim text-base">{t("department")}</span>
           <select
             className="pixel-input"
             value={dept}
@@ -112,7 +114,7 @@ export function MeClient({
           </select>
         </label>
         <label className="flex flex-col gap-1">
-          <span className="text-ink-dim text-base">Ny PIN (la stå tom for å beholde)</span>
+          <span className="text-ink-dim text-base">{t("newPin")}</span>
           <input
             className="pixel-input"
             type="password"
@@ -125,10 +127,10 @@ export function MeClient({
         {msg && <p className="text-accent-2 text-base">✔ {msg}</p>}
         <div className="flex gap-3 flex-wrap">
           <button className="pixel-btn" disabled={saving}>
-            {saving ? "..." : "Lagre"}
+            {saving ? "..." : t("save")}
           </button>
           <button type="button" className="pixel-btn pixel-btn-danger" onClick={logout}>
-            Logg ut
+            {t("logout")}
           </button>
         </div>
       </form>
