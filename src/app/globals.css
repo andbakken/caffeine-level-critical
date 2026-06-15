@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* ---------- BrewQuest pixel theme ---------- */
+@theme {
+  --color-bg: #0d0b1a;
+  --color-bg-2: #161329;
+  --color-panel: #1f1b3a;
+  --color-panel-2: #2a2450;
+  --color-ink: #e8e6ff;
+  --color-ink-dim: #9a92c9;
+  --color-line: #3a3266;
+
+  --color-accent: #7c5cff;
+  --color-accent-2: #39d98a;
+  --color-gold: #ffd34d;
+  --color-danger: #ff5c7c;
+
+  --color-coffee: #b07a4b;
+  --color-tea: #4e9a51;
+  --color-cocoa: #8b5a2b;
+
+  --font-display: var(--font-pixel), "Courier New", monospace;
+  --font-body: var(--font-pixel-body), "Courier New", monospace;
+}
+
+html {
+  font-family: var(--font-body);
+}
+
+body {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(124, 92, 255, 0.18), transparent 45%),
+    radial-gradient(circle at 100% 100%, rgba(57, 217, 138, 0.12), transparent 45%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  color: var(--color-ink);
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+/* crisp pixel images */
+img {
+  image-rendering: pixelated;
+}
+
+/* ---------- utilities ---------- */
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+/* chunky NES-style border with stepped shadow */
+@utility pixel-border {
+  border: 3px solid var(--color-ink);
+  box-shadow:
+    0 0 0 3px var(--color-bg),
+    0 0 0 6px var(--color-line),
+    6px 6px 0 0 rgba(0, 0, 0, 0.45);
+}
+
+@utility pixel-panel {
+  background-color: var(--color-panel);
+  border: 3px solid var(--color-line);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.04),
+    4px 4px 0 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- components ---------- */
+@layer components {
+  .pixel-btn {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-ink);
+    background-color: var(--color-accent);
+    border: 3px solid #1a1140;
+    box-shadow:
+      inset -3px -3px 0 0 rgba(0, 0, 0, 0.35),
+      inset 3px 3px 0 0 rgba(255, 255, 255, 0.25),
+      4px 4px 0 0 rgba(0, 0, 0, 0.5);
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    transition: transform 0.05s ease;
+    user-select: none;
+    display: inline-block;
+    text-align: center;
+  }
+  .pixel-btn:hover {
+    filter: brightness(1.08);
+  }
+  .pixel-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow:
+      inset -2px -2px 0 0 rgba(0, 0, 0, 0.35),
+      inset 2px 2px 0 0 rgba(255, 255, 255, 0.2);
+  }
+  .pixel-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .pixel-btn-ghost {
+    background-color: var(--color-panel-2);
+  }
+  .pixel-btn-gold {
+    background-color: var(--color-gold);
+    color: #3a2a00;
+    border-color: #6b4e00;
+  }
+  .pixel-btn-danger {
+    background-color: var(--color-danger);
+    border-color: #5a1226;
+  }
+
+  .pixel-input {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    background-color: #100d22;
+    color: var(--color-ink);
+    border: 3px solid var(--color-line);
+    box-shadow: inset 2px 2px 0 0 rgba(0, 0, 0, 0.5);
+    padding: 0.6rem 0.8rem;
+    width: 100%;
+    outline: none;
+  }
+  .pixel-input:focus {
+    border-color: var(--color-accent);
+  }
+
+  .heading {
+    font-family: var(--font-display);
+    line-height: 1.5;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ---------- animations ---------- */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes float-up {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-40px); opacity: 0; }
+}
+.float-up {
+  animation: float-up 1s ease-out forwards;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.wiggle {
+  animation: wiggle 0.4s ease-in-out infinite;
+}
+
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--color-bg-2); }
+::-webkit-scrollbar-thumb { background: var(--color-line); border: 2px solid var(--color-bg-2); }

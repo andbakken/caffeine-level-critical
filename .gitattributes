@@ -1,0 +1,5 @@
+# Normaliser linjeskift i repoet
+* text=auto
+
+# Shell-skript MÅ ha LF, ellers feiler de i Linux-containere
+*.sh text eol=lf

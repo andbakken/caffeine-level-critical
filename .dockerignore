@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.gitignore
+uploads
+dev.db
+*.db
+.env
+.env.*
+!.env.example
+npm-debug.log*
+.DS_Store
+README.md
+.vercel
+.claude

@@ -1,0 +1,566 @@
+/* ====== Kontorscene i pixel-stil ====== */
+
+.scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  max-height: 460px;
+  min-height: 260px;
+  overflow: hidden;
+  background: linear-gradient(#241f44, #1d1838);
+  border: 3px solid var(--color-line);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.04),
+    4px 4px 0 0 rgba(0, 0, 0, 0.5);
+  image-rendering: pixelated;
+}
+
+/* ---- vindu med skyer ---- */
+.window {
+  position: absolute;
+  top: 10%;
+  left: 8%;
+  width: 32%;
+  height: 42%;
+  background: linear-gradient(#8fd3ff, #cdeaff 70%, #e9f6ff);
+  border: 4px solid #0e0b22;
+  box-shadow: inset 0 0 0 3px #4a4070;
+  overflow: hidden;
+}
+.windowBarV {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  margin-left: -2px;
+  background: #0e0b22;
+}
+.windowBarH {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  margin-top: -2px;
+  background: #0e0b22;
+}
+.sun {
+  position: absolute;
+  top: 14%;
+  right: 12%;
+  width: 26px;
+  height: 26px;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(255, 211, 77, 0.35);
+}
+.cloud {
+  position: absolute;
+  height: 10px;
+  background: #fff;
+  box-shadow:
+    10px 0 0 0 #fff,
+    20px 0 0 0 #fff,
+    10px -8px 0 0 #fff;
+}
+.cloud1 {
+  top: 30%;
+  width: 14px;
+  animation: drift 9s linear infinite;
+}
+.cloud2 {
+  top: 62%;
+  width: 12px;
+  animation: drift 13s linear infinite;
+  animation-delay: -4s;
+  opacity: 0.85;
+}
+@keyframes drift {
+  from {
+    left: -30px;
+  }
+  to {
+    left: 120%;
+  }
+}
+
+/* ---- veggdekor ---- */
+.clock {
+  position: absolute;
+  top: 12%;
+  right: 12%;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f4f4ff;
+  border: 4px solid #0e0b22;
+  box-shadow: inset 0 -3px 0 0 rgba(0, 0, 0, 0.15);
+}
+.clock::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  width: 3px;
+  height: 32%;
+  background: #0e0b22;
+  transform-origin: bottom center;
+  animation: tick 6s steps(12) infinite;
+}
+@keyframes tick {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.poster {
+  position: absolute;
+  top: 16%;
+  right: 26%;
+  width: 30px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--color-accent-2), #2aa56a);
+  border: 3px solid #0e0b22;
+}
+
+/* ---- gulv ---- */
+.floor {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 22%;
+  background: #15122b;
+  border-top: 4px solid #0e0b22;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0 2px,
+    transparent 2px 40px
+  );
+}
+
+/* ---- møbler i parallax ---- */
+.furnitureWrap {
+  position: absolute;
+  left: 0;
+  bottom: 22%;
+  width: 100%;
+  height: 40%;
+  overflow: hidden;
+}
+.furnitureTrack {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 36px;
+  height: 100%;
+  animation: scroll 16s linear infinite;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.unit {
+  position: relative;
+  width: 96px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* skrivebord + skjerm */
+.desk {
+  position: relative;
+  width: 90px;
+  height: 78px;
+}
+.deskTop {
+  position: absolute;
+  bottom: 22px;
+  left: 0;
+  width: 90px;
+  height: 10px;
+  background: #4a3b6b;
+  border: 2px solid #0e0b22;
+}
+.deskLeg {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 8px;
+  height: 22px;
+  background: #36294f;
+  box-shadow: 64px 0 0 0 #36294f;
+}
+.monitorScreen {
+  position: absolute;
+  bottom: 44px;
+  left: 26px;
+  width: 38px;
+  height: 26px;
+  background: var(--color-accent-2);
+  border: 3px solid #0e0b22;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+.deskB .monitorScreen {
+  background: var(--color-gold);
+}
+.monitorStand {
+  position: absolute;
+  bottom: 32px;
+  left: 42px;
+  width: 6px;
+  height: 12px;
+  background: #0e0b22;
+}
+
+/* plante */
+.plant {
+  position: relative;
+  width: 46px;
+  height: 70px;
+}
+.leaves {
+  position: absolute;
+  bottom: 18px;
+  left: 6px;
+  width: 34px;
+  height: 40px;
+  background: var(--color-accent-2);
+  clip-path: polygon(50% 0, 90% 40%, 100% 100%, 0 100%, 10% 40%);
+}
+.pot {
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  width: 22px;
+  height: 20px;
+  background: #b5651d;
+  border: 2px solid #0e0b22;
+}
+
+/* vannkjøler */
+.cooler {
+  position: relative;
+  width: 40px;
+  height: 86px;
+}
+.coolerTank {
+  position: absolute;
+  bottom: 56px;
+  left: 8px;
+  width: 24px;
+  height: 26px;
+  background: #8fd3ff;
+  border: 3px solid #0e0b22;
+}
+.coolerBody {
+  position: absolute;
+  bottom: 0;
+  left: 6px;
+  width: 28px;
+  height: 56px;
+  background: #d8d6f0;
+  border: 3px solid #0e0b22;
+}
+
+/* ====== figuren ====== */
+.runner {
+  position: absolute;
+  left: 50%;
+  bottom: 19%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+.shadow {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 54px;
+  height: 10px;
+  margin-left: -27px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  animation: shadowPulse 0.36s steps(1) infinite;
+}
+@keyframes shadowPulse {
+  0%,
+  49% {
+    width: 54px;
+    margin-left: -27px;
+    opacity: 0.4;
+  }
+  50%,
+  100% {
+    width: 46px;
+    margin-left: -23px;
+    opacity: 0.3;
+  }
+}
+
+.guy {
+  position: relative;
+  width: 56px;
+  height: 84px;
+  animation: bob 0.36s steps(1) infinite;
+}
+@keyframes bob {
+  0%,
+  49% {
+    transform: translateY(0);
+  }
+  50%,
+  100% {
+    transform: translateY(-3px);
+  }
+}
+.guy span {
+  position: absolute;
+}
+
+/* hode */
+.head {
+  width: 24px;
+  height: 22px;
+  left: 16px;
+  top: 8px;
+  background: #f1c27d;
+  z-index: 3;
+}
+.hair {
+  width: 28px;
+  height: 10px;
+  left: 14px;
+  top: 3px;
+  background: #3a2a1a;
+  z-index: 4;
+}
+.eye {
+  width: 4px;
+  height: 5px;
+  left: 32px;
+  top: 16px;
+  background: #1a1140;
+  z-index: 5;
+}
+.smile {
+  width: 9px;
+  height: 3px;
+  left: 27px;
+  top: 24px;
+  background: #b5651d;
+  z-index: 5;
+}
+
+/* kropp */
+.torso {
+  width: 24px;
+  height: 26px;
+  left: 16px;
+  top: 28px;
+  background: var(--color-accent);
+  z-index: 3;
+}
+
+/* armer */
+.armBack {
+  width: 7px;
+  height: 22px;
+  left: 12px;
+  top: 30px;
+  background: #5a3fd6;
+  transform-origin: top center;
+  z-index: 2;
+  animation: swingBack 0.36s steps(1) infinite;
+}
+.armFront {
+  width: 7px;
+  height: 20px;
+  left: 37px;
+  top: 30px;
+  background: #6b4fe0;
+  transform-origin: top center;
+  z-index: 6;
+  animation: sip 5s ease-in-out infinite;
+}
+.mug {
+  position: absolute;
+  left: -4px;
+  bottom: -2px;
+  width: 13px;
+  height: 12px;
+  background: #f4f4ff;
+  border: 2px solid #0e0b22;
+}
+.mug::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  right: 1px;
+  height: 3px;
+  background: #6f4e37;
+}
+.mugHandle {
+  position: absolute;
+  left: 9px;
+  bottom: 1px;
+  width: 5px;
+  height: 8px;
+  border: 2px solid #0e0b22;
+  border-left: none;
+  background: transparent;
+}
+@keyframes sip {
+  0%,
+  52% {
+    transform: rotate(8deg) translateY(0);
+  }
+  64%,
+  80% {
+    transform: rotate(-58deg) translateY(-7px);
+  }
+  92%,
+  100% {
+    transform: rotate(8deg) translateY(0);
+  }
+}
+
+/* bein */
+.leg {
+  width: 9px;
+  height: 26px;
+  top: 53px;
+  transform-origin: top center;
+  border-bottom: 6px solid #1a1140; /* sko */
+}
+.legBack {
+  left: 19px;
+  background: #2f2a55;
+  z-index: 2;
+  animation: swingBack 0.36s steps(1) infinite;
+}
+.legFront {
+  left: 28px;
+  background: #3a3470;
+  z-index: 3;
+  animation: swingFront 0.36s steps(1) infinite;
+}
+@keyframes swingFront {
+  0%,
+  49% {
+    transform: rotate(24deg);
+  }
+  50%,
+  100% {
+    transform: rotate(-22deg);
+  }
+}
+@keyframes swingBack {
+  0%,
+  49% {
+    transform: rotate(-22deg);
+  }
+  50%,
+  100% {
+    transform: rotate(24deg);
+  }
+}
+
+/* damp */
+.steam {
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  left: 33px;
+  top: 44px;
+  z-index: 7;
+  opacity: 0;
+}
+.steam1 {
+  animation: rise 2.4s ease-out infinite;
+}
+.steam2 {
+  left: 38px;
+  animation: rise 2.4s ease-out infinite;
+  animation-delay: 0.8s;
+}
+.steam3 {
+  left: 36px;
+  animation: rise 2.4s ease-out infinite;
+  animation-delay: 1.6s;
+}
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-26px) scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* flytende +1 */
+.plusOne {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  color: var(--color-gold);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  z-index: 8;
+}
+.plusOne1 {
+  left: 64%;
+  bottom: 40%;
+  animation: pop 4s ease-out infinite;
+}
+.plusOne2 {
+  left: 24%;
+  bottom: 46%;
+  animation: pop 4s ease-out infinite;
+  animation-delay: 2s;
+}
+@keyframes pop {
+  0% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  45% {
+    transform: translateY(-22px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* tilgjengelighet: ro for de som vil ha mindre bevegelse */
+@media (prefers-reduced-motion: reduce) {
+  .scene * {
+    animation: none !important;
+  }
+}
+
+/* litt mindre figur på små skjermer */
+@media (max-width: 640px) {
+  .runner {
+    transform: translateX(-50%) scale(0.8);
+  }
+}

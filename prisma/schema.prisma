@@ -1,0 +1,131 @@
+// BrewQuest data model
+// Prisma 7 — new `prisma-client` generator + better-sqlite3 driver adapter (no Rust engine).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Department {
+  id        Int      @id @default(autoincrement())
+  name      String
+  slug      String   @unique
+  color     String   @default("#7c5cff")
+  createdAt DateTime @default(now())
+  users     User[]
+}
+
+model User {
+  id           Int               @id @default(autoincrement())
+  nickname     String            @unique
+  pinHash      String
+  departmentId Int
+  department   Department        @relation(fields: [departmentId], references: [id])
+  avatarPath   String?
+  isActive     Boolean           @default(true)
+  isAdmin      Boolean           @default(false)
+  createdAt    DateTime          @default(now())
+  consumptions Consumption[]
+  sessions     Session[]
+  achievements UserAchievement[]
+}
+
+model Drink {
+  id           Int           @id @default(autoincrement())
+  key          String        @unique // coffee | tea | cocoa ...
+  displayName  String
+  icon         String // emoji / sprite key
+  color        String        @default("#caa472")
+  basePoints   Int           @default(1)
+  sortOrder    Int           @default(0)
+  consumptions Consumption[]
+  tags         StationTag[]
+  achievements Achievement[]
+}
+
+model Station {
+  id           Int           @id @default(autoincrement())
+  name         String
+  location     String?
+  color        String        @default("#39d98a")
+  createdAt    DateTime      @default(now())
+  tags         StationTag[]
+  consumptions Consumption[]
+}
+
+model StationTag {
+  id           Int           @id @default(autoincrement())
+  token        String        @unique
+  label        String?
+  stationId    Int
+  station      Station       @relation(fields: [stationId], references: [id])
+  drinkId      Int? // if set -> one-tap logging; else -> drink picker
+  drink        Drink?        @relation(fields: [drinkId], references: [id])
+  createdAt    DateTime      @default(now())
+  consumptions Consumption[]
+}
+
+model Consumption {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id])
+  drinkId   Int
+  drink     Drink       @relation(fields: [drinkId], references: [id])
+  quantity  Int         @default(1)
+  source    String      @default("web") // web | tag
+  stationId Int?
+  station   Station?    @relation(fields: [stationId], references: [id])
+  tagId     Int?
+  tag       StationTag? @relation(fields: [tagId], references: [id])
+  createdAt DateTime    @default(now())
+
+  @@index([createdAt])
+  @@index([userId])
+  @@index([drinkId])
+}
+
+model Achievement {
+  id          Int               @id @default(autoincrement())
+  key         String            @unique
+  name        String
+  description String
+  icon        String
+  // Regelstyrt utdeling — admin definerer kriteriet:
+  //   total       -> totalt antall kopper >= threshold
+  //   distinct    -> antall ulike drikketyper >= threshold
+  //   drink       -> antall av en bestemt drikke (drinkId) >= threshold
+  //   before_hour -> en kopp logget før kl. threshold
+  //   after_hour  -> en kopp logget kl. threshold eller senere
+  ruleType    String            @default("total")
+  threshold   Int               @default(1)
+  drinkId     Int? // kun for ruleType = "drink"
+  drink       Drink?            @relation(fields: [drinkId], references: [id])
+  sortOrder   Int               @default(0)
+  isActive    Boolean           @default(true)
+  users       UserAchievement[]
+}
+
+model UserAchievement {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  user          User        @relation(fields: [userId], references: [id])
+  achievementId Int
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  earnedAt      DateTime    @default(now())
+
+  @@unique([userId, achievementId])
+}
+
+model Session {
+  id        String   @id // random opaque token stored in httpOnly cookie
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}

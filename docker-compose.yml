@@ -1,0 +1,39 @@
+# BrewQuest – selvhosting. Start alt med:  docker compose up -d
+# Konfigurasjon leses fra .env (kopier fra .env.example).
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: brewquest
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-brewquest}
+      POSTGRES_DB: brewquest
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U brewquest -d brewquest"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Bruker den innebygde databasen. Sett EXTERNAL_DATABASE_URL i .env for å overstyre.
+      DATABASE_URL: ${EXTERNAL_DATABASE_URL:-postgresql://brewquest:${POSTGRES_PASSWORD:-brewquest}@db:5432/brewquest}
+      ADMIN_NICKNAME: ${ADMIN_NICKNAME:-GameMaster}
+      ADMIN_PIN: ${ADMIN_PIN:-1234}
+      UPLOAD_DIR: /app/uploads
+    ports:
+      - "${PORT:-3000}:3000"
+    volumes:
+      - uploads:/app/uploads
+
+volumes:
+  pgdata:
+  uploads:
