@@ -1,17 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Avatar } from "@/components/Avatar";
 import type { LeaderboardRow } from "@/lib/stats";
 import type { Period } from "@/lib/time";
 
-const PERIODS: { key: Period; label: string }[] = [
-  { key: "today", label: "I dag" },
-  { key: "week", label: "Uke" },
-  { key: "month", label: "Måned" },
-  { key: "all", label: "Tidenes" },
-];
+const PERIOD_KEYS: Period[] = ["today", "week", "month", "all"];
 
 const MEDALS = ["🥇", "🥈", "🥉"];
 
@@ -22,6 +18,7 @@ export function LeaderboardBoard({
   initialRows: LeaderboardRow[];
   compact?: boolean;
 }) {
+  const t = useTranslations("Leaderboard");
   const [period, setPeriod] = useState<Period>("today");
   const [groupBy, setGroupBy] = useState<"user" | "department">("user");
   const [rows, setRows] = useState<LeaderboardRow[]>(initialRows);
@@ -56,13 +53,13 @@ export function LeaderboardBoard({
       {!compact && (
         <div className="flex flex-wrap gap-2 justify-between">
           <div className="flex gap-1 flex-wrap">
-            {PERIODS.map((p) => (
+            {PERIOD_KEYS.map((p) => (
               <button
-                key={p.key}
-                onClick={() => setPeriod(p.key)}
-                className={`pixel-btn !py-2 !px-3 ${period === p.key ? "" : "pixel-btn-ghost"}`}
+                key={p}
+                onClick={() => setPeriod(p)}
+                className={`pixel-btn !py-2 !px-3 ${period === p ? "" : "pixel-btn-ghost"}`}
               >
-                {p.label}
+                {t(p)}
               </button>
             ))}
           </div>
@@ -71,13 +68,13 @@ export function LeaderboardBoard({
               onClick={() => setGroupBy("user")}
               className={`pixel-btn !py-2 !px-3 ${groupBy === "user" ? "" : "pixel-btn-ghost"}`}
             >
-              Spillere
+              {t("players")}
             </button>
             <button
               onClick={() => setGroupBy("department")}
               className={`pixel-btn !py-2 !px-3 ${groupBy === "department" ? "" : "pixel-btn-ghost"}`}
             >
-              Avdelinger
+              {t("departments")}
             </button>
           </div>
         </div>
@@ -117,7 +114,7 @@ export function LeaderboardBoard({
             </div>
           </motion.li>
         ))}
-        {visible.length === 0 && <li className="text-ink-dim">Ingen data ennå.</li>}
+        {visible.length === 0 && <li className="text-ink-dim">{t("noData")}</li>}
       </ol>
     </div>
   );

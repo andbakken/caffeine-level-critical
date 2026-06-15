@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { periodStart } from "@/lib/time";
@@ -10,6 +11,8 @@ export const dynamic = "force-dynamic";
 export default async function MePage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/me");
+
+  const t = await getTranslations("Me");
 
   const today = periodStart("today")!;
   const [total, todayCount, grouped, drinks, earned, allAchievements, departments] =
@@ -46,9 +49,9 @@ export default async function MePage() {
           </span>
         </div>
         <div className="flex gap-6 mt-4">
-          <Stat label="Totalt" value={total} />
-          <Stat label="I dag" value={todayCount} />
-          <Stat label="Merker" value={earnedKeys.size} />
+          <Stat label={t("total")} value={total} />
+          <Stat label={t("today")} value={todayCount} />
+          <Stat label={t("badges")} value={earnedKeys.size} />
         </div>
         <div className="mt-4 flex gap-4 flex-wrap text-base text-ink-dim">
           {drinks.map((d) => (
@@ -60,7 +63,7 @@ export default async function MePage() {
       </div>
 
       <section>
-        <h2 className="heading text-accent-2 text-base mb-3">Logg en kopp</h2>
+        <h2 className="heading text-accent-2 text-base mb-3">{t("logACup")}</h2>
         <QuickLog
           drinks={drinks.map((d) => ({
             key: d.key,
@@ -72,7 +75,7 @@ export default async function MePage() {
       </section>
 
       <section>
-        <h2 className="heading text-accent-2 text-base mb-3">Merker</h2>
+        <h2 className="heading text-accent-2 text-base mb-3">{t("badges")}</h2>
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
           {allAchievements.map((a) => {
             const has = earnedKeys.has(a.key);
@@ -91,7 +94,7 @@ export default async function MePage() {
       </section>
 
       <section>
-        <h2 className="heading text-accent-2 text-base mb-3">Innstillinger</h2>
+        <h2 className="heading text-accent-2 text-base mb-3">{t("settings")}</h2>
         <MeClient
           nickname={user.nickname}
           departmentId={user.departmentId}

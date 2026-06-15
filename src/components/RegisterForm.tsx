@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 type Dept = { id: number; name: string; color: string };
 
 export function RegisterForm({ departments }: { departments: Dept[] }) {
+  const t = useTranslations("Auth");
   const router = useRouter();
   const [nickname, setNickname] = useState("");
   const [pin, setPin] = useState("");
@@ -19,7 +21,7 @@ export function RegisterForm({ departments }: { departments: Dept[] }) {
     e.preventDefault();
     setError(null);
     if (pin !== pin2) {
-      setError("PIN-kodene er ikke like");
+      setError(t("pinMismatch"));
       return;
     }
     setLoading(true);
@@ -31,13 +33,13 @@ export function RegisterForm({ departments }: { departments: Dept[] }) {
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
-        setError(data.error ?? "Registrering feilet");
+        setError(data.error ?? t("registerFailed"));
         return;
       }
       router.push("/dashboard");
       router.refresh();
     } catch {
-      setError("Noe gikk galt");
+      setError(t("somethingWrong"));
     } finally {
       setLoading(false);
     }
@@ -45,19 +47,19 @@ export function RegisterForm({ departments }: { departments: Dept[] }) {
 
   return (
     <form onSubmit={submit} className="pixel-panel p-6 max-w-md mx-auto flex flex-col gap-4">
-      <h1 className="heading text-gold text-xl">Lag profil</h1>
+      <h1 className="heading text-gold text-xl">{t("registerTitle")}</h1>
       <label className="flex flex-col gap-1">
-        <span className="text-ink-dim text-base">Kallenavn</span>
+        <span className="text-ink-dim text-base">{t("nickname")}</span>
         <input
           className="pixel-input"
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
-          placeholder="f.eks. KoffeinKari"
+          placeholder={t("nicknamePlaceholder")}
           autoFocus
         />
       </label>
       <label className="flex flex-col gap-1">
-        <span className="text-ink-dim text-base">Avdeling</span>
+        <span className="text-ink-dim text-base">{t("department")}</span>
         <select
           className="pixel-input"
           value={departmentId}
@@ -72,7 +74,7 @@ export function RegisterForm({ departments }: { departments: Dept[] }) {
       </label>
       <div className="grid grid-cols-2 gap-3">
         <label className="flex flex-col gap-1">
-          <span className="text-ink-dim text-base">PIN (4–8 siffer)</span>
+          <span className="text-ink-dim text-base">{t("pinRange")}</span>
           <input
             className="pixel-input"
             type="password"
@@ -82,7 +84,7 @@ export function RegisterForm({ departments }: { departments: Dept[] }) {
           />
         </label>
         <label className="flex flex-col gap-1">
-          <span className="text-ink-dim text-base">Gjenta PIN</span>
+          <span className="text-ink-dim text-base">{t("repeatPin")}</span>
           <input
             className="pixel-input"
             type="password"
@@ -94,17 +96,15 @@ export function RegisterForm({ departments }: { departments: Dept[] }) {
       </div>
       {error && <p className="text-danger text-base">⚠ {error}</p>}
       <button className="pixel-btn" disabled={loading}>
-        {loading ? "..." : "Bli med i questen"}
+        {loading ? "..." : t("joinQuest")}
       </button>
       <p className="text-base text-ink-dim text-center">
-        Har du profil?{" "}
+        {t("hasProfile")}{" "}
         <Link href="/login" className="text-accent-2">
-          Logg inn
+          {t("login")}
         </Link>
       </p>
-      <p className="text-sm text-ink-dim text-center">
-        Bilde kan du legge til etterpå på profilsiden.
-      </p>
+      <p className="text-sm text-ink-dim text-center">{t("photoLater")}</p>
     </form>
   );
 }

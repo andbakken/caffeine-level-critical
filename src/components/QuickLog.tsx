@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import { Celebration } from "@/components/Celebration";
 import type { AwardedBadge } from "@/lib/consumption";
@@ -10,6 +11,7 @@ type Drink = { key: string; displayName: string; icon: string; color: string };
 
 export function QuickLog({ drinks }: { drinks: Drink[] }) {
   const router = useRouter();
+  const t = useTranslations("QuickLog");
   const [busy, setBusy] = useState<string | null>(null);
   const [pop, setPop] = useState<{ key: string; id: number } | null>(null);
   const [badges, setBadges] = useState<AwardedBadge[]>([]);
@@ -26,11 +28,11 @@ export function QuickLog({ drinks }: { drinks: Drink[] }) {
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
-        setToast(data.error ?? "Noe gikk galt");
+        setToast(data.error ?? t("somethingWrong"));
         return;
       }
       if (data.cooldown) {
-        setToast(data.message ?? "Allerede registrert");
+        setToast(data.message ?? t("alreadyLogged"));
         return;
       }
       setPop({ key: drink.key, id: Date.now() });
@@ -38,7 +40,7 @@ export function QuickLog({ drinks }: { drinks: Drink[] }) {
       if (data.newBadges?.length) setBadges(data.newBadges);
       router.refresh();
     } catch {
-      setToast("Nettverksfeil");
+      setToast(t("networkError"));
     } finally {
       setBusy(null);
       setTimeout(() => setToast(null), 2500);
