@@ -17,7 +17,7 @@
       "no": "Norsk",
       "en": "English"
     },
-    "madeFor": "laget for IT-avdelingen"
+    "madeFor": "Spor drikkevanene på jobben"
   },
   "Landing": {
     "metaTitle": "Quest of the Roasted Bean — gjør kaffepausen til en konkurranse",
@@ -143,7 +143,7 @@
     "logout": "Logg ut"
   },
   "Home": {
-    "tagline": "Hvem drikker mest på IT-avdelingen? Skann en kopp og finn ut.",
+    "tagline": "Hvem drikker mest på kontoret? Skann en kopp og finn ut.",
     "greeting": "Hei {name} — logg en kopp",
     "makeProfile": "Lag en profil for å logge dine egne kopper og samle merker!",
     "join": "Bli med",

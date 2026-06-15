@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
   // maskinens IP (ellers blokkerer Next dev kryss-origin-ressurser, og
   // innlogging/hydrering «gjør ingenting»). Gjelder kun `next dev`.
   // Oppdater IP-en hvis maskinen får en ny adresse.
-  allowedDevOrigins: ["192.0.2.3", "192.168.10.125"],
+  allowedDevOrigins: ["192.0.2.1", "192.0.2.2"],
 };
 
 export default withNextIntl(nextConfig);

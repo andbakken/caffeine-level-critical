@@ -16,9 +16,6 @@ export default async function AppLayout({
     <>
       <AppNav nickname={user.nickname} isAdmin={user.isAdmin} />
       <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-6">{children}</main>
-      <footer className="text-center text-ink-dim text-base py-6 border-t-2 border-line">
-        Quest of the Roasted Bean <span className="text-accent">●</span> {t("madeFor")}
-      </footer>
     </>
   );
 }

@@ -18,7 +18,7 @@ const pixelBody = VT323({
 
 export const metadata: Metadata = {
   title: "Quest of the Roasted Bean",
-  description: "Spor kaffe, te og kakao for IT-avdelingen ☕",
+  description: "Spor kaffe, te og kakao på jobben ☕",
 };
 
 // Rot-layout: leverer <html>/<body> og fonter. Selve språket settes per
