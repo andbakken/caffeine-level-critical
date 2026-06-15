@@ -34,7 +34,7 @@ export function RegisterForm({ departments }: { departments: Dept[] }) {
         setError(data.error ?? "Registrering feilet");
         return;
       }
-      router.push("/me");
+      router.push("/dashboard");
       router.refresh();
     } catch {
       setError("Noe gikk galt");

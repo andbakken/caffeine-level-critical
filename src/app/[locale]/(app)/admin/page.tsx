@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/admin");
-  if (!user.isAdmin) redirect("/");
+  if (!user.isAdmin) redirect("/dashboard");
 
   const [departments, stations, drinks, tags, achievements] = await Promise.all([
     prisma.department.findMany({

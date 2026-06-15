@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AchievementManager, type AdminAchievement } from "@/components/AchievementManager";
+import { copyToClipboard } from "@/lib/clipboard";
 
 type Department = { id: number; name: string; color: string; userCount: number };
 type Station = {
@@ -146,12 +147,14 @@ export function AdminClient({
 
   async function copyLink(tag: Tag) {
     const url = `${window.location.origin}/t/${tag.token}`;
-    try {
-      await navigator.clipboard.writeText(url);
+    const success = await copyToClipboard(url);
+    if (success) {
       setCopied(tag.id);
       setTimeout(() => setCopied(null), 1500);
-    } catch {
-      flash("Kunne ikke kopiere");
+    } else {
+      // Siste utvei (f.eks. streng mobilnettleser): vis lenken så den kan
+      // merkes og kopieres manuelt.
+      window.prompt("Kopier lenken til brikken:", url);
     }
   }
 
