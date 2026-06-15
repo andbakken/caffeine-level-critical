@@ -2,6 +2,8 @@
   "name": "quest-of-the-roasted-bean",
   "version": "0.1.0",
   "private": true,
+  "license": "AGPL-3.0-only",
+  "author": "Anders Moen Bakken <and.bakken@gmail.com>",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

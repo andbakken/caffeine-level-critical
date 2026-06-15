@@ -172,4 +172,8 @@ I tillegg til selvhosting finnes en planlagt hostet versjon ($20/mnd) med sikker
 
 ## Lisens
 
-Lisens er ennå ikke fastsatt. Ta kontakt før kommersiell bruk.
+Lisensiert under **GNU Affero General Public License v3.0** — se [LICENSE](./LICENSE).
+
+Copyright © 2026 Anders Moen Bakken.
+
+Kort fortalt: du står fritt til å bruke, endre og selvhoste løsningen, men dersom du tilbyr den som en nettverkstjeneste til andre, må kildekoden (inkludert dine endringer) gjøres tilgjengelig under samme lisens. Den hostede versjonen driftes av rettighetshaver. Ta kontakt for kommersiell lisensiering uten AGPL-forpliktelsene.
