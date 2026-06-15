@@ -7,7 +7,7 @@ import Link from "next/link";
 export function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const next = params.get("next") || "/me";
+  const next = params.get("next") || "/dashboard";
 
   const [nickname, setNickname] = useState("");
   const [pin, setPin] = useState("");

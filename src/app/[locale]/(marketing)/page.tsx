@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { useTranslations, useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { OfficeScene } from "@/components/OfficeScene";
 import { hostedPrice } from "@/lib/pricing";
 import type { Locale } from "@/i18n/routing";
@@ -47,9 +46,6 @@ export default function LandingPage() {
             <a href="#priser" className="pixel-btn pixel-btn-gold">
               {t("ctaStart")}
             </a>
-            <Link href="/" className="pixel-btn pixel-btn-ghost">
-              {t("ctaDemo")}
-            </Link>
           </div>
           <p className="text-ink-dim text-base">
             {t("pricingNote", { price: price.amount, period: price.period })}

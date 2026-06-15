@@ -111,7 +111,7 @@ export function TapClient({
               <button className="pixel-btn" onClick={() => log(status.drink.key)}>
                 Logg en til
               </button>
-              <Link href="/" className="pixel-btn pixel-btn-ghost">
+              <Link href="/dashboard" className="pixel-btn pixel-btn-ghost">
                 Til dashboard
               </Link>
             </div>

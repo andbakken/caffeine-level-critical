@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export default async function RegisterPage() {
   const user = await getCurrentUser();
-  if (user) redirect("/me");
+  if (user) redirect("/dashboard");
 
   const departments = await prisma.department.findMany({
     orderBy: { name: "asc" },

@@ -5,7 +5,7 @@ import { LoginForm } from "@/components/LoginForm";
 
 export default async function LoginPage() {
   const user = await getCurrentUser();
-  if (user) redirect("/me");
+  if (user) redirect("/dashboard");
 
   return (
     <div className="py-8">
