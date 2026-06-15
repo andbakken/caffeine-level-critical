@@ -1,0 +1,57 @@
+{
+  "Common": {
+    "brand": "Quest of the Roasted Bean",
+    "nav": {
+      "produkt": "Produkt",
+      "lastNed": "Last ned",
+      "priser": "Priser",
+      "loggInn": "Logg inn",
+      "komIGang": "Kom i gang"
+    },
+    "footer": {
+      "tagline": "Gjør kaffepausen til en konkurranse.",
+      "copyright": "© {year} Quest of the Roasted Bean"
+    },
+    "language": {
+      "label": "Språk",
+      "no": "Norsk",
+      "en": "English"
+    }
+  },
+  "Landing": {
+    "metaTitle": "Quest of the Roasted Bean — gjør kaffepausen til en konkurranse",
+    "metaDescription": "Spor kaffe, te og kakao på jobben med NFC-tagger, toppliste og merker. Kjør gratis selvhostet med Docker, eller la oss hoste det for deg.",
+    "heroTitle": "Gjør kaffepausen til en konkurranse",
+    "heroBody": "Quest of the Roasted Bean sporer kaffe, te og kakao for hele teamet — med NFC-skanning, toppliste og merker. Bygg en liten, sunn rivalisering rundt kaffemaskinen. ☕",
+    "ctaStart": "Kom i gang",
+    "ctaDemo": "Se demoen",
+    "pricingNote": "Gratis å kjøre selv · eller hostet fra {price}{period}",
+    "featuresHeading": "Alt teamet trenger",
+    "features": [
+      { "icon": "📟", "title": "Skann og logg", "body": "Hold telefonen mot en NFC-brikke ved kaffemaskinen — ett tapp registrerer koppen. Ingen app å installere." },
+      { "icon": "🏆", "title": "Toppliste", "body": "Daglig, ukentlig og total rangering — per person og per avdeling. Hvem er egentlig kontorets koffeinkonge?" },
+      { "icon": "🎖️", "title": "Merker", "body": "Lås opp morsomme merker som «Morgenfugl» og «Koppmester». Admin lager og styrer reglene selv." },
+      { "icon": "📊", "title": "Statistikk", "body": "Live dashboard med trender, fordeling mellom drikker og aktivitet over tid — i sjarmerende pixel-stil." }
+    ],
+    "howHeading": "Slik fungerer det",
+    "steps": [
+      { "n": "1", "title": "Sett opp", "body": "Lag avdelinger og kaffestasjoner i admin, og fest NFC-brikker ved maskinene." },
+      { "n": "2", "title": "Skann", "body": "Folk holder telefonen mot brikken og koppen logges på sekundet." },
+      { "n": "3", "title": "Konkurrer", "body": "Følg topplista, samle merker og se statistikken vokse." }
+    ],
+    "pricingHeading": "Velg din versjon",
+    "selfHostedTitle": "Selvhostet",
+    "free": "Gratis",
+    "selfHostedBody": "Kjør det på din egen maskin eller server med Docker. Du eier dataene.",
+    "selfHostedBullets": ["Alle funksjoner", "Ubegrenset antall brukere", "Kjører på ditt eget nett", "Fellesskaps-støtte"],
+    "downloadDocker": "Last ned (Docker)",
+    "hostedTitle": "Hostet",
+    "recommended": "ANBEFALT",
+    "perMonth": "{price}{period}",
+    "hostedBody": "Vi tar oss av alt. Klar på minutter, med innlogging og automatiske oppdateringer.",
+    "hostedBullets": ["Alt i selvhostet, pluss:", "Ingen oppsett eller drift", "Sikker innlogging per bruker", "Backup og oppdateringer inkludert"],
+    "startTrial": "Start gratis prøveperiode",
+    "endTitle": "Klar til å koke i gang?",
+    "endBody": "Sett opp Quest of the Roasted Bean for teamet ditt i dag — og finn ut hvem som egentlig holder kontoret i gang."
+  }
+}

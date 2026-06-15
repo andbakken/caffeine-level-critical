@@ -1,0 +1,57 @@
+{
+  "Common": {
+    "brand": "Quest of the Roasted Bean",
+    "nav": {
+      "produkt": "Product",
+      "lastNed": "Download",
+      "priser": "Pricing",
+      "loggInn": "Log in",
+      "komIGang": "Get started"
+    },
+    "footer": {
+      "tagline": "Turn the coffee break into a competition.",
+      "copyright": "© {year} Quest of the Roasted Bean"
+    },
+    "language": {
+      "label": "Language",
+      "no": "Norsk",
+      "en": "English"
+    }
+  },
+  "Landing": {
+    "metaTitle": "Quest of the Roasted Bean — turn the coffee break into a competition",
+    "metaDescription": "Track coffee, tea and cocoa at work with NFC tags, leaderboards and badges. Run it free, self-hosted with Docker, or let us host it for you.",
+    "heroTitle": "Turn the coffee break into a competition",
+    "heroBody": "Quest of the Roasted Bean tracks coffee, tea and cocoa for the whole team — with NFC scanning, leaderboards and badges. Build a little friendly rivalry around the coffee machine. ☕",
+    "ctaStart": "Get started",
+    "ctaDemo": "See the demo",
+    "pricingNote": "Free to self-host · or hosted from {price}{period}",
+    "featuresHeading": "Everything the team needs",
+    "features": [
+      { "icon": "📟", "title": "Scan & log", "body": "Hold your phone to an NFC tag by the coffee machine — one tap logs the cup. No app to install." },
+      { "icon": "🏆", "title": "Leaderboard", "body": "Daily, weekly and all-time ranking — per person and per department. Who's really the office caffeine king?" },
+      { "icon": "🎖️", "title": "Badges", "body": "Unlock fun badges like “Early Bird” and “Cup Master”. Admins create and control the rules." },
+      { "icon": "📊", "title": "Statistics", "body": "Live dashboard with trends, drink distribution and activity over time — in charming pixel style." }
+    ],
+    "howHeading": "How it works",
+    "steps": [
+      { "n": "1", "title": "Set up", "body": "Create departments and coffee stations in admin, and attach NFC tags to the machines." },
+      { "n": "2", "title": "Scan", "body": "People hold their phone to the tag and the cup is logged instantly." },
+      { "n": "3", "title": "Compete", "body": "Follow the leaderboard, collect badges and watch the stats grow." }
+    ],
+    "pricingHeading": "Choose your edition",
+    "selfHostedTitle": "Self-hosted",
+    "free": "Free",
+    "selfHostedBody": "Run it on your own machine or server with Docker. You own the data.",
+    "selfHostedBullets": ["All features", "Unlimited users", "Runs on your own network", "Community support"],
+    "downloadDocker": "Download (Docker)",
+    "hostedTitle": "Hosted",
+    "recommended": "RECOMMENDED",
+    "perMonth": "{price}{period}",
+    "hostedBody": "We take care of everything. Ready in minutes, with login and automatic updates.",
+    "hostedBullets": ["Everything in self-hosted, plus:", "No setup or maintenance", "Secure per-user login", "Backup and updates included"],
+    "startTrial": "Start free trial",
+    "endTitle": "Ready to get brewing?",
+    "endBody": "Set up Quest of the Roasted Bean for your team today — and find out who really keeps the office running."
+  }
+}

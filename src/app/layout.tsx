@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   description: "Spor kaffe, te og kakao for IT-avdelingen ☕",
 };
 
+// Rot-layout: leverer <html>/<body> og fonter. Selve språket settes per
+// locale i [locale]/layout via <HtmlLang>. lang="no" er standard ved SSR.
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
