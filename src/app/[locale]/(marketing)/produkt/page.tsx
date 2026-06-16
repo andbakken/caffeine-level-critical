@@ -27,6 +27,7 @@ export default function ProductPage() {
   const details = t.raw("details") as Detail[];
   const faq = t.raw("faq") as Faq[];
   const rows = t.raw("compareRows") as Row[];
+  const hosting = t.raw("hostingBullets") as Detail[];
 
   return (
     <div className="flex flex-col">
@@ -109,6 +110,23 @@ export default function ProductPage() {
               </tbody>
             </table>
           </div>
+        </div>
+      </section>
+
+      {/* RAMMENE FOR HOSTINGEN */}
+      <section className="max-w-6xl mx-auto px-4 py-14 flex flex-col gap-8 w-full">
+        <h2 className="heading text-accent-2 text-xl text-center">{t("hostingHeading")}</h2>
+        <p className="text-ink-dim text-lg text-center max-w-3xl mx-auto leading-relaxed">
+          {t("hostingIntro")}
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {hosting.map((h) => (
+            <div key={h.title} className="pixel-panel p-5 flex flex-col gap-3">
+              <span className="text-4xl">{h.icon}</span>
+              <h3 className="font-display text-sm text-gold leading-relaxed">{h.title}</h3>
+              <p className="text-ink-dim text-base leading-relaxed">{h.body}</p>
+            </div>
+          ))}
         </div>
       </section>
 
