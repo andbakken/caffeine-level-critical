@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Avatar } from "@/components/Avatar";
+import { PRESET_AVATARS, PRESET_PREFIX, presetUrl } from "@/lib/avatars";
 
 type Dept = { id: number; name: string };
 
@@ -30,6 +31,7 @@ export function MeClient({
   const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [avatar, setAvatar] = useState<string | null>(avatarPath);
 
   async function uploadAvatar(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -43,6 +45,24 @@ export function MeClient({
       setErr(data.error ?? t("uploadFailed"));
       return;
     }
+    setAvatar(data.avatarPath);
+    setMsg(t("photoUpdated"));
+    router.refresh();
+  }
+
+  async function selectPreset(name: string) {
+    setErr(null);
+    const res = await fetch("/api/me/avatar/preset", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ preset: name }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) {
+      setErr(data.error ?? t("uploadFailed"));
+      return;
+    }
+    setAvatar(data.avatarPath);
     setMsg(t("photoUpdated"));
     router.refresh();
   }
@@ -83,12 +103,44 @@ export function MeClient({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-4">
-        <Avatar avatarPath={avatarPath} nickname={nick} color={color} size={80} />
-        <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center gap-4">
+          <Avatar avatarPath={avatar} nickname={nick} color={color} size={80} />
+          <span className="text-ink-dim text-base">{t("chooseAvatar")}</span>
+        </div>
+
+        <div className="grid grid-cols-6 sm:grid-cols-8 gap-2">
+          {PRESET_AVATARS.map((name) => {
+            const selected = avatar === `${PRESET_PREFIX}${name}`;
+            return (
+              <button
+                key={name}
+                type="button"
+                onClick={() => selectPreset(name)}
+                className={`pixel-border overflow-hidden aspect-square transition ${
+                  selected ? "ring-2 ring-gold" : "opacity-80 hover:opacity-100"
+                }`}
+                title={t("chooseAvatar")}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={presetUrl(name)}
+                  alt={name}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="flex flex-col gap-1">
           <input ref={fileRef} type="file" accept="image/*" hidden onChange={uploadAvatar} />
-          <button className="pixel-btn pixel-btn-ghost !py-2" onClick={() => fileRef.current?.click()}>
-            {t("uploadPhoto")}
+          <button
+            className="pixel-btn pixel-btn-ghost !py-2 self-start"
+            onClick={() => fileRef.current?.click()}
+          >
+            {t("orUploadOwn")}
           </button>
           <span className="text-ink-dim text-sm">{t("photoHint")}</span>
         </div>
