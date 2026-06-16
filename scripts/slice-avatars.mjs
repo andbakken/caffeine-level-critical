@@ -41,9 +41,9 @@ async function sliceGrid({ file, cols, rows }, startIndex) {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const name = `preset-${String(index).padStart(2, "0")}.png`;
+      // resize med fit:"cover" senterbeskjærer cella til et kvadrat – ingen trim nødvendig
       await sharp(src)
         .extract({ left: c * cellW, top: r * cellH, width: cellW, height: cellH })
-        .trim({ threshold: 12 }) // fjern ensfarget ramme rundt avataren
         .resize(CELL, CELL, { fit: "cover" })
         .png()
         .toFile(path.join(OUT_DIR, name));
