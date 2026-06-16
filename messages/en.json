@@ -208,6 +208,8 @@
   "Me": {
     "uploadPhoto": "Upload picture",
     "photoHint": "PNG/JPG/WEBP/GIF, max 2 MB",
+    "chooseAvatar": "Choose a profile picture",
+    "orUploadOwn": "Or upload your own",
     "nickname": "Nickname",
     "department": "Department",
     "newPin": "New PIN (leave empty to keep)",

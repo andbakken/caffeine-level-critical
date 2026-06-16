@@ -208,6 +208,8 @@
   "Me": {
     "uploadPhoto": "Last opp bilde",
     "photoHint": "PNG/JPG/WEBP/GIF, maks 2 MB",
+    "chooseAvatar": "Velg profilbilde",
+    "orUploadOwn": "Eller last opp eget bilde",
     "nickname": "Kallenavn",
     "department": "Avdeling",
     "newPin": "Ny PIN (la stå tom for å beholde)",
