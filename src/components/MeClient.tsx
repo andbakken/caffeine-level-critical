@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Avatar } from "@/components/Avatar";
+import { Modal } from "@/components/Modal";
 import { PRESET_AVATARS, PRESET_PREFIX, presetUrl } from "@/lib/avatars";
 
 type Dept = { id: number; name: string };
@@ -32,6 +33,7 @@ export function MeClient({
   const [err, setErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [avatar, setAvatar] = useState<string | null>(avatarPath);
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   async function uploadAvatar(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -47,6 +49,7 @@ export function MeClient({
     }
     setAvatar(data.avatarPath);
     setMsg(t("photoUpdated"));
+    setPickerOpen(false);
     router.refresh();
   }
 
@@ -64,6 +67,7 @@ export function MeClient({
     }
     setAvatar(data.avatarPath);
     setMsg(t("photoUpdated"));
+    setPickerOpen(false);
     router.refresh();
   }
 
@@ -103,13 +107,19 @@ export function MeClient({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-4">
-          <Avatar avatarPath={avatar} nickname={nick} color={color} size={80} />
-          <span className="text-ink-dim text-base">{t("chooseAvatar")}</span>
-        </div>
+      <div className="flex items-center gap-4">
+        <Avatar avatarPath={avatar} nickname={nick} color={color} size={80} />
+        <button
+          type="button"
+          className="pixel-btn pixel-btn-ghost !py-2"
+          onClick={() => setPickerOpen(true)}
+        >
+          {t("changePhoto")}
+        </button>
+      </div>
 
-        <div className="grid grid-cols-6 sm:grid-cols-8 gap-2">
+      <Modal open={pickerOpen} onClose={() => setPickerOpen(false)} title={t("chooseAvatar")}>
+        <div className="grid grid-cols-6 sm:grid-cols-7 gap-2">
           {PRESET_AVATARS.map((name) => {
             const selected = avatar === `${PRESET_PREFIX}${name}`;
             return (
@@ -134,7 +144,7 @@ export function MeClient({
           })}
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 border-t border-line pt-3">
           <input ref={fileRef} type="file" accept="image/*" hidden onChange={uploadAvatar} />
           <button
             className="pixel-btn pixel-btn-ghost !py-2 self-start"
@@ -144,7 +154,7 @@ export function MeClient({
           </button>
           <span className="text-ink-dim text-sm">{t("photoHint")}</span>
         </div>
-      </div>
+      </Modal>
 
       <form onSubmit={save} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1">

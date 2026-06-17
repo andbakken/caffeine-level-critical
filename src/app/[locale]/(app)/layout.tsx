@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth";
 import { AppNav } from "@/components/AppNav";
 
@@ -9,8 +8,6 @@ export default async function AppLayout({
   // Hele app-gruppen krever innlogging.
   const user = await getCurrentUser();
   if (!user) redirect("/login");
-
-  const t = await getTranslations("Common");
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { Prisma } from "@/generated/prisma/client";
 import { periodStart, type Period } from "@/lib/time";
 
 export type LeaderboardRow = {
@@ -9,11 +10,73 @@ export type LeaderboardRow = {
   avatarPath?: string | null;
   departmentName?: string;
   count: number;
+  // Kun for groupBy="department": gjør at klienten kan rendre tre med utvid/skjul.
+  parentId?: number | null;
+  depth?: number;
+  hasChildren?: boolean;
 };
 
-export async function getLeaderboard(period: Period, groupBy: "user" | "department") {
+export type DeptTreeItem = {
+  id: number;
+  name: string;
+  color: string;
+  parentId: number | null;
+  depth: number;
+};
+
+type DeptRef = { id: number; parentId: number | null };
+
+// Subtre-id-er (inkludert avdelingen selv) gitt en flat liste over alle avdelinger.
+function descendantIds(rootId: number, all: DeptRef[]): number[] {
+  const byParent = new Map<number | null, number[]>();
+  for (const d of all) {
+    const arr = byParent.get(d.parentId) ?? [];
+    arr.push(d.id);
+    byParent.set(d.parentId, arr);
+  }
+  const out: number[] = [];
+  const stack = [rootId];
+  while (stack.length) {
+    const id = stack.pop()!;
+    out.push(id);
+    for (const childId of byParent.get(id) ?? []) stack.push(childId);
+  }
+  return out;
+}
+
+// Flat liste i tre-rekkefølge (forelder før barn) med innrykksdybde — brukes av
+// avdelingsfilteret (indentert nedtrekk).
+export async function getDepartmentTree(): Promise<DeptTreeItem[]> {
+  const all = await prisma.department.findMany({ orderBy: { name: "asc" } });
+  const byParent = new Map<number | null, typeof all>();
+  for (const d of all) {
+    const arr = byParent.get(d.parentId) ?? [];
+    arr.push(d);
+    byParent.set(d.parentId, arr);
+  }
+  const out: DeptTreeItem[] = [];
+  const walk = (parentId: number | null, depth: number) => {
+    for (const d of byParent.get(parentId) ?? []) {
+      out.push({ id: d.id, name: d.name, color: d.color, parentId: d.parentId, depth });
+      walk(d.id, depth + 1);
+    }
+  };
+  walk(null, 0);
+  return out;
+}
+
+export async function getLeaderboard(
+  period: Period,
+  groupBy: "user" | "department",
+  deptFilter?: number | null,
+) {
   const since = periodStart(period);
-  const where = since ? { createdAt: { gte: since } } : {};
+  const allDepts = await prisma.department.findMany();
+  const subtree = deptFilter ? descendantIds(deptFilter, allDepts) : null;
+
+  const where: Prisma.ConsumptionWhereInput = {};
+  if (since) where.createdAt = { gte: since };
+  if (subtree) where.user = { departmentId: { in: subtree } };
 
   const grouped = await prisma.consumption.groupBy({
     by: ["userId"],
@@ -45,40 +108,95 @@ export async function getLeaderboard(period: Period, groupBy: "user" | "departme
     return rows.map((r, i) => ({ rank: i + 1, ...r }));
   }
 
-  // department aggregation
-  const deptTotals = new Map<number, number>();
+  // --- Avdelings-aggregering med opprulling til foreldre ---
+  // Direkte total per avdeling (kun brukerne som tilhører avdelingen selv).
+  const directTotal = new Map<number, number>();
   for (const g of grouped) {
     const u = userById.get(g.userId);
     if (!u) continue;
-    deptTotals.set(u.departmentId, (deptTotals.get(u.departmentId) ?? 0) + g._count._all);
+    directTotal.set(u.departmentId, (directTotal.get(u.departmentId) ?? 0) + g._count._all);
   }
-  const depts = await prisma.department.findMany();
-  const rows = depts
-    .map((d) => ({
-      id: d.id,
-      name: d.name,
-      color: d.color,
-      count: deptTotals.get(d.id) ?? 0,
-    }))
-    .sort((a, b) => b.count - a.count);
-  return rows.map((r, i) => ({ rank: i + 1, ...r }));
+  // Opprullet total per avdeling = sum over hele subtreet.
+  const rolled = new Map<number, number>();
+  for (const d of allDepts) {
+    let sum = 0;
+    for (const id of descendantIds(d.id, allDepts)) sum += directTotal.get(id) ?? 0;
+    rolled.set(d.id, sum);
+  }
+
+  const byParent = new Map<number | null, typeof allDepts>();
+  for (const d of allDepts) {
+    const arr = byParent.get(d.parentId) ?? [];
+    arr.push(d);
+    byParent.set(d.parentId, arr);
+  }
+  const hasChildren = (id: number) => (byParent.get(id)?.length ?? 0) > 0;
+
+  const rows: LeaderboardRow[] = [];
+  // Søsken sorteres på opprullet total; rang tildeles innen hvert søskenkull.
+  const walk = (parentId: number | null, depth: number) => {
+    const sibs = (byParent.get(parentId) ?? [])
+      .slice()
+      .sort((a, b) => (rolled.get(b.id) ?? 0) - (rolled.get(a.id) ?? 0));
+    sibs.forEach((d, i) => {
+      rows.push({
+        rank: i + 1,
+        id: d.id,
+        name: d.name,
+        color: d.color,
+        count: rolled.get(d.id) ?? 0,
+        parentId: d.parentId,
+        depth,
+        hasChildren: hasChildren(d.id),
+      });
+      walk(d.id, depth + 1);
+    });
+  };
+
+  if (deptFilter) {
+    const root = allDepts.find((d) => d.id === deptFilter);
+    if (root) {
+      rows.push({
+        rank: 1,
+        id: root.id,
+        name: root.name,
+        color: root.color,
+        count: rolled.get(root.id) ?? 0,
+        parentId: root.parentId,
+        depth: 0,
+        hasChildren: hasChildren(root.id),
+      });
+      walk(root.id, 1);
+    }
+  } else {
+    walk(null, 0);
+  }
+  return rows;
 }
 
-export async function getOverview() {
+export async function getOverview(deptFilter?: number | null) {
   const today = periodStart("today")!;
   const week = periodStart("week")!;
 
+  const subtree = deptFilter
+    ? descendantIds(deptFilter, await prisma.department.findMany())
+    : null;
+  const deptWhere: Prisma.ConsumptionWhereInput = subtree
+    ? { user: { departmentId: { in: subtree } } }
+    : {};
+
   const [totalAll, totalToday, totalWeek, drinks, byDrinkToday, recentRaw] = await Promise.all([
-    prisma.consumption.count(),
-    prisma.consumption.count({ where: { createdAt: { gte: today } } }),
-    prisma.consumption.count({ where: { createdAt: { gte: week } } }),
+    prisma.consumption.count({ where: { ...deptWhere } }),
+    prisma.consumption.count({ where: { ...deptWhere, createdAt: { gte: today } } }),
+    prisma.consumption.count({ where: { ...deptWhere, createdAt: { gte: week } } }),
     prisma.drink.findMany({ orderBy: { sortOrder: "asc" } }),
     prisma.consumption.groupBy({
       by: ["drinkId"],
-      where: { createdAt: { gte: today } },
+      where: { ...deptWhere, createdAt: { gte: today } },
       _count: { _all: true },
     }),
     prisma.consumption.findMany({
+      where: { ...deptWhere },
       orderBy: { createdAt: "desc" },
       take: 15,
       include: {
@@ -119,7 +237,7 @@ export async function getOverview() {
     const end = new Date(start);
     end.setDate(end.getDate() + 1);
     const count = await prisma.consumption.count({
-      where: { createdAt: { gte: start, lt: end } },
+      where: { ...deptWhere, createdAt: { gte: start, lt: end } },
     });
     last7.push({ label: dayNames[start.getDay()], count });
   }

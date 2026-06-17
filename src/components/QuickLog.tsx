@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
@@ -16,6 +16,7 @@ export function QuickLog({ drinks }: { drinks: Drink[] }) {
   const [pop, setPop] = useState<{ key: string; id: number } | null>(null);
   const [badges, setBadges] = useState<AwardedBadge[]>([]);
   const [toast, setToast] = useState<string | null>(null);
+  const popId = useRef(0);
 
   async function log(drink: Drink) {
     if (busy) return;
@@ -35,7 +36,7 @@ export function QuickLog({ drinks }: { drinks: Drink[] }) {
         setToast(data.message ?? t("alreadyLogged"));
         return;
       }
-      setPop({ key: drink.key, id: Date.now() });
+      setPop({ key: drink.key, id: ++popId.current });
       setToast(`+1 ${drink.displayName} ${drink.icon}`);
       if (data.newBadges?.length) setBadges(data.newBadges);
       router.refresh();

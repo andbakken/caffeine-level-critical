@@ -10,7 +10,7 @@ export default async function AdminPage() {
   if (!user) redirect("/login?next=/admin");
   if (!user.isAdmin) redirect("/dashboard");
 
-  const [departments, stations, drinks, tags, achievements] = await Promise.all([
+  const [departments, stations, drinks, tags, achievements, users] = await Promise.all([
     prisma.department.findMany({
       orderBy: { name: "asc" },
       include: { _count: { select: { users: true } } },
@@ -28,14 +28,31 @@ export default async function AdminPage() {
       orderBy: [{ sortOrder: "asc" }, { id: "asc" }],
       include: { drink: true, _count: { select: { users: true } } },
     }),
+    prisma.user.findMany({
+      orderBy: { nickname: "asc" },
+      include: { department: true, _count: { select: { consumptions: true } } },
+    }),
   ]);
 
   return (
     <AdminClient
+      currentUserId={user.id}
+      users={users.map((u) => ({
+        id: u.id,
+        nickname: u.nickname,
+        departmentId: u.departmentId,
+        departmentName: u.department.name,
+        departmentColor: u.department.color,
+        avatarPath: u.avatarPath,
+        isActive: u.isActive,
+        isAdmin: u.isAdmin,
+        cupCount: u._count.consumptions,
+      }))}
       departments={departments.map((d) => ({
         id: d.id,
         name: d.name,
         color: d.color,
+        parentId: d.parentId,
         userCount: d._count.users,
       }))}
       stations={stations.map((s) => ({

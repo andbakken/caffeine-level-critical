@@ -11,12 +11,17 @@ datasource db {
 }
 
 model Department {
-  id        Int      @id @default(autoincrement())
+  id        Int          @id @default(autoincrement())
   name      String
-  slug      String   @unique
-  color     String   @default("#7c5cff")
-  createdAt DateTime @default(now())
+  slug      String       @unique
+  color     String       @default("#7c5cff")
+  parentId  Int?
+  parent    Department?  @relation("DeptHierarchy", fields: [parentId], references: [id])
+  children  Department[] @relation("DeptHierarchy")
+  createdAt DateTime     @default(now())
   users     User[]
+
+  @@index([parentId])
 }
 
 model User {

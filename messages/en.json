@@ -187,7 +187,13 @@
     "all": "All-time",
     "players": "Players",
     "departments": "Departments",
-    "noData": "No data yet."
+    "noData": "No data yet.",
+    "expand": "Show sub-departments",
+    "collapse": "Hide sub-departments"
+  },
+  "Filter": {
+    "department": "Department",
+    "wholeOrg": "Whole organisation"
   },
   "QuickLog": {
     "somethingWrong": "Something went wrong",
@@ -220,6 +226,7 @@
     "uploadPhoto": "Upload picture",
     "photoHint": "PNG/JPG/WEBP/GIF, max 2 MB",
     "chooseAvatar": "Choose a profile picture",
+    "changePhoto": "Change photo",
     "orUploadOwn": "Or upload your own",
     "nickname": "Nickname",
     "department": "Department",

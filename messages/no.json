@@ -187,7 +187,13 @@
     "all": "Tidenes",
     "players": "Spillere",
     "departments": "Avdelinger",
-    "noData": "Ingen data ennå."
+    "noData": "Ingen data ennå.",
+    "expand": "Vis underavdelinger",
+    "collapse": "Skjul underavdelinger"
+  },
+  "Filter": {
+    "department": "Avdeling",
+    "wholeOrg": "Hele organisasjonen"
   },
   "QuickLog": {
     "somethingWrong": "Noe gikk galt",
@@ -220,6 +226,7 @@
     "uploadPhoto": "Last opp bilde",
     "photoHint": "PNG/JPG/WEBP/GIF, maks 2 MB",
     "chooseAvatar": "Velg profilbilde",
+    "changePhoto": "Bytt profilbilde",
     "orUploadOwn": "Eller last opp eget bilde",
     "nickname": "Kallenavn",
     "department": "Avdeling",

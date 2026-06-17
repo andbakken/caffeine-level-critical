@@ -6,12 +6,22 @@ import { AnimatePresence, motion } from "framer-motion";
 import { AnimatedNumber } from "@/components/AnimatedNumber";
 import type { Overview } from "@/lib/stats";
 
-export function Dashboard({ initial }: { initial: Overview }) {
+export function Dashboard({
+  initial,
+  dept = null,
+}: {
+  initial: Overview;
+  /** Kontrollert avdelingsfilter — scoper alle widgets til subtreet. */
+  dept?: number | null;
+}) {
   const t = useTranslations("Stats");
   const [data, setData] = useState<Overview>(initial);
+  // «nå» holdes i state og oppdateres i intervall-callbacken under, slik at
+  // relativ tid forblir fersk uten å lese Date.now() under render (urent).
+  const [now, setNow] = useState(() => Date.now());
 
   const timeAgo = (iso: string): string => {
-    const diff = Date.now() - new Date(iso).getTime();
+    const diff = now - new Date(iso).getTime();
     const min = Math.floor(diff / 60000);
     if (min < 1) return t("agoNow");
     if (min < 60) return t("agoMin", { min });
@@ -24,20 +34,24 @@ export function Dashboard({ initial }: { initial: Overview }) {
     let alive = true;
     const load = async () => {
       try {
-        const res = await fetch("/api/stats/overview", { cache: "no-store" });
+        const res = await fetch(`/api/stats/overview?dept=${dept ?? ""}`, { cache: "no-store" });
         if (!res.ok) return;
         const d = (await res.json()) as Overview;
-        if (alive) setData(d);
+        if (alive) {
+          setData(d);
+          setNow(Date.now());
+        }
       } catch {
         /* ignorer */
       }
     };
+    load();
     const id = setInterval(load, 8000);
     return () => {
       alive = false;
       clearInterval(id);
     };
-  }, []);
+  }, [dept]);
 
   const maxDay = Math.max(1, ...data.last7.map((d) => d.count));
   const maxDrink = Math.max(1, ...data.drinkStats.map((d) => d.today));

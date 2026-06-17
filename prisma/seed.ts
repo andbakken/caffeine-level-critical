@@ -7,19 +7,36 @@ const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  // --- Departments (lag innad i en IT-avdeling) ---
+  // --- Departments (mor/barn-hierarki: IT og HR som toppnivå) ---
+  const topLevel = [
+    { slug: "it", name: "IT", color: "#5b8def" },
+    { slug: "hr", name: "HR", color: "#e85d9c" },
+  ];
+  const topBySlug: Record<string, number> = {};
+  for (const d of topLevel) {
+    const row = await prisma.department.upsert({
+      where: { slug: d.slug },
+      update: { name: d.name, color: d.color, parentId: null },
+      create: { ...d, parentId: null },
+    });
+    topBySlug[d.slug] = row.id;
+  }
+
   const departments = [
-    { slug: "drift", name: "Drift & Infra", color: "#39d98a" },
-    { slug: "utvikling", name: "Utvikling", color: "#7c5cff" },
-    { slug: "servicedesk", name: "Servicedesk", color: "#ffb340" },
-    { slug: "sikkerhet", name: "Sikkerhet", color: "#ff5c7c" },
+    { slug: "drift", name: "Drift & Infra", color: "#39d98a", parent: "it" },
+    { slug: "utvikling", name: "Utvikling", color: "#7c5cff", parent: "it" },
+    { slug: "servicedesk", name: "Servicedesk", color: "#ffb340", parent: "it" },
+    { slug: "sikkerhet", name: "Sikkerhet", color: "#ff5c7c", parent: "it" },
+    { slug: "rekruttering", name: "Rekruttering", color: "#c084fc", parent: "hr" },
+    { slug: "lonn", name: "Lønn", color: "#f59e0b", parent: "hr" },
   ];
   const deptBySlug: Record<string, number> = {};
   for (const d of departments) {
+    const parentId = topBySlug[d.parent];
     const row = await prisma.department.upsert({
       where: { slug: d.slug },
-      update: { name: d.name, color: d.color },
-      create: d,
+      update: { name: d.name, color: d.color, parentId },
+      create: { slug: d.slug, name: d.name, color: d.color, parentId },
     });
     deptBySlug[d.slug] = row.id;
   }
@@ -97,6 +114,8 @@ async function main() {
     { nickname: "KoffeinKari", pin: "2222", dept: "drift", isAdmin: false },
     { nickname: "TeTrine", pin: "3333", dept: "servicedesk", isAdmin: false },
     { nickname: "KakaoKnut", pin: "4444", dept: "sikkerhet", isAdmin: false },
+    { nickname: "RekrutteringRita", pin: "5555", dept: "rekruttering", isAdmin: false },
+    { nickname: "LønnLars", pin: "6666", dept: "lonn", isAdmin: false },
   ];
   const userByNick: Record<string, number> = {};
   for (const u of users) {

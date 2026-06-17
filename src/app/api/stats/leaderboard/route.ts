@@ -9,7 +9,9 @@ export async function GET(req: Request) {
   const period = parsePeriod(url.searchParams.get("period"));
   const groupByParam = url.searchParams.get("groupBy");
   const groupBy = groupByParam === "department" ? "department" : "user";
+  const deptParam = url.searchParams.get("dept");
+  const deptFilter = deptParam ? Number(deptParam) || null : null;
 
-  const rows = await getLeaderboard(period, groupBy);
-  return json({ period, groupBy, rows });
+  const rows = await getLeaderboard(period, groupBy, deptFilter);
+  return json({ period, groupBy, deptFilter, rows });
 }

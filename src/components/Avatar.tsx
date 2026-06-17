@@ -15,6 +15,9 @@ export function Avatar({ avatarPath, nickname, color = "#7c5cff", size = 48 }: P
       ? presetUrl(presetNameFromPath(avatarPath))
       : `/api/avatar/${avatarPath}`;
     return (
+      // Pixel-art-avatarer skal ikke optimeres/resamples av next/image, og
+      // egne opplastinger serveres via egen API-rute — derfor vanlig <img>.
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={src}
         alt={nickname}

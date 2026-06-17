@@ -3,9 +3,54 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AchievementManager, type AdminAchievement } from "@/components/AchievementManager";
+import { UserManager, type AdminUser } from "@/components/UserManager";
 import { copyToClipboard } from "@/lib/clipboard";
 
-type Department = { id: number; name: string; color: string; userCount: number };
+type Department = {
+  id: number;
+  name: string;
+  color: string;
+  parentId: number | null;
+  userCount: number;
+};
+
+// Avdelinger i tre-rekkefølge (forelder før barn) med innrykksdybde.
+function deptTreeOrder(departments: Department[]): (Department & { depth: number })[] {
+  const byParent = new Map<number | null, Department[]>();
+  for (const d of departments) {
+    const arr = byParent.get(d.parentId) ?? [];
+    arr.push(d);
+    byParent.set(d.parentId, arr);
+  }
+  const out: (Department & { depth: number })[] = [];
+  const walk = (parentId: number | null, depth: number) => {
+    for (const d of byParent.get(parentId) ?? []) {
+      out.push({ ...d, depth });
+      walk(d.id, depth + 1);
+    }
+  };
+  walk(null, 0);
+  return out;
+}
+
+// Id-er i en avdelings subtre (inkl. seg selv) — for å hindre at man velger en
+// etterkommer som ny forelder.
+function descendantIdSet(rootId: number, departments: Department[]): Set<number> {
+  const byParent = new Map<number | null, Department[]>();
+  for (const d of departments) {
+    const arr = byParent.get(d.parentId) ?? [];
+    arr.push(d);
+    byParent.set(d.parentId, arr);
+  }
+  const set = new Set<number>();
+  const stack = [rootId];
+  while (stack.length) {
+    const id = stack.pop()!;
+    set.add(id);
+    for (const c of byParent.get(id) ?? []) stack.push(c.id);
+  }
+  return set;
+}
 type Station = {
   id: number;
   name: string;
@@ -24,27 +69,62 @@ type Tag = {
   scanCount: number;
 };
 
+type TabKey = "users" | "departments" | "stations" | "tags" | "achievements";
+const TABS: { key: TabKey; label: string }[] = [
+  { key: "users", label: "Brukere" },
+  { key: "departments", label: "Avdelinger" },
+  { key: "stations", label: "Stasjoner" },
+  { key: "tags", label: "Tagger" },
+  { key: "achievements", label: "Merker" },
+];
+
 export function AdminClient({
   departments,
   stations,
   drinks,
   tags,
   achievements,
+  users,
+  currentUserId,
 }: {
   departments: Department[];
   stations: Station[];
   drinks: DrinkOpt[];
   tags: Tag[];
   achievements: AdminAchievement[];
+  users: AdminUser[];
+  currentUserId: number;
 }) {
   const router = useRouter();
   const [err, setErr] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [tab, setTab] = useState<TabKey>("users");
+
+  // Husk aktiv fane på tvers av besøk (klient-kun, leses etter mount).
+  useEffect(() => {
+    const saved = localStorage.getItem("bq.admin.tab");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (saved && TABS.some((t) => t.key === saved)) setTab(saved as TabKey);
+  }, []);
+  const changeTab = (key: TabKey) => {
+    setTab(key);
+    localStorage.setItem("bq.admin.tab", key);
+  };
+
+  // Innrykket avdelingsliste (DeptItem) for filter/velgere i UserManager.
+  const deptTree = deptTreeOrder(departments).map((d) => ({
+    id: d.id,
+    name: d.name,
+    color: d.color,
+    parentId: d.parentId,
+    depth: d.depth,
+  }));
 
   // department form
   const [deptName, setDeptName] = useState("");
   const [deptColor, setDeptColor] = useState("#7c5cff");
+  const [deptParent, setDeptParent] = useState<number | "">("");
 
   // station form
   const [stationName, setStationName] = useState("");
@@ -62,6 +142,8 @@ export function AdminClient({
   // NEXT_PUBLIC_TAG_BASE_URL; ellers brukes adressen admin er åpnet på.
   const [tagBase, setTagBase] = useState("");
   useEffect(() => {
+    // Klient-kun verdi (window/env) leses etter mount for å unngå hydrerings-mismatch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTagBase(process.env.NEXT_PUBLIC_TAG_BASE_URL || window.location.origin);
   }, []);
   const baseIsLocal = /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])/i.test(tagBase);
@@ -100,10 +182,37 @@ export function AdminClient({
   async function addDepartment(e: React.FormEvent) {
     e.preventDefault();
     if (!deptName.trim()) return;
-    if (await post("/api/admin/departments", { name: deptName, color: deptColor })) {
+    if (
+      await post("/api/admin/departments", {
+        name: deptName,
+        color: deptColor,
+        parentId: deptParent || null,
+      })
+    ) {
       setDeptName("");
+      setDeptParent("");
       flash(null, "Avdeling opprettet!");
       router.refresh();
+    }
+  }
+
+  async function changeParent(id: number, parentId: number | null) {
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/admin/departments/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ parentId }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        flash(data.error ?? "Endring feilet");
+        return;
+      }
+      flash(null, "Avdeling oppdatert");
+      router.refresh();
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -179,10 +288,31 @@ export function AdminClient({
         </div>
       )}
 
+      {/* ---- Faner ---- */}
+      <div className="flex gap-1 flex-wrap border-b border-line pb-2">
+        {TABS.map((tb) => (
+          <button
+            key={tb.key}
+            onClick={() => changeTab(tb.key)}
+            className={`pixel-btn !py-2 !px-3 ${tab === tb.key ? "" : "pixel-btn-ghost"}`}
+          >
+            {tb.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ---- Brukere ---- */}
+      {tab === "users" && (
+        <UserManager users={users} deptTree={deptTree} currentUserId={currentUserId} />
+      )}
+
       {/* ---- Merker ---- */}
-      <AchievementManager achievements={achievements} drinks={drinks} />
+      {tab === "achievements" && (
+        <AchievementManager achievements={achievements} drinks={drinks} />
+      )}
 
       {/* ---- NFC-tagger ---- */}
+      {tab === "tags" && (
       <section className="flex flex-col gap-4">
         <h2 className="heading text-accent-2 text-base">NFC-tagger</h2>
 
@@ -289,8 +419,10 @@ export function AdminClient({
           </div>
         )}
       </section>
+      )}
 
       {/* ---- Stasjoner ---- */}
+      {tab === "stations" && (
       <section className="flex flex-col gap-4">
         <h2 className="heading text-accent-2 text-base">Stasjoner</h2>
 
@@ -338,13 +470,15 @@ export function AdminClient({
           </div>
         )}
       </section>
+      )}
 
       {/* ---- Avdelinger ---- */}
+      {tab === "departments" && (
       <section className="flex flex-col gap-4">
         <h2 className="heading text-accent-2 text-base">Avdelinger</h2>
 
         <form onSubmit={addDepartment} className="pixel-panel p-4 flex flex-col gap-3">
-          <div className="grid sm:grid-cols-[1fr_auto] gap-3 items-end">
+          <div className="grid sm:grid-cols-[1fr_1fr_auto] gap-3 items-end">
             <label className="flex flex-col gap-1">
               <span className="text-ink-dim text-base">Navn</span>
               <input
@@ -353,6 +487,22 @@ export function AdminClient({
                 onChange={(e) => setDeptName(e.target.value)}
                 placeholder="f.eks. Drift"
               />
+            </label>
+            <label className="flex flex-col gap-1">
+              <span className="text-ink-dim text-base">Forelder (valgfritt)</span>
+              <select
+                className="pixel-input"
+                value={deptParent}
+                onChange={(e) => setDeptParent(e.target.value ? Number(e.target.value) : "")}
+              >
+                <option value="">Ingen (toppnivå)</option>
+                {deptTreeOrder(departments).map((d) => (
+                  <option key={d.id} value={d.id}>
+                    {" ".repeat(d.depth * 2)}
+                    {d.name}
+                  </option>
+                ))}
+              </select>
             </label>
             <label className="flex flex-col gap-1">
               <span className="text-ink-dim text-base">Farge</span>
@@ -374,25 +524,53 @@ export function AdminClient({
         {departments.length === 0 ? (
           <p className="text-ink-dim text-base">Ingen avdelinger ennå.</p>
         ) : (
-          <div className="flex flex-wrap gap-2">
-            {departments.map((d) => (
-              <div
-                key={d.id}
-                className="pixel-panel px-3 py-2 flex items-center gap-2"
-                style={{ borderColor: d.color }}
-              >
-                <span
-                  className="inline-block w-4 h-4"
-                  style={{ backgroundColor: d.color }}
-                  aria-hidden
-                />
-                <span className="text-base">{d.name}</span>
-                <span className="text-ink-dim text-sm">{d.userCount}</span>
-              </div>
-            ))}
+          <div className="flex flex-col gap-2">
+            {deptTreeOrder(departments).map((d) => {
+              const blocked = descendantIdSet(d.id, departments);
+              return (
+                <div
+                  key={d.id}
+                  className="pixel-panel px-3 py-2 flex items-center gap-3 flex-wrap"
+                  style={{ borderColor: d.color, marginLeft: `${d.depth * 1.25}rem` }}
+                >
+                  <span
+                    className="inline-block w-4 h-4 shrink-0"
+                    style={{ backgroundColor: d.color }}
+                    aria-hidden
+                  />
+                  <span className="text-base flex-1 min-w-[6rem]">
+                    {d.depth > 0 && <span className="text-ink-dim">↳ </span>}
+                    {d.name}
+                  </span>
+                  <span className="text-ink-dim text-sm">{d.userCount} brukere</span>
+                  <label className="flex items-center gap-1 text-sm">
+                    <span className="text-ink-dim">Forelder</span>
+                    <select
+                      className="pixel-input !py-1 !px-2 text-sm"
+                      value={d.parentId ?? ""}
+                      disabled={busy}
+                      onChange={(e) =>
+                        changeParent(d.id, e.target.value ? Number(e.target.value) : null)
+                      }
+                    >
+                      <option value="">Ingen (toppnivå)</option>
+                      {deptTreeOrder(departments)
+                        .filter((o) => !blocked.has(o.id))
+                        .map((o) => (
+                          <option key={o.id} value={o.id}>
+                            {" ".repeat(o.depth * 2)}
+                            {o.name}
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                </div>
+              );
+            })}
           </div>
         )}
       </section>
+      )}
     </div>
   );
 }
