@@ -21,7 +21,7 @@
   },
   "Landing": {
     "metaTitle": "Quest of the Roasted Bean — turn the coffee break into a competition",
-    "metaDescription": "Track coffee, tea and cocoa at work with NFC tags, leaderboards and badges. Run it free, self-hosted with Docker, or let us host it for you.",
+    "metaDescription": "Track coffee, tea and cocoa at work with NFC tags, leaderboards and badges. Run it free, self-hosted with Docker, or let us host it for you — safely in the EU.",
     "heroTitle": "Turn the coffee break into a competition",
     "heroBody": "Quest of the Roasted Bean tracks coffee, tea and cocoa for the whole team — with NFC scanning, leaderboards and badges. Build a little friendly rivalry around the coffee machine. ☕",
     "ctaStart": "Get started",
@@ -50,7 +50,7 @@
     "recommended": "RECOMMENDED",
     "perMonth": "{price}{period}",
     "hostedBody": "We take care of everything. Ready in minutes, with login and automatic updates.",
-    "hostedBullets": ["Everything in self-hosted, plus:", "No setup or maintenance", "Secure per-user login", "Backup and updates included"],
+    "hostedBullets": ["Everything in self-hosted, plus:", "No setup or maintenance", "Secure per-user login", "Backup and updates included", "Hosted in the EU — GDPR-friendly"],
     "startTrial": "Start free trial",
     "endTitle": "Ready to get brewing?",
     "endBody": "Set up Quest of the Roasted Bean for your team today — and find out who really keeps the office running."
@@ -82,6 +82,7 @@
       { "label": "All features", "self": "✔", "hosted": "✔" },
       { "label": "Unlimited users", "self": "✔", "hosted": "✔" },
       { "label": "You own the data", "self": "✔", "hosted": "With us" },
+      { "label": "Where data is stored", "self": "Your machine", "hosted": "EU (GDPR)" },
       { "label": "Setup & operations", "self": "Yourself (Docker)", "hosted": "We handle it" },
       { "label": "Per-user login", "self": "PIN on local network", "hosted": "Secure account" },
       { "label": "Backup & updates", "self": "Yourself", "hosted": "Included" },
@@ -90,14 +91,24 @@
     "pricingHeading": "Pricing",
     "selfHostedDesc": "Run it on your own machine with Docker. Full control and ownership of the data.",
     "installButton": "How to install",
-    "hostedDesc": "Ready in minutes. No operations, secure login, backup and updates included.",
+    "hostedDesc": "Ready in minutes. No operations, secure login, backup and updates included — hosted in the EU (GDPR).",
     "recommended": "RECOMMENDED",
     "startTrial": "Start free trial",
+    "hostingHeading": "What the hosting includes",
+    "hostingIntro": "Choose the hosted version and we take care of all the operations — secure, up to date and predictable.",
+    "hostingBullets": [
+      { "icon": "🇪🇺", "title": "Data in the EU", "body": "Everything runs in European data centres (Finland). GDPR-friendly — your data never leaves the EU." },
+      { "icon": "💾", "title": "Daily backup", "body": "Automatic backup every day, so nothing is lost." },
+      { "icon": "🔄", "title": "Automatic updates", "body": "You always get the latest version without lifting a finger." },
+      { "icon": "🔒", "title": "Secure login", "body": "A dedicated account per user and encrypted HTTPS all the way." },
+      { "icon": "⚡", "title": "Ready in minutes", "body": "Your own domain is set up automatically when you sign up." },
+      { "icon": "📈", "title": "Grows with the team", "body": "From a small team to the whole company — without you noticing the operations." }
+    ],
     "faqHeading": "Frequently asked questions",
     "faq": [
       { "q": "Do users need to install an app?", "a": "No. NFC scanning just opens a web page in the phone's browser. Those who want to can create a profile to collect their own badges, but you can also log cups without one." },
       { "q": "Does it work on iPhone?", "a": "Yes. Because the tags use a regular web link (URL), scanning works on both iPhone and Android — without an extra app or special permissions." },
-      { "q": "Where is the data stored?", "a": "In the self-hosted version: on your own machine/server — you own everything. In the hosted version: safely with us, with backup and updates included." },
+      { "q": "Where is the data stored?", "a": "In the self-hosted version: on your own machine/server — you own everything. In the hosted version: safely with us in European data centres (Finland, GDPR-friendly — your data never leaves the EU), with daily backup and updates included." },
       { "q": "Can we switch from self-hosted to hosted later?", "a": "Yes. The physical tags then need to be rewritten once because the domain changes, but all functionality is the same." }
     ]
   },
@@ -208,6 +219,8 @@
   "Me": {
     "uploadPhoto": "Upload picture",
     "photoHint": "PNG/JPG/WEBP/GIF, max 2 MB",
+    "chooseAvatar": "Choose a profile picture",
+    "orUploadOwn": "Or upload your own",
     "nickname": "Nickname",
     "department": "Department",
     "newPin": "New PIN (leave empty to keep)",

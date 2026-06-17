@@ -10,6 +10,7 @@ import {
   ensureUploadDir,
 } from "@/lib/uploads";
 import { fail, ok } from "@/lib/http";
+import { isPresetPath } from "@/lib/avatars";
 
 export async function POST(req: Request) {
   const user = await getCurrentUser();
@@ -28,8 +29,8 @@ export async function POST(req: Request) {
   const buffer = Buffer.from(await file.arrayBuffer());
   await writeFile(path.join(UPLOAD_DIR, filename), buffer);
 
-  // rydd opp gammelt bilde
-  if (user.avatarPath) {
+  // rydd opp gammelt OPPLASTET bilde (preset-er har ingen fil på disk)
+  if (user.avatarPath && !isPresetPath(user.avatarPath)) {
     try {
       await unlink(path.join(UPLOAD_DIR, user.avatarPath));
     } catch {

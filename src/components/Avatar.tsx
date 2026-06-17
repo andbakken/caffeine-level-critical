@@ -1,3 +1,5 @@
+import { isPresetPath, presetNameFromPath, presetUrl } from "@/lib/avatars";
+
 type Props = {
   avatarPath?: string | null;
   nickname: string;
@@ -8,9 +10,13 @@ type Props = {
 export function Avatar({ avatarPath, nickname, color = "#7c5cff", size = 48 }: Props) {
   const style = { width: size, height: size };
   if (avatarPath) {
+    // Forhåndsvalgte bilder serveres statisk fra public/, egne opplastinger via API-ruten.
+    const src = isPresetPath(avatarPath)
+      ? presetUrl(presetNameFromPath(avatarPath))
+      : `/api/avatar/${avatarPath}`;
     return (
       <img
-        src={`/api/avatar/${avatarPath}`}
+        src={src}
         alt={nickname}
         style={style}
         className="pixel-border object-cover shrink-0"

@@ -21,7 +21,7 @@
   },
   "Landing": {
     "metaTitle": "Quest of the Roasted Bean — gjør kaffepausen til en konkurranse",
-    "metaDescription": "Spor kaffe, te og kakao på jobben med NFC-tagger, toppliste og merker. Kjør gratis selvhostet med Docker, eller la oss hoste det for deg.",
+    "metaDescription": "Spor kaffe, te og kakao på jobben med NFC-tagger, toppliste og merker. Kjør gratis selvhostet med Docker, eller la oss hoste det trygt i EU for deg.",
     "heroTitle": "Gjør kaffepausen til en konkurranse",
     "heroBody": "Quest of the Roasted Bean sporer kaffe, te og kakao for hele teamet — med NFC-skanning, toppliste og merker. Bygg en liten, sunn rivalisering rundt kaffemaskinen. ☕",
     "ctaStart": "Kom i gang",
@@ -50,7 +50,7 @@
     "recommended": "ANBEFALT",
     "perMonth": "{price}{period}",
     "hostedBody": "Vi tar oss av alt. Klar på minutter, med innlogging og automatiske oppdateringer.",
-    "hostedBullets": ["Alt i selvhostet, pluss:", "Ingen oppsett eller drift", "Sikker innlogging per bruker", "Backup og oppdateringer inkludert"],
+    "hostedBullets": ["Alt i selvhostet, pluss:", "Ingen oppsett eller drift", "Sikker innlogging per bruker", "Backup og oppdateringer inkludert", "Hostet i EU — GDPR-vennlig"],
     "startTrial": "Start gratis prøveperiode",
     "endTitle": "Klar til å koke i gang?",
     "endBody": "Sett opp Quest of the Roasted Bean for teamet ditt i dag — og finn ut hvem som egentlig holder kontoret i gang."
@@ -82,6 +82,7 @@
       { "label": "Alle funksjoner", "self": "✔", "hosted": "✔" },
       { "label": "Ubegrenset brukere", "self": "✔", "hosted": "✔" },
       { "label": "Du eier dataene", "self": "✔", "hosted": "Hos oss" },
+      { "label": "Hvor dataene lagres", "self": "Din maskin", "hosted": "EU (GDPR)" },
       { "label": "Oppsett & drift", "self": "Du selv (Docker)", "hosted": "Vi tar oss av det" },
       { "label": "Innlogging per bruker", "self": "PIN på lokalnett", "hosted": "Sikker konto" },
       { "label": "Backup & oppdatering", "self": "Du selv", "hosted": "Inkludert" },
@@ -90,14 +91,24 @@
     "pricingHeading": "Priser",
     "selfHostedDesc": "Kjør på egen maskin med Docker. Full kontroll og eierskap til dataene.",
     "installButton": "Slik installerer du",
-    "hostedDesc": "Klar på minutter. Ingen drift, sikker innlogging, backup og oppdateringer inkludert.",
+    "hostedDesc": "Klar på minutter. Ingen drift, sikker innlogging, backup og oppdateringer inkludert — driftet i EU (GDPR).",
     "recommended": "ANBEFALT",
     "startTrial": "Start gratis prøveperiode",
+    "hostingHeading": "Rammene for hostingen",
+    "hostingIntro": "Velger du den hostede versjonen, tar vi oss av hele driften — trygt, oppdatert og forutsigbart.",
+    "hostingBullets": [
+      { "icon": "🇪🇺", "title": "Data i EU", "body": "Alt kjører i europeiske datasentre (Finland). GDPR-vennlig — dataene forlater aldri EU." },
+      { "icon": "💾", "title": "Daglig backup", "body": "Automatisk sikkerhetskopi hver dag, så ingenting går tapt." },
+      { "icon": "🔄", "title": "Automatiske oppdateringer", "body": "Du får alltid nyeste versjon uten å løfte en finger." },
+      { "icon": "🔒", "title": "Sikker innlogging", "body": "Egen konto per bruker og kryptert HTTPS hele veien." },
+      { "icon": "⚡", "title": "Klar på minutter", "body": "Eget domene settes opp automatisk når du registrerer deg." },
+      { "icon": "📈", "title": "Vokser med teamet", "body": "Fra et lite team til hele bedriften — uten at du merker driften." }
+    ],
     "faqHeading": "Ofte stilte spørsmål",
     "faq": [
       { "q": "Trenger brukerne å installere en app?", "a": "Nei. NFC-skanning åpner bare en nettside i telefonens nettleser. De som vil kan lage en profil for å samle egne merker, men man kan også logge kopper uten." },
       { "q": "Fungerer det på iPhone?", "a": "Ja. Fordi brikkene bruker en vanlig nettlenke (URL), fungerer skanning på både iPhone og Android — uten ekstra app eller spesielle tillatelser." },
-      { "q": "Hvor lagres dataene?", "a": "I selvhostet versjon: på din egen maskin/server — du eier alt. I hostet versjon: trygt hos oss, med backup og oppdateringer inkludert." },
+      { "q": "Hvor lagres dataene?", "a": "I selvhostet versjon: på din egen maskin/server — du eier alt. I hostet versjon: trygt hos oss i europeiske datasentre (Finland, GDPR-vennlig — dataene forlater aldri EU), med daglig backup og oppdateringer inkludert." },
       { "q": "Kan vi bytte fra selvhostet til hostet senere?", "a": "Ja. Da må de fysiske brikkene skrives om én gang fordi domenet endres, men all funksjonalitet er den samme." }
     ]
   },
@@ -208,6 +219,8 @@
   "Me": {
     "uploadPhoto": "Last opp bilde",
     "photoHint": "PNG/JPG/WEBP/GIF, maks 2 MB",
+    "chooseAvatar": "Velg profilbilde",
+    "orUploadOwn": "Eller last opp eget bilde",
     "nickname": "Kallenavn",
     "department": "Avdeling",
     "newPin": "Ny PIN (la stå tom for å beholde)",

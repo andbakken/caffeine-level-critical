@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { THRESHOLDLESS_RULES, type RuleType } from "@/lib/achievements";
 
 export type AdminAchievement = {
   id: number;
@@ -25,7 +26,19 @@ const RULE_LABELS: Record<string, string> = {
   drink: "Antall av én bestemt drikke",
   before_hour: "En kopp før et klokkeslett",
   after_hour: "En kopp etter et klokkeslett",
+  drink_each: "Minst N av HVER drikke",
+  streak: "Antall dager på rad",
+  day_total: "Antall på samme dag",
+  weekend: "Logg en kopp i helgen",
 };
+
+function isThresholdless(ruleType: string): boolean {
+  return THRESHOLDLESS_RULES.includes(ruleType as RuleType);
+}
+
+function isHourRule(ruleType: string): boolean {
+  return ruleType === "before_hour" || ruleType === "after_hour";
+}
 
 type Draft = {
   name: string;
@@ -52,6 +65,14 @@ function ruleSummary(a: AdminAchievement, drinks: DrinkOpt[]): string {
       return `kopp før kl. ${String(a.threshold).padStart(2, "0")}`;
     case "after_hour":
       return `kopp kl. ${String(a.threshold).padStart(2, "0")} eller senere`;
+    case "drink_each":
+      return `${a.threshold} av hver drikke`;
+    case "streak":
+      return `${a.threshold} dager på rad`;
+    case "day_total":
+      return `${a.threshold} på samme dag`;
+    case "weekend":
+      return "kopp i helgen (lør/søn)";
     default:
       return a.ruleType;
   }
@@ -126,7 +147,7 @@ export function AchievementManager({
       icon: draft.icon,
       description: draft.description,
       ruleType: draft.ruleType,
-      threshold: draft.threshold,
+      threshold: isThresholdless(draft.ruleType) ? 1 : draft.threshold,
       drinkId: draft.ruleType === "drink" ? draft.drinkId : null,
       sortOrder: draft.sortOrder,
       isActive: draft.isActive,
@@ -196,8 +217,11 @@ export function AchievementManager({
     }
   }
 
-  const thresholdLabel =
-    draft.ruleType === "before_hour" || draft.ruleType === "after_hour" ? "Klokkeslett (0–23)" : "Antall";
+  const thresholdLabel = isHourRule(draft.ruleType)
+    ? "Klokkeslett (0–23)"
+    : draft.ruleType === "streak"
+      ? "Antall dager"
+      : "Antall";
 
   return (
     <section className="flex flex-col gap-4">
@@ -266,17 +290,19 @@ export function AchievementManager({
                 ))}
               </select>
             </label>
-            <label className="flex flex-col gap-1">
-              <span className="text-ink-dim text-base">{thresholdLabel}</span>
-              <input
-                type="number"
-                min={draft.ruleType === "before_hour" || draft.ruleType === "after_hour" ? 0 : 1}
-                max={draft.ruleType === "before_hour" || draft.ruleType === "after_hour" ? 23 : undefined}
-                className="pixel-input"
-                value={draft.threshold}
-                onChange={(e) => setDraft({ ...draft, threshold: Number(e.target.value) })}
-              />
-            </label>
+            {!isThresholdless(draft.ruleType) && (
+              <label className="flex flex-col gap-1">
+                <span className="text-ink-dim text-base">{thresholdLabel}</span>
+                <input
+                  type="number"
+                  min={isHourRule(draft.ruleType) ? 0 : 1}
+                  max={isHourRule(draft.ruleType) ? 23 : undefined}
+                  className="pixel-input"
+                  value={draft.threshold}
+                  onChange={(e) => setDraft({ ...draft, threshold: Number(e.target.value) })}
+                />
+              </label>
+            )}
             {draft.ruleType === "drink" && (
               <label className="flex flex-col gap-1">
                 <span className="text-ink-dim text-base">Drikke</span>
