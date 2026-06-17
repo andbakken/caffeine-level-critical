@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { marketingMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -11,7 +12,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Download" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  return marketingMetadata(locale, "last-ned", {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  });
 }
 
 function Code({ children }: { children: React.ReactNode }) {

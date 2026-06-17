@@ -3,6 +3,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { OfficeScene } from "@/components/OfficeScene";
 import { hostedPrice } from "@/lib/pricing";
+import { marketingMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
 type Feature = { icon: string; title: string; body: string };
@@ -15,10 +16,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Landing" });
-  return {
+  return marketingMetadata(locale, "", {
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+  });
 }
 
 export default function LandingPage() {

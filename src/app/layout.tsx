@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Press_Start_2P, VT323 } from "next/font/google";
+import { siteUrl } from "@/lib/seo";
+import { APP_NAME } from "@/lib/brand";
 import "./globals.css";
 
 const pixel = Press_Start_2P({
@@ -17,7 +19,10 @@ const pixelBody = VT323({
 });
 
 export const metadata: Metadata = {
-  title: "Quest of the Roasted Bean",
+  // Gjør alle URL-baserte metadata-felt (canonical, hreflang, og:image …)
+  // absolutte. Uten denne knekker delings- og kanoniske lenker.
+  metadataBase: new URL(siteUrl),
+  title: APP_NAME,
   description: "Spor kaffe, te og kakao på jobben ☕",
 };
 

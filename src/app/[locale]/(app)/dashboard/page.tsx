@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { Dashboard } from "@/components/Dashboard";
 import { QuickLog } from "@/components/QuickLog";
 import { LeaderboardBoard } from "@/components/LeaderboardBoard";
+import { APP_NAME } from "@/lib/brand";
 
 export const dynamic = "force-dynamic";
 
@@ -21,7 +22,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col gap-8">
       <section className="text-center py-4">
-        <h1 className="heading text-gold text-2xl sm:text-4xl">☕ Quest of the Roasted Bean</h1>
+        <h1 className="heading text-gold text-2xl sm:text-4xl">☕ {APP_NAME}</h1>
         <p className="text-ink-dim mt-3">{t("tagline")}</p>
       </section>
 

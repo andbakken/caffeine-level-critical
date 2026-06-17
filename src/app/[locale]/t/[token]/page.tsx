@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/db";
@@ -6,6 +7,11 @@ import { Link } from "@/i18n/navigation";
 import { TapClient } from "@/components/TapClient";
 
 export const dynamic = "force-dynamic";
+
+// NFC-token-sider er private engangslenker – aldri i søkeresultater.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function TapPage({ params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;

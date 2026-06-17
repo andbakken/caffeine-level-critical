@@ -1,6 +1,6 @@
 {
   "Common": {
-    "brand": "Quest of the Roasted Bean",
+    "brand": "%BRAND%",
     "nav": {
       "produkt": "Produkt",
       "lastNed": "Last ned",
@@ -10,7 +10,7 @@
     },
     "footer": {
       "tagline": "Gjør kaffepausen til en konkurranse.",
-      "copyright": "© {year} Quest of the Roasted Bean"
+      "copyright": "© {year} %BRAND%"
     },
     "language": {
       "label": "Språk",
@@ -20,10 +20,10 @@
     "madeFor": "Spor drikkevanene på jobben"
   },
   "Landing": {
-    "metaTitle": "Quest of the Roasted Bean — gjør kaffepausen til en konkurranse",
+    "metaTitle": "%BRAND% — gjør kaffepausen til en konkurranse",
     "metaDescription": "Spor kaffe, te og kakao på jobben med NFC-tagger, toppliste og merker. Kjør gratis selvhostet med Docker, eller la oss hoste det trygt i EU for deg.",
     "heroTitle": "Gjør kaffepausen til en konkurranse",
-    "heroBody": "Quest of the Roasted Bean sporer kaffe, te og kakao for hele teamet — med NFC-skanning, toppliste og merker. Bygg en liten, sunn rivalisering rundt kaffemaskinen. ☕",
+    "heroBody": "%BRAND% sporer kaffe, te og kakao for hele teamet — med NFC-skanning, toppliste og merker. Bygg en liten, sunn rivalisering rundt kaffemaskinen. ☕",
     "ctaStart": "Kom i gang",
     "ctaDemo": "Se demoen",
     "pricingNote": "Gratis å kjøre selv · eller hostet fra {price}{period}",
@@ -53,13 +53,13 @@
     "hostedBullets": ["Alt i selvhostet, pluss:", "Ingen oppsett eller drift", "Sikker innlogging per bruker", "Backup og oppdateringer inkludert", "Hostet i EU — GDPR-vennlig"],
     "startTrial": "Start gratis prøveperiode",
     "endTitle": "Klar til å koke i gang?",
-    "endBody": "Sett opp Quest of the Roasted Bean for teamet ditt i dag — og finn ut hvem som egentlig holder kontoret i gang."
+    "endBody": "Sett opp %BRAND% for teamet ditt i dag — og finn ut hvem som egentlig holder kontoret i gang."
   },
   "Product": {
-    "metaTitle": "Produkt — Quest of the Roasted Bean",
-    "metaDescription": "Alt i Quest of the Roasted Bean: NFC-skanning, toppliste, regelstyrte merker, statistikk og full admin-kontroll. Sammenlign selvhostet og hostet.",
+    "metaTitle": "Produkt — %BRAND%",
+    "metaDescription": "Alt i %BRAND%: NFC-skanning, toppliste, regelstyrte merker, statistikk og full admin-kontroll. Sammenlign selvhostet og hostet.",
     "heroTitle": "Hele kaffekonkurransen, i én liten app",
-    "heroBody": "Quest of the Roasted Bean gjør hverdagens kaffepauser om til et lett spill med poeng, merker og topplister — bygget for team som liker å konkurrere litt.",
+    "heroBody": "%BRAND% gjør hverdagens kaffepauser om til et lett spill med poeng, merker og topplister — bygget for team som liker å konkurrere litt.",
     "details": [
       { "icon": "📟", "title": "NFC-skanning", "body": "Fest en brikke ved hver kaffemaskin. Ett tapp med telefonen logger koppen — ingen app, ingen innlogging i farten. En brikke kan låses til én drikke, eller la brukeren velge." },
       { "icon": "🏆", "title": "Toppliste & avdelinger", "body": "Rangér enkeltpersoner og avdelinger — i dag, denne uka eller totalt. Perfekt for litt sunn intern rivalisering mellom teamene." },
@@ -69,11 +69,11 @@
       { "icon": "⚙️", "title": "Full admin-kontroll", "body": "Opprett avdelinger, stasjoner, NFC-tagger og merker fra ett sted. Kopier brikke-lenker rett fra admin." }
     ],
     "nfcHeading": "Slik fungerer NFC-brikkene",
-    "nfcIntro": "En Quest of the Roasted Bean-brikke inneholder bare en nettlenke. Telefonen åpner lenken ved skanning, og koppen logges på sekundet. Samme mekanisme uansett om du hoster selv eller lar oss gjøre det.",
+    "nfcIntro": "En %BRAND%-brikke inneholder bare en nettlenke. Telefonen åpner lenken ved skanning, og koppen logges på sekundet. Samme mekanisme uansett om du hoster selv eller lar oss gjøre det.",
     "selfHosted": "Selvhostet",
     "hosted": "Hostet",
     "nfcSelfBody": "Brikken peker på din lokale adresse på bedriftens nett, f.eks.",
-    "nfcHostedBody": "Brikken peker på ditt Quest of the Roasted Bean-domene. Riktig bedrift gjenkjennes automatisk fra token-en:",
+    "nfcHostedBody": "Brikken peker på ditt %BRAND%-domene. Riktig bedrift gjenkjennes automatisk fra token-en:",
     "nfcFootnote": "Admin lager taggen og trykker «Kopier lenke» — som alltid bruker riktig domene — og skriver lenken til brikken med en gratis app som NFC Tools. En QR-kode med samme lenke fungerer for telefoner uten NFC.",
     "compareHeading": "Selvhostet vs. hostet",
     "priceLabel": "Pris",
@@ -113,17 +113,17 @@
     ]
   },
   "Download": {
-    "metaTitle": "Last ned & installer — Quest of the Roasted Bean",
-    "metaDescription": "Kjør Quest of the Roasted Bean gratis på din egen maskin med Docker. Alle avhengigheter er inkludert — følg de fem stegene.",
+    "metaTitle": "Last ned & installer — %BRAND%",
+    "metaDescription": "Kjør %BRAND% gratis på din egen maskin med Docker. Alle avhengigheter er inkludert — følg de fem stegene.",
     "title": "Last ned & installer",
-    "intro": "Kjør Quest of the Roasted Bean gratis på din egen maskin eller server. Docker pakker <b>alt</b> — app, database (PostgreSQL) og alle avhengigheter. Du trenger ikke installere Node, en database eller noe annet.",
+    "intro": "Kjør %BRAND% gratis på din egen maskin eller server. Docker pakker <b>alt</b> — app, database (PostgreSQL) og alle avhengigheter. Du trenger ikke installere Node, en database eller noe annet.",
     "onlyReq": "✅ <b>Eneste krav:</b> Docker. Resten kommer ferdig i pakken.",
     "step1Title": "Installer Docker",
     "step1Intro": "Docker kjører hele appen i isolerte «containere». Installer det først:",
     "step1Win": "<b>Windows / Mac:</b> last ned <link>Docker Desktop</link> og kjør installasjonsprogrammet.",
     "step1Linux": "<b>Linux:</b> installer <link>Docker Engine</link> med pakkebehandleren din.",
     "step1Check": "Sjekk at det virker:",
-    "step2Title": "Hent Quest of the Roasted Bean",
+    "step2Title": "Hent %BRAND%",
     "step2Intro": "Last ned siste utgave og pakk den ut, eller hent den med git:",
     "step2Zip": "(Foretrekker du uten git? Last ned ZIP-en fra utgivelsessiden og pakk den ut i en mappe.)",
     "step3Title": "Sett opp konfigurasjon",
@@ -245,7 +245,7 @@
   },
   "Tap": {
     "unknownTagTitle": "Ukjent tagg",
-    "unknownTagBody": "Denne NFC-taggen er ikke registrert i Quest of the Roasted Bean.",
+    "unknownTagBody": "Denne NFC-taggen er ikke registrert i %BRAND%.",
     "toDashboard": "Til dashboard",
     "station": "Stasjon",
     "loggedInAs": "Innlogget som",

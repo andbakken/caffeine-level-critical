@@ -3,6 +3,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { hostedPrice } from "@/lib/pricing";
+import { marketingMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
 type Detail = { icon: string; title: string; body: string };
@@ -16,7 +17,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Product" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  return marketingMetadata(locale, "produkt", {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  });
 }
 
 export default function ProductPage() {

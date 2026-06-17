@@ -1,6 +1,6 @@
 {
   "Common": {
-    "brand": "Quest of the Roasted Bean",
+    "brand": "%BRAND%",
     "nav": {
       "produkt": "Product",
       "lastNed": "Download",
@@ -10,7 +10,7 @@
     },
     "footer": {
       "tagline": "Turn the coffee break into a competition.",
-      "copyright": "© {year} Quest of the Roasted Bean"
+      "copyright": "© {year} %BRAND%"
     },
     "language": {
       "label": "Language",
@@ -20,10 +20,10 @@
     "madeFor": "Track your team's drink habits"
   },
   "Landing": {
-    "metaTitle": "Quest of the Roasted Bean — turn the coffee break into a competition",
+    "metaTitle": "%BRAND% — turn the coffee break into a competition",
     "metaDescription": "Track coffee, tea and cocoa at work with NFC tags, leaderboards and badges. Run it free, self-hosted with Docker, or let us host it for you — safely in the EU.",
     "heroTitle": "Turn the coffee break into a competition",
-    "heroBody": "Quest of the Roasted Bean tracks coffee, tea and cocoa for the whole team — with NFC scanning, leaderboards and badges. Build a little friendly rivalry around the coffee machine. ☕",
+    "heroBody": "%BRAND% tracks coffee, tea and cocoa for the whole team — with NFC scanning, leaderboards and badges. Build a little friendly rivalry around the coffee machine. ☕",
     "ctaStart": "Get started",
     "ctaDemo": "See the demo",
     "pricingNote": "Free to self-host · or hosted from {price}{period}",
@@ -53,13 +53,13 @@
     "hostedBullets": ["Everything in self-hosted, plus:", "No setup or maintenance", "Secure per-user login", "Backup and updates included", "Hosted in the EU — GDPR-friendly"],
     "startTrial": "Start free trial",
     "endTitle": "Ready to get brewing?",
-    "endBody": "Set up Quest of the Roasted Bean for your team today — and find out who really keeps the office running."
+    "endBody": "Set up %BRAND% for your team today — and find out who really keeps the office running."
   },
   "Product": {
-    "metaTitle": "Product — Quest of the Roasted Bean",
-    "metaDescription": "Everything in Quest of the Roasted Bean: NFC scanning, leaderboards, rule-based badges, statistics and full admin control. Compare self-hosted and hosted.",
+    "metaTitle": "Product — %BRAND%",
+    "metaDescription": "Everything in %BRAND%: NFC scanning, leaderboards, rule-based badges, statistics and full admin control. Compare self-hosted and hosted.",
     "heroTitle": "The whole coffee contest, in one little app",
-    "heroBody": "Quest of the Roasted Bean turns everyday coffee breaks into a light game with points, badges and leaderboards — built for teams that like a bit of competition.",
+    "heroBody": "%BRAND% turns everyday coffee breaks into a light game with points, badges and leaderboards — built for teams that like a bit of competition.",
     "details": [
       { "icon": "📟", "title": "NFC scanning", "body": "Attach a tag to each coffee machine. One tap with your phone logs the cup — no app, no signing in on the spot. A tag can be locked to one drink, or let the user choose." },
       { "icon": "🏆", "title": "Leaderboard & departments", "body": "Rank individuals and departments — today, this week or all-time. Perfect for a bit of healthy internal rivalry between teams." },
@@ -69,11 +69,11 @@
       { "icon": "⚙️", "title": "Full admin control", "body": "Create departments, stations, NFC tags and badges from one place. Copy tag links straight from admin." }
     ],
     "nfcHeading": "How the NFC tags work",
-    "nfcIntro": "A Quest of the Roasted Bean tag contains just a web link. The phone opens the link when scanned, and the cup is logged in a second. Same mechanism whether you host it yourself or let us do it.",
+    "nfcIntro": "A %BRAND% tag contains just a web link. The phone opens the link when scanned, and the cup is logged in a second. Same mechanism whether you host it yourself or let us do it.",
     "selfHosted": "Self-hosted",
     "hosted": "Hosted",
     "nfcSelfBody": "The tag points to your local address on the company network, e.g.",
-    "nfcHostedBody": "The tag points to your Quest of the Roasted Bean domain. The right company is recognized automatically from the token:",
+    "nfcHostedBody": "The tag points to your %BRAND% domain. The right company is recognized automatically from the token:",
     "nfcFootnote": "Admin creates the tag and clicks “Copy link” — which always uses the right domain — and writes the link to the tag with a free app like NFC Tools. A QR code with the same link works for phones without NFC.",
     "compareHeading": "Self-hosted vs. hosted",
     "priceLabel": "Price",
@@ -113,17 +113,17 @@
     ]
   },
   "Download": {
-    "metaTitle": "Download & install — Quest of the Roasted Bean",
-    "metaDescription": "Run Quest of the Roasted Bean for free on your own machine with Docker. All dependencies are included — follow the five steps.",
+    "metaTitle": "Download & install — %BRAND%",
+    "metaDescription": "Run %BRAND% for free on your own machine with Docker. All dependencies are included — follow the five steps.",
     "title": "Download & install",
-    "intro": "Run Quest of the Roasted Bean for free on your own machine or server. Docker packages <b>everything</b> — app, database (PostgreSQL) and all dependencies. You don't need to install Node, a database or anything else.",
+    "intro": "Run %BRAND% for free on your own machine or server. Docker packages <b>everything</b> — app, database (PostgreSQL) and all dependencies. You don't need to install Node, a database or anything else.",
     "onlyReq": "✅ <b>Only requirement:</b> Docker. The rest comes ready in the package.",
     "step1Title": "Install Docker",
     "step1Intro": "Docker runs the whole app in isolated “containers”. Install it first:",
     "step1Win": "<b>Windows / Mac:</b> download <link>Docker Desktop</link> and run the installer.",
     "step1Linux": "<b>Linux:</b> install <link>Docker Engine</link> with your package manager.",
     "step1Check": "Check that it works:",
-    "step2Title": "Get Quest of the Roasted Bean",
+    "step2Title": "Get %BRAND%",
     "step2Intro": "Download the latest release and unpack it, or get it with git:",
     "step2Zip": "(Prefer without git? Download the ZIP from the releases page and unpack it into a folder.)",
     "step3Title": "Set up configuration",
@@ -245,7 +245,7 @@
   },
   "Tap": {
     "unknownTagTitle": "Unknown tag",
-    "unknownTagBody": "This NFC tag is not registered in Quest of the Roasted Bean.",
+    "unknownTagBody": "This NFC tag is not registered in %BRAND%.",
     "toDashboard": "To dashboard",
     "station": "Station",
     "loggedInAs": "Logged in as",
