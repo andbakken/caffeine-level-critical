@@ -28,6 +28,8 @@ services:
       DATABASE_URL: ${EXTERNAL_DATABASE_URL:-postgresql://quest-of-the-roasted-bean:${POSTGRES_PASSWORD:-quest-of-the-roasted-bean}@db:5432/quest-of-the-roasted-bean}
       ADMIN_NICKNAME: ${ADMIN_NICKNAME:-GameMaster}
       ADMIN_PIN: ${ADMIN_PIN:-1234}
+      # Valgfritt: support-e-post. Vises som «Hjelp»-lenke i menyen når satt.
+      SUPPORT_EMAIL: ${SUPPORT_EMAIL:-}
       UPLOAD_DIR: /app/uploads
     ports:
       - "${PORT:-3000}:3000"

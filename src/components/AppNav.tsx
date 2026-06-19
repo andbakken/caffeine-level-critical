@@ -6,7 +6,15 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { APP_NAME } from "@/lib/brand";
 
-export function AppNav({ nickname, isAdmin }: { nickname: string; isAdmin: boolean }) {
+export function AppNav({
+  nickname,
+  isAdmin,
+  supportEmail,
+}: {
+  nickname: string;
+  isAdmin: boolean;
+  supportEmail: string | null;
+}) {
   const t = useTranslations("Nav");
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -43,6 +51,16 @@ export function AppNav({ nickname, isAdmin }: { nickname: string; isAdmin: boole
         <span aria-hidden>🎮</span>
         {nickname}
       </Link>
+      {supportEmail && (
+        <a
+          href={`mailto:${supportEmail}?subject=${encodeURIComponent(t("supportSubject", { app: APP_NAME }))}`}
+          className="text-ink-dim hover:text-accent-2 flex items-center gap-2"
+          onClick={close}
+        >
+          <span aria-hidden>✉️</span>
+          {t("support")}
+        </a>
+      )}
       <button
         type="button"
         onClick={logout}

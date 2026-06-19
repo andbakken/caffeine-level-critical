@@ -151,6 +151,8 @@
     "leaderboard": "Leaderboard",
     "stats": "Statistics",
     "admin": "Admin",
+    "support": "Help",
+    "supportSubject": "Support – {app}",
     "logout": "Log out"
   },
   "Home": {
