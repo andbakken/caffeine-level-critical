@@ -266,6 +266,10 @@
     "logs": "Logs: {drink}",
     "defaultHeading": "Scan here – log your cup",
     "defaultBody": "Turn the coffee break into a competition.",
+    "tagline": "Turn the coffee break into a competition.",
+    "feature1": "One tap – your cup is logged",
+    "feature2": "Unlock badges and achievements",
+    "feature3": "Leaderboard by person and team",
     "headingLabel": "Heading",
     "bodyLabel": "Promo text",
     "logoAlt": "Logo"

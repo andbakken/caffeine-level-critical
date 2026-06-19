@@ -266,6 +266,10 @@
     "logs": "Logger: {drink}",
     "defaultHeading": "Skann her – logg kaffekoppen",
     "defaultBody": "Gjør kaffepausen til en konkurranse.",
+    "tagline": "Gjør kaffepausen til en konkurranse.",
+    "feature1": "Ett tapp – koppen er logget",
+    "feature2": "Lås opp merker og achievements",
+    "feature3": "Toppliste per person og avdeling",
     "headingLabel": "Overskrift",
     "bodyLabel": "Promotekst",
     "logoAlt": "Logo"
