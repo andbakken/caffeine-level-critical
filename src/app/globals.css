@@ -168,3 +168,49 @@ img {
 ::-webkit-scrollbar { width: 12px; height: 12px; }
 ::-webkit-scrollbar-track { background: var(--color-bg-2); }
 ::-webkit-scrollbar-thumb { background: var(--color-line); border: 2px solid var(--color-bg-2); }
+
+/* ---------- A5-plakat (skann-her-ark) ---------- */
+/* Redigerbare felt på plakaten: ser ut som vanlig tekst, men får en diskret
+   stiplet ramme på skjerm for å vise at de kan endres. Rammen fjernes ved utskrift. */
+.poster-edit {
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px dashed #bbb;
+  border-radius: 2px;
+  padding: 1mm 2mm;
+  width: 100%;
+  outline: none;
+}
+.poster-edit:focus {
+  border-color: var(--color-accent);
+}
+
+@media print {
+  @page {
+    size: A5;
+    margin: 0;
+  }
+  html,
+  body {
+    background: #fff !important;
+    background-image: none !important;
+  }
+  /* Skjul alt unntatt selve arket */
+  .poster-toolbar {
+    display: none !important;
+  }
+  .poster-screen {
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+  .poster-sheet {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+  /* Redigerings-rammer skal ikke skrives ut */
+  .poster-edit {
+    border-color: transparent !important;
+  }
+}

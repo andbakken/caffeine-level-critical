@@ -257,5 +257,17 @@
     "whatDidYouDrink": "What did you drink?",
     "somethingWrong": "Something went wrong",
     "networkError": "Network error"
+  },
+  "Poster": {
+    "printButton": "🖨 Print",
+    "editHint": "You can edit the text below before printing (not saved).",
+    "scanHere": "☕ SCAN HERE ☕",
+    "scanInstructions": "Tap your phone on the tag (NFC) or scan the QR code with your camera.",
+    "logs": "Logs: {drink}",
+    "defaultHeading": "Scan here – log your cup",
+    "defaultBody": "Turn the coffee break into a competition.",
+    "headingLabel": "Heading",
+    "bodyLabel": "Promo text",
+    "logoAlt": "Logo"
   }
 }

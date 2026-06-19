@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Link } from "@/i18n/navigation";
 import { AchievementManager, type AdminAchievement } from "@/components/AchievementManager";
 import { UserManager, type AdminUser } from "@/components/UserManager";
+import { TagQrModal } from "@/components/TagQrModal";
+import { BrandingManager, type Branding } from "@/components/BrandingManager";
 import { copyToClipboard } from "@/lib/clipboard";
 
 type Department = {
@@ -69,13 +72,14 @@ type Tag = {
   scanCount: number;
 };
 
-type TabKey = "users" | "departments" | "stations" | "tags" | "achievements";
+type TabKey = "users" | "departments" | "stations" | "tags" | "achievements" | "branding";
 const TABS: { key: TabKey; label: string }[] = [
   { key: "users", label: "Brukere" },
   { key: "departments", label: "Avdelinger" },
   { key: "stations", label: "Stasjoner" },
   { key: "tags", label: "Tagger" },
   { key: "achievements", label: "Merker" },
+  { key: "branding", label: "Profil" },
 ];
 
 export function AdminClient({
@@ -85,6 +89,7 @@ export function AdminClient({
   tags,
   achievements,
   users,
+  branding,
   currentUserId,
 }: {
   departments: Department[];
@@ -93,6 +98,7 @@ export function AdminClient({
   tags: Tag[];
   achievements: AdminAchievement[];
   users: AdminUser[];
+  branding: Branding;
   currentUserId: number;
 }) {
   const router = useRouter();
@@ -136,6 +142,7 @@ export function AdminClient({
   const [tagLabel, setTagLabel] = useState("");
 
   const [copied, setCopied] = useState<number | null>(null);
+  const [qrTag, setQrTag] = useState<Tag | null>(null);
 
   // Base-URL for brikke-lenker. Brikkene må peke på en adresse mobilene kan nå
   // (maskinens nettverks-/Tailscale-adresse), IKKE localhost. Kan overstyres med
@@ -311,6 +318,9 @@ export function AdminClient({
         <AchievementManager achievements={achievements} drinks={drinks} />
       )}
 
+      {/* ---- Profil / branding ---- */}
+      {tab === "branding" && <BrandingManager branding={branding} />}
+
       {/* ---- NFC-tagger ---- */}
       {tab === "tags" && (
       <section className="flex flex-col gap-4">
@@ -407,6 +417,19 @@ export function AdminClient({
                 >
                   {copied === t.id ? "Kopiert!" : "Kopier lenke"}
                 </button>
+                <button
+                  className="pixel-btn pixel-btn-ghost !py-2 !px-3"
+                  onClick={() => setQrTag(t)}
+                >
+                  QR-kode
+                </button>
+                <Link
+                  href={`/poster/${t.token}`}
+                  target="_blank"
+                  className="pixel-btn pixel-btn-ghost !py-2 !px-3"
+                >
+                  A5-plakat
+                </Link>
                 <button
                   className="pixel-btn pixel-btn-danger !py-2 !px-3"
                   onClick={() => deleteTag(t.id)}
@@ -571,6 +594,16 @@ export function AdminClient({
         )}
       </section>
       )}
+
+      <TagQrModal
+        open={qrTag !== null}
+        onClose={() => setQrTag(null)}
+        url={`${tagBase || (typeof window !== "undefined" ? window.location.origin : "")}/t/${qrTag?.token ?? ""}`}
+        title={
+          qrTag ? `${qrTag.stationName}${qrTag.label ? ` · ${qrTag.label}` : ""}` : undefined
+        }
+        fileBase={qrTag ? `${qrTag.stationName}-${qrTag.label ?? qrTag.token}` : undefined}
+      />
     </div>
   );
 }

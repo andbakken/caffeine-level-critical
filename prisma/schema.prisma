@@ -125,6 +125,16 @@ model UserAchievement {
   @@unique([userId, achievementId])
 }
 
+// App-vid branding (singleton, alltid id=1). Logo + plakat-tekst som admin styrer
+// selv, brukt på A5-«skann her»-arkene. Appen er én-instans, så én rad holder.
+model OrgProfile {
+  id            Int      @id @default(1)
+  logoPath      String? // filnavn i UPLOAD_DIR, serveres via /api/uploads/[file]
+  posterHeading String? // CTA-overskrift på plakaten (default om tom)
+  posterBody    String? // promotekst på plakaten (default om tom)
+  updatedAt     DateTime @updatedAt
+}
+
 model Session {
   id        String   @id // random opaque token stored in httpOnly cookie
   userId    Int

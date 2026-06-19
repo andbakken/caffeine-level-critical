@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { getOrgProfile } from "@/lib/orgProfile";
 import { AdminClient } from "@/components/AdminClient";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +11,7 @@ export default async function AdminPage() {
   if (!user) redirect("/login?next=/admin");
   if (!user.isAdmin) redirect("/dashboard");
 
-  const [departments, stations, drinks, tags, achievements, users] = await Promise.all([
+  const [departments, stations, drinks, tags, achievements, users, branding] = await Promise.all([
     prisma.department.findMany({
       orderBy: { name: "asc" },
       include: { _count: { select: { users: true } } },
@@ -32,11 +33,13 @@ export default async function AdminPage() {
       orderBy: { nickname: "asc" },
       include: { department: true, _count: { select: { consumptions: true } } },
     }),
+    getOrgProfile(),
   ]);
 
   return (
     <AdminClient
       currentUserId={user.id}
+      branding={branding}
       users={users.map((u) => ({
         id: u.id,
         nickname: u.nickname,

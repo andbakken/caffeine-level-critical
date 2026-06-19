@@ -257,5 +257,17 @@
     "whatDidYouDrink": "Hva drakk du?",
     "somethingWrong": "Noe gikk galt",
     "networkError": "Nettverksfeil"
+  },
+  "Poster": {
+    "printButton": "🖨 Skriv ut",
+    "editHint": "Tekstene under kan endres før utskrift (lagres ikke).",
+    "scanHere": "☕ SKANN HER ☕",
+    "scanInstructions": "Hold telefonen mot brikken (NFC) eller skann QR-koden med kameraet.",
+    "logs": "Logger: {drink}",
+    "defaultHeading": "Skann her – logg kaffekoppen",
+    "defaultBody": "Gjør kaffepausen til en konkurranse.",
+    "headingLabel": "Overskrift",
+    "bodyLabel": "Promotekst",
+    "logoAlt": "Logo"
   }
 }
