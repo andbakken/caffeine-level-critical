@@ -52,16 +52,25 @@ async function main() {
   }
 
   // --- Admin-bruker fra miljøvariabler ---
+  // Hostet: ADMIN_EMAIL settes → admin logger inn med magic-link (PIN valgfri).
+  // Selvhostet: kun ADMIN_NICKNAME/ADMIN_PIN → PIN-innlogging som før.
   const nickname = (process.env.ADMIN_NICKNAME ?? "GameMaster").trim();
-  const pin = (process.env.ADMIN_PIN ?? "1234").trim();
-  const existing = await prisma.user.findUnique({ where: { nickname } });
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase() || null;
+  const pinRaw = process.env.ADMIN_PIN?.trim();
+  const pinHash = pinRaw ? bcrypt.hashSync(pinRaw, 10) : null;
+
+  // Finn eksisterende admin på e-post (hostet) eller kallenavn (selvhostet).
+  const existing = email
+    ? await prisma.user.findFirst({ where: { OR: [{ email }, { nickname }] } })
+    : await prisma.user.findUnique({ where: { nickname } });
+
   if (!existing) {
     await prisma.user.create({
-      data: { nickname, pinHash: bcrypt.hashSync(pin, 10), departmentId: dept.id, isAdmin: true },
+      data: { nickname, email, pinHash, departmentId: dept.id, isAdmin: true },
     });
-    console.log(`Opprettet admin-bruker «${nickname}».`);
+    console.log(`Opprettet admin-bruker «${nickname}»${email ? ` (${email})` : ""}.`);
   } else {
-    console.log(`Admin-bruker «${nickname}» finnes allerede — hopper over.`);
+    console.log(`Admin-bruker finnes allerede — hopper over.`);
   }
 
   console.log("Bootstrap ferdig ✔");

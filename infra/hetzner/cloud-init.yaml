@@ -1,0 +1,54 @@
+#cloud-config
+# Førstegangsoppsett av Hetzner-VPS for hostet drift (modell A).
+# Sendes inn via `hcloud server create --user-data-from-file`. Kjører ÉN gang.
+# Installerer Docker, herder SSH, slår på brannmur. Hemmeligheter sendes IKKE inn her –
+# de kopieres separat (scp infra/.env) og stacken startes via infra/README.md.
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - ufw
+  - fail2ban
+
+users:
+  - name: deploy
+    groups: [sudo, docker]
+    shell: /bin/bash
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    # Hetzner injiserer SSH-nøkkelen din på root; vi speiler den til deploy.
+    ssh_authorized_keys: []
+
+write_files:
+  # Hardened SSH: ingen passord, ingen root-login.
+  - path: /etc/ssh/sshd_config.d/99-hardening.conf
+    content: |
+      PasswordAuthentication no
+      PermitRootLogin prohibit-password
+      KbdInteractiveAuthentication no
+  - path: /opt/brewquest/README.txt
+    content: |
+      Infra-stacken bor her. Kopier infra/.env og infra/compose.infra.yml hit,
+      så: `docker compose -f compose.infra.yml --env-file .env up -d`.
+
+runcmd:
+  # Docker (offisiell convenience-script)
+  - curl -fsSL https://get.docker.com | sh
+  - systemctl enable --now docker
+  # Speil root sin SSH-nøkkel til deploy-brukeren
+  - mkdir -p /home/deploy/.ssh
+  - cp /root/.ssh/authorized_keys /home/deploy/.ssh/authorized_keys
+  - chown -R deploy:deploy /home/deploy/.ssh
+  - chmod 700 /home/deploy/.ssh && chmod 600 /home/deploy/.ssh/authorized_keys
+  - chown -R deploy:deploy /opt/brewquest
+  # Brannmur (Hetzner Cloud Firewall er primær; ufw er belte+seler)
+  - ufw default deny incoming
+  - ufw default allow outgoing
+  - ufw allow 22/tcp
+  - ufw allow 80/tcp
+  - ufw allow 443/tcp
+  - ufw --force enable
+  - systemctl restart ssh

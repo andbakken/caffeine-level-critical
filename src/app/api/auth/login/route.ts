@@ -16,7 +16,8 @@ export async function POST(req: Request) {
 
   const { nickname, pin } = parsed.data;
   const user = await prisma.user.findUnique({ where: { nickname } });
-  if (!user || !user.isActive || !verifyPin(pin, user.pinHash)) {
+  // pinHash kan være null for e-post-admin (logger inn via magic-link, ikke PIN).
+  if (!user || !user.isActive || !user.pinHash || !verifyPin(pin, user.pinHash)) {
     return fail("Feil kallenavn eller PIN", 401);
   }
 

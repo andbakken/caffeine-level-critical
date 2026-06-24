@@ -27,7 +27,8 @@ model Department {
 model User {
   id           Int               @id @default(autoincrement())
   nickname     String            @unique
-  pinHash      String
+  email        String?           @unique // admin-innlogging via e-post magic-link (hostet)
+  pinHash      String? // valgfri: spillere logger inn med PIN, e-post-admin trenger den ikke
   departmentId Int
   department   Department        @relation(fields: [departmentId], references: [id])
   avatarPath   String?
@@ -36,7 +37,21 @@ model User {
   createdAt    DateTime          @default(now())
   consumptions Consumption[]
   sessions     Session[]
+  loginTokens  LoginToken[]
   achievements UserAchievement[]
+}
+
+// Engangs magic-link-token for passordløs admin-innlogging. `id` er sha256(token);
+// selve token-en ligger bare i e-postlenken, aldri i databasen. Kort levetid + engangsbruk.
+model LoginToken {
+  id        String    @id // sha256-hash av råtoken
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
 }
 
 model Drink {

@@ -156,9 +156,9 @@ export default function ProductPage() {
               <span className="text-lg text-ink-dim">{price.period}</span>
             </div>
             <p className="text-ink-dim text-base">{t("hostedDesc")}</p>
-            <a href="#" className="pixel-btn pixel-btn-gold mt-auto">
+            <Link href="/kom-i-gang" className="pixel-btn pixel-btn-gold mt-auto">
               {t("startTrial")}
-            </a>
+            </Link>
           </div>
         </div>
       </section>

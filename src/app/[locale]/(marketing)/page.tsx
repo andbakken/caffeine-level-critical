@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { useTranslations, useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { OfficeScene } from "@/components/OfficeScene";
+import { Link } from "@/i18n/navigation";
 import { hostedPrice } from "@/lib/pricing";
 import { marketingMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
@@ -109,9 +110,9 @@ export default function LandingPage() {
                   <Li key={b}>{b}</Li>
                 ))}
               </ul>
-              <a href="#" className="pixel-btn pixel-btn-ghost mt-auto">
+              <Link href="/last-ned" className="pixel-btn pixel-btn-ghost mt-auto">
                 {t("downloadDocker")}
-              </a>
+              </Link>
             </div>
 
             {/* Hostet */}
@@ -130,9 +131,9 @@ export default function LandingPage() {
                   <Li key={b}>{b}</Li>
                 ))}
               </ul>
-              <a href="#" className="pixel-btn pixel-btn-gold mt-auto">
+              <Link href="/kom-i-gang" className="pixel-btn pixel-btn-gold mt-auto">
                 {t("startTrial")}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -22,6 +22,12 @@ export const loginSchema = z.object({
   pin: z.string().min(1),
 });
 
+export const emailSchema = z.string().trim().toLowerCase().email("Ugyldig e-postadresse");
+
+export const magicRequestSchema = z.object({
+  email: emailSchema,
+});
+
 export const drinkKeySchema = z.string().trim().min(1).max(40);
 
 export const updateProfileSchema = z.object({

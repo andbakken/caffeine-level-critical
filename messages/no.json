@@ -29,28 +29,67 @@
     "pricingNote": "Gratis å kjøre selv · eller hostet fra {price}{period}",
     "featuresHeading": "Alt teamet trenger",
     "features": [
-      { "icon": "📟", "title": "Skann og logg", "body": "Hold telefonen mot en NFC-brikke ved kaffemaskinen — ett tapp registrerer koppen. Ingen app å installere." },
-      { "icon": "🏆", "title": "Toppliste", "body": "Daglig, ukentlig og total rangering — per person og per avdeling. Hvem er egentlig kontorets koffeinkonge?" },
-      { "icon": "🎖️", "title": "Merker", "body": "Lås opp morsomme merker som «Morgenfugl» og «Koppmester». Admin lager og styrer reglene selv." },
-      { "icon": "📊", "title": "Statistikk", "body": "Live dashboard med trender, fordeling mellom drikker og aktivitet over tid — i sjarmerende pixel-stil." }
+      {
+        "icon": "📟",
+        "title": "Skann og logg",
+        "body": "Hold telefonen mot en NFC-brikke ved kaffemaskinen — ett tapp registrerer koppen. Ingen app å installere."
+      },
+      {
+        "icon": "🏆",
+        "title": "Toppliste",
+        "body": "Daglig, ukentlig og total rangering — per person og per avdeling. Hvem er egentlig kontorets koffeinkonge?"
+      },
+      {
+        "icon": "🎖️",
+        "title": "Merker",
+        "body": "Lås opp morsomme merker som «Morgenfugl» og «Koppmester». Admin lager og styrer reglene selv."
+      },
+      {
+        "icon": "📊",
+        "title": "Statistikk",
+        "body": "Live dashboard med trender, fordeling mellom drikker og aktivitet over tid — i sjarmerende pixel-stil."
+      }
     ],
     "howHeading": "Slik fungerer det",
     "steps": [
-      { "n": "1", "title": "Sett opp", "body": "Lag avdelinger og kaffestasjoner i admin, og fest NFC-brikker ved maskinene." },
-      { "n": "2", "title": "Skann", "body": "Folk holder telefonen mot brikken og koppen logges på sekundet." },
-      { "n": "3", "title": "Konkurrer", "body": "Følg topplista, samle merker og se statistikken vokse." }
+      {
+        "n": "1",
+        "title": "Sett opp",
+        "body": "Lag avdelinger og kaffestasjoner i admin, og fest NFC-brikker ved maskinene."
+      },
+      {
+        "n": "2",
+        "title": "Skann",
+        "body": "Folk holder telefonen mot brikken og koppen logges på sekundet."
+      },
+      {
+        "n": "3",
+        "title": "Konkurrer",
+        "body": "Følg topplista, samle merker og se statistikken vokse."
+      }
     ],
     "pricingHeading": "Velg din versjon",
     "selfHostedTitle": "Selvhostet",
     "free": "Gratis",
     "selfHostedBody": "Kjør det på din egen maskin eller server med Docker. Du eier dataene.",
-    "selfHostedBullets": ["Alle funksjoner", "Ubegrenset antall brukere", "Kjører på ditt eget nett", "Fellesskaps-støtte"],
+    "selfHostedBullets": [
+      "Alle funksjoner",
+      "Ubegrenset antall brukere",
+      "Kjører på ditt eget nett",
+      "Fellesskaps-støtte"
+    ],
     "downloadDocker": "Last ned (Docker)",
     "hostedTitle": "Hostet",
     "recommended": "ANBEFALT",
     "perMonth": "{price}{period}",
     "hostedBody": "Vi tar oss av alt. Klar på minutter, med innlogging og automatiske oppdateringer.",
-    "hostedBullets": ["Alt i selvhostet, pluss:", "Ingen oppsett eller drift", "Sikker innlogging per bruker", "Backup og oppdateringer inkludert", "Hostet i EU — GDPR-vennlig"],
+    "hostedBullets": [
+      "Alt i selvhostet, pluss:",
+      "Ingen oppsett eller drift",
+      "Sikker innlogging per bruker",
+      "Backup og oppdateringer inkludert",
+      "Hostet i EU — GDPR-vennlig"
+    ],
     "startTrial": "Start gratis prøveperiode",
     "endTitle": "Klar til å koke i gang?",
     "endBody": "Sett opp %BRAND% for teamet ditt i dag — og finn ut hvem som egentlig holder kontoret i gang."
@@ -61,12 +100,36 @@
     "heroTitle": "Hele kaffekonkurransen, i én liten app",
     "heroBody": "%BRAND% gjør hverdagens kaffepauser om til et lett spill med poeng, merker og topplister — bygget for team som liker å konkurrere litt.",
     "details": [
-      { "icon": "📟", "title": "NFC-skanning", "body": "Fest en brikke ved hver kaffemaskin. Ett tapp med telefonen logger koppen — ingen app, ingen innlogging i farten. En brikke kan låses til én drikke, eller la brukeren velge." },
-      { "icon": "🏆", "title": "Toppliste & avdelinger", "body": "Rangér enkeltpersoner og avdelinger — i dag, denne uka eller totalt. Perfekt for litt sunn intern rivalisering mellom teamene." },
-      { "icon": "🎖️", "title": "Regelstyrte merker", "body": "Admin lager merker selv og setter regelen: antall kopper, ulike drikketyper, antall av én bestemt drikke, eller tidspunkt på dagen. De deles ut automatisk." },
-      { "icon": "📊", "title": "Live statistikk", "body": "Dashboard med trender, fordeling mellom kaffe/te/kakao og aktivitet over tid — alt i sanntid og i sjarmerende pixel-stil." },
-      { "icon": "🎮", "title": "Profiler & avatarer", "body": "Hver bruker har kallenavn, avdeling og eget bilde. Følg dine egne kopper, merker og plassering på topplista." },
-      { "icon": "⚙️", "title": "Full admin-kontroll", "body": "Opprett avdelinger, stasjoner, NFC-tagger og merker fra ett sted. Kopier brikke-lenker rett fra admin." }
+      {
+        "icon": "📟",
+        "title": "NFC-skanning",
+        "body": "Fest en brikke ved hver kaffemaskin. Ett tapp med telefonen logger koppen — ingen app, ingen innlogging i farten. En brikke kan låses til én drikke, eller la brukeren velge."
+      },
+      {
+        "icon": "🏆",
+        "title": "Toppliste & avdelinger",
+        "body": "Rangér enkeltpersoner og avdelinger — i dag, denne uka eller totalt. Perfekt for litt sunn intern rivalisering mellom teamene."
+      },
+      {
+        "icon": "🎖️",
+        "title": "Regelstyrte merker",
+        "body": "Admin lager merker selv og setter regelen: antall kopper, ulike drikketyper, antall av én bestemt drikke, eller tidspunkt på dagen. De deles ut automatisk."
+      },
+      {
+        "icon": "📊",
+        "title": "Live statistikk",
+        "body": "Dashboard med trender, fordeling mellom kaffe/te/kakao og aktivitet over tid — alt i sanntid og i sjarmerende pixel-stil."
+      },
+      {
+        "icon": "🎮",
+        "title": "Profiler & avatarer",
+        "body": "Hver bruker har kallenavn, avdeling og eget bilde. Følg dine egne kopper, merker og plassering på topplista."
+      },
+      {
+        "icon": "⚙️",
+        "title": "Full admin-kontroll",
+        "body": "Opprett avdelinger, stasjoner, NFC-tagger og merker fra ett sted. Kopier brikke-lenker rett fra admin."
+      }
     ],
     "nfcHeading": "Slik fungerer NFC-brikkene",
     "nfcIntro": "En %BRAND%-brikke inneholder bare en nettlenke. Telefonen åpner lenken ved skanning, og koppen logges på sekundet. Samme mekanisme uansett om du hoster selv eller lar oss gjøre det.",
@@ -79,14 +142,46 @@
     "priceLabel": "Pris",
     "free": "Gratis",
     "compareRows": [
-      { "label": "Alle funksjoner", "self": "✔", "hosted": "✔" },
-      { "label": "Ubegrenset brukere", "self": "✔", "hosted": "✔" },
-      { "label": "Du eier dataene", "self": "✔", "hosted": "Hos oss" },
-      { "label": "Hvor dataene lagres", "self": "Din maskin", "hosted": "EU (GDPR)" },
-      { "label": "Oppsett & drift", "self": "Du selv (Docker)", "hosted": "Vi tar oss av det" },
-      { "label": "Innlogging per bruker", "self": "PIN på lokalnett", "hosted": "Sikker konto" },
-      { "label": "Backup & oppdatering", "self": "Du selv", "hosted": "Inkludert" },
-      { "label": "Krever egen server", "self": "Ja", "hosted": "Nei" }
+      {
+        "label": "Alle funksjoner",
+        "self": "✔",
+        "hosted": "✔"
+      },
+      {
+        "label": "Ubegrenset brukere",
+        "self": "✔",
+        "hosted": "✔"
+      },
+      {
+        "label": "Du eier dataene",
+        "self": "✔",
+        "hosted": "Hos oss"
+      },
+      {
+        "label": "Hvor dataene lagres",
+        "self": "Din maskin",
+        "hosted": "EU (GDPR)"
+      },
+      {
+        "label": "Oppsett & drift",
+        "self": "Du selv (Docker)",
+        "hosted": "Vi tar oss av det"
+      },
+      {
+        "label": "Innlogging per bruker",
+        "self": "PIN på lokalnett",
+        "hosted": "Sikker konto"
+      },
+      {
+        "label": "Backup & oppdatering",
+        "self": "Du selv",
+        "hosted": "Inkludert"
+      },
+      {
+        "label": "Krever egen server",
+        "self": "Ja",
+        "hosted": "Nei"
+      }
     ],
     "pricingHeading": "Priser",
     "selfHostedDesc": "Kjør på egen maskin med Docker. Full kontroll og eierskap til dataene.",
@@ -97,19 +192,55 @@
     "hostingHeading": "Rammene for hostingen",
     "hostingIntro": "Velger du den hostede versjonen, tar vi oss av hele driften — trygt, oppdatert og forutsigbart.",
     "hostingBullets": [
-      { "icon": "🇪🇺", "title": "Data i EU", "body": "Alt kjører i europeiske datasentre (Finland). GDPR-vennlig — dataene forlater aldri EU." },
-      { "icon": "💾", "title": "Daglig backup", "body": "Automatisk sikkerhetskopi hver dag, så ingenting går tapt." },
-      { "icon": "🔄", "title": "Automatiske oppdateringer", "body": "Du får alltid nyeste versjon uten å løfte en finger." },
-      { "icon": "🔒", "title": "Sikker innlogging", "body": "Egen konto per bruker og kryptert HTTPS hele veien." },
-      { "icon": "⚡", "title": "Klar på minutter", "body": "Eget domene settes opp automatisk når du registrerer deg." },
-      { "icon": "📈", "title": "Vokser med teamet", "body": "Fra et lite team til hele bedriften — uten at du merker driften." }
+      {
+        "icon": "🇪🇺",
+        "title": "Data i EU",
+        "body": "Alt kjører i europeiske datasentre (Finland). GDPR-vennlig — dataene forlater aldri EU."
+      },
+      {
+        "icon": "💾",
+        "title": "Daglig backup",
+        "body": "Automatisk sikkerhetskopi hver dag, så ingenting går tapt."
+      },
+      {
+        "icon": "🔄",
+        "title": "Automatiske oppdateringer",
+        "body": "Du får alltid nyeste versjon uten å løfte en finger."
+      },
+      {
+        "icon": "🔒",
+        "title": "Sikker innlogging",
+        "body": "Egen konto per bruker og kryptert HTTPS hele veien."
+      },
+      {
+        "icon": "⚡",
+        "title": "Klar på minutter",
+        "body": "Eget domene settes opp automatisk når du registrerer deg."
+      },
+      {
+        "icon": "📈",
+        "title": "Vokser med teamet",
+        "body": "Fra et lite team til hele bedriften — uten at du merker driften."
+      }
     ],
     "faqHeading": "Ofte stilte spørsmål",
     "faq": [
-      { "q": "Trenger brukerne å installere en app?", "a": "Nei. NFC-skanning åpner bare en nettside i telefonens nettleser. De som vil kan lage en profil for å samle egne merker, men man kan også logge kopper uten." },
-      { "q": "Fungerer det på iPhone?", "a": "Ja. Fordi brikkene bruker en vanlig nettlenke (URL), fungerer skanning på både iPhone og Android — uten ekstra app eller spesielle tillatelser." },
-      { "q": "Hvor lagres dataene?", "a": "I selvhostet versjon: på din egen maskin/server — du eier alt. I hostet versjon: trygt hos oss i europeiske datasentre (Finland, GDPR-vennlig — dataene forlater aldri EU), med daglig backup og oppdateringer inkludert." },
-      { "q": "Kan vi bytte fra selvhostet til hostet senere?", "a": "Ja. Da må de fysiske brikkene skrives om én gang fordi domenet endres, men all funksjonalitet er den samme." }
+      {
+        "q": "Trenger brukerne å installere en app?",
+        "a": "Nei. NFC-skanning åpner bare en nettside i telefonens nettleser. De som vil kan lage en profil for å samle egne merker, men man kan også logge kopper uten."
+      },
+      {
+        "q": "Fungerer det på iPhone?",
+        "a": "Ja. Fordi brikkene bruker en vanlig nettlenke (URL), fungerer skanning på både iPhone og Android — uten ekstra app eller spesielle tillatelser."
+      },
+      {
+        "q": "Hvor lagres dataene?",
+        "a": "I selvhostet versjon: på din egen maskin/server — du eier alt. I hostet versjon: trygt hos oss i europeiske datasentre (Finland, GDPR-vennlig — dataene forlater aldri EU), med daglig backup og oppdateringer inkludert."
+      },
+      {
+        "q": "Kan vi bytte fra selvhostet til hostet senere?",
+        "a": "Ja. Da må de fysiske brikkene skrives om én gang fordi domenet endres, men all funksjonalitet er den samme."
+      }
     ]
   },
   "Download": {
@@ -222,7 +353,11 @@
     "login": "Logg inn",
     "pinMismatch": "PIN-kodene er ikke like",
     "registerFailed": "Registrering feilet",
-    "photoLater": "Bilde kan du legge til etterpå på profilsiden."
+    "photoLater": "Bilde kan du legge til etterpå på profilsiden.",
+    "adminEmailPrompt": "Admin? Logg inn med e-post",
+    "emailLabel": "E-post",
+    "sendMagicLink": "Send innloggingslenke",
+    "magicLinkSent": "Sjekk e-posten din – vi har sendt en innloggingslenke hvis adressen finnes."
   },
   "Me": {
     "uploadPhoto": "Last opp bilde",
@@ -275,5 +410,19 @@
     "headingLabel": "Overskrift",
     "bodyLabel": "Promotekst",
     "logoAlt": "Logo"
+  },
+  "Onboarding": {
+    "title": "Kom i gang",
+    "intro": "Opprett din egen instans. Du betaler trygt med kort, og løsningen settes opp automatisk på minutter.",
+    "orgName": "Organisasjon",
+    "subdomain": "Ønsket nettadresse",
+    "email": "E-post (admin)",
+    "plan": "Plan",
+    "planStandard": "Standard – 249 kr/mnd",
+    "planTeam": "Team – 499 kr/mnd",
+    "submit": "Til betaling",
+    "submitting": "Sender deg videre…",
+    "genericError": "Noe gikk galt. Prøv igjen.",
+    "subdomainHint": "3–30 tegn: a–z, 0–9 og bindestrek."
   }
 }

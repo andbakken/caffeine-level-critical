@@ -6,6 +6,10 @@ import { prisma } from "@/lib/db";
 const SESSION_COOKIE = "bq_session";
 const SESSION_DAYS = 180; // hold folk innlogget lenge på mobilen
 
+// Sikker cookie så snart appen kjører på HTTPS (hostet). Selvhosting over LAN/HTTP
+// (NEXT_PUBLIC_SITE_URL tom eller http://) beholder secure=false så cookien funker.
+const SECURE_COOKIE = (process.env.NEXT_PUBLIC_SITE_URL ?? "").startsWith("https://");
+
 export function hashPin(pin: string): string {
   return bcrypt.hashSync(pin, 10);
 }
@@ -23,7 +27,7 @@ export async function createSession(userId: number): Promise<void> {
   jar.set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: false, // intern LAN over HTTP
+    secure: SECURE_COOKIE,
     path: "/",
     maxAge: SESSION_DAYS * 86400,
   });

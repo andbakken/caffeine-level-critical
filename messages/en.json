@@ -29,28 +29,67 @@
     "pricingNote": "Free to self-host · or hosted from {price}{period}",
     "featuresHeading": "Everything the team needs",
     "features": [
-      { "icon": "📟", "title": "Scan & log", "body": "Hold your phone to an NFC tag by the coffee machine — one tap logs the cup. No app to install." },
-      { "icon": "🏆", "title": "Leaderboard", "body": "Daily, weekly and all-time ranking — per person and per department. Who's really the office caffeine king?" },
-      { "icon": "🎖️", "title": "Badges", "body": "Unlock fun badges like “Early Bird” and “Cup Master”. Admins create and control the rules." },
-      { "icon": "📊", "title": "Statistics", "body": "Live dashboard with trends, drink distribution and activity over time — in charming pixel style." }
+      {
+        "icon": "📟",
+        "title": "Scan & log",
+        "body": "Hold your phone to an NFC tag by the coffee machine — one tap logs the cup. No app to install."
+      },
+      {
+        "icon": "🏆",
+        "title": "Leaderboard",
+        "body": "Daily, weekly and all-time ranking — per person and per department. Who's really the office caffeine king?"
+      },
+      {
+        "icon": "🎖️",
+        "title": "Badges",
+        "body": "Unlock fun badges like “Early Bird” and “Cup Master”. Admins create and control the rules."
+      },
+      {
+        "icon": "📊",
+        "title": "Statistics",
+        "body": "Live dashboard with trends, drink distribution and activity over time — in charming pixel style."
+      }
     ],
     "howHeading": "How it works",
     "steps": [
-      { "n": "1", "title": "Set up", "body": "Create departments and coffee stations in admin, and attach NFC tags to the machines." },
-      { "n": "2", "title": "Scan", "body": "People hold their phone to the tag and the cup is logged instantly." },
-      { "n": "3", "title": "Compete", "body": "Follow the leaderboard, collect badges and watch the stats grow." }
+      {
+        "n": "1",
+        "title": "Set up",
+        "body": "Create departments and coffee stations in admin, and attach NFC tags to the machines."
+      },
+      {
+        "n": "2",
+        "title": "Scan",
+        "body": "People hold their phone to the tag and the cup is logged instantly."
+      },
+      {
+        "n": "3",
+        "title": "Compete",
+        "body": "Follow the leaderboard, collect badges and watch the stats grow."
+      }
     ],
     "pricingHeading": "Choose your edition",
     "selfHostedTitle": "Self-hosted",
     "free": "Free",
     "selfHostedBody": "Run it on your own machine or server with Docker. You own the data.",
-    "selfHostedBullets": ["All features", "Unlimited users", "Runs on your own network", "Community support"],
+    "selfHostedBullets": [
+      "All features",
+      "Unlimited users",
+      "Runs on your own network",
+      "Community support"
+    ],
     "downloadDocker": "Download (Docker)",
     "hostedTitle": "Hosted",
     "recommended": "RECOMMENDED",
     "perMonth": "{price}{period}",
     "hostedBody": "We take care of everything. Ready in minutes, with login and automatic updates.",
-    "hostedBullets": ["Everything in self-hosted, plus:", "No setup or maintenance", "Secure per-user login", "Backup and updates included", "Hosted in the EU — GDPR-friendly"],
+    "hostedBullets": [
+      "Everything in self-hosted, plus:",
+      "No setup or maintenance",
+      "Secure per-user login",
+      "Backup and updates included",
+      "Hosted in the EU — GDPR-friendly"
+    ],
     "startTrial": "Start free trial",
     "endTitle": "Ready to get brewing?",
     "endBody": "Set up %BRAND% for your team today — and find out who really keeps the office running."
@@ -61,12 +100,36 @@
     "heroTitle": "The whole coffee contest, in one little app",
     "heroBody": "%BRAND% turns everyday coffee breaks into a light game with points, badges and leaderboards — built for teams that like a bit of competition.",
     "details": [
-      { "icon": "📟", "title": "NFC scanning", "body": "Attach a tag to each coffee machine. One tap with your phone logs the cup — no app, no signing in on the spot. A tag can be locked to one drink, or let the user choose." },
-      { "icon": "🏆", "title": "Leaderboard & departments", "body": "Rank individuals and departments — today, this week or all-time. Perfect for a bit of healthy internal rivalry between teams." },
-      { "icon": "🎖️", "title": "Rule-based badges", "body": "Admins create badges and set the rule: number of cups, distinct drink types, count of one specific drink, or time of day. They're awarded automatically." },
-      { "icon": "📊", "title": "Live statistics", "body": "Dashboard with trends, the split between coffee/tea/cocoa and activity over time — all in real time and in charming pixel style." },
-      { "icon": "🎮", "title": "Profiles & avatars", "body": "Each user has a nickname, department and their own picture. Track your own cups, badges and place on the leaderboard." },
-      { "icon": "⚙️", "title": "Full admin control", "body": "Create departments, stations, NFC tags and badges from one place. Copy tag links straight from admin." }
+      {
+        "icon": "📟",
+        "title": "NFC scanning",
+        "body": "Attach a tag to each coffee machine. One tap with your phone logs the cup — no app, no signing in on the spot. A tag can be locked to one drink, or let the user choose."
+      },
+      {
+        "icon": "🏆",
+        "title": "Leaderboard & departments",
+        "body": "Rank individuals and departments — today, this week or all-time. Perfect for a bit of healthy internal rivalry between teams."
+      },
+      {
+        "icon": "🎖️",
+        "title": "Rule-based badges",
+        "body": "Admins create badges and set the rule: number of cups, distinct drink types, count of one specific drink, or time of day. They're awarded automatically."
+      },
+      {
+        "icon": "📊",
+        "title": "Live statistics",
+        "body": "Dashboard with trends, the split between coffee/tea/cocoa and activity over time — all in real time and in charming pixel style."
+      },
+      {
+        "icon": "🎮",
+        "title": "Profiles & avatars",
+        "body": "Each user has a nickname, department and their own picture. Track your own cups, badges and place on the leaderboard."
+      },
+      {
+        "icon": "⚙️",
+        "title": "Full admin control",
+        "body": "Create departments, stations, NFC tags and badges from one place. Copy tag links straight from admin."
+      }
     ],
     "nfcHeading": "How the NFC tags work",
     "nfcIntro": "A %BRAND% tag contains just a web link. The phone opens the link when scanned, and the cup is logged in a second. Same mechanism whether you host it yourself or let us do it.",
@@ -79,14 +142,46 @@
     "priceLabel": "Price",
     "free": "Free",
     "compareRows": [
-      { "label": "All features", "self": "✔", "hosted": "✔" },
-      { "label": "Unlimited users", "self": "✔", "hosted": "✔" },
-      { "label": "You own the data", "self": "✔", "hosted": "With us" },
-      { "label": "Where data is stored", "self": "Your machine", "hosted": "EU (GDPR)" },
-      { "label": "Setup & operations", "self": "Yourself (Docker)", "hosted": "We handle it" },
-      { "label": "Per-user login", "self": "PIN on local network", "hosted": "Secure account" },
-      { "label": "Backup & updates", "self": "Yourself", "hosted": "Included" },
-      { "label": "Requires own server", "self": "Yes", "hosted": "No" }
+      {
+        "label": "All features",
+        "self": "✔",
+        "hosted": "✔"
+      },
+      {
+        "label": "Unlimited users",
+        "self": "✔",
+        "hosted": "✔"
+      },
+      {
+        "label": "You own the data",
+        "self": "✔",
+        "hosted": "With us"
+      },
+      {
+        "label": "Where data is stored",
+        "self": "Your machine",
+        "hosted": "EU (GDPR)"
+      },
+      {
+        "label": "Setup & operations",
+        "self": "Yourself (Docker)",
+        "hosted": "We handle it"
+      },
+      {
+        "label": "Per-user login",
+        "self": "PIN on local network",
+        "hosted": "Secure account"
+      },
+      {
+        "label": "Backup & updates",
+        "self": "Yourself",
+        "hosted": "Included"
+      },
+      {
+        "label": "Requires own server",
+        "self": "Yes",
+        "hosted": "No"
+      }
     ],
     "pricingHeading": "Pricing",
     "selfHostedDesc": "Run it on your own machine with Docker. Full control and ownership of the data.",
@@ -97,19 +192,55 @@
     "hostingHeading": "What the hosting includes",
     "hostingIntro": "Choose the hosted version and we take care of all the operations — secure, up to date and predictable.",
     "hostingBullets": [
-      { "icon": "🇪🇺", "title": "Data in the EU", "body": "Everything runs in European data centres (Finland). GDPR-friendly — your data never leaves the EU." },
-      { "icon": "💾", "title": "Daily backup", "body": "Automatic backup every day, so nothing is lost." },
-      { "icon": "🔄", "title": "Automatic updates", "body": "You always get the latest version without lifting a finger." },
-      { "icon": "🔒", "title": "Secure login", "body": "A dedicated account per user and encrypted HTTPS all the way." },
-      { "icon": "⚡", "title": "Ready in minutes", "body": "Your own domain is set up automatically when you sign up." },
-      { "icon": "📈", "title": "Grows with the team", "body": "From a small team to the whole company — without you noticing the operations." }
+      {
+        "icon": "🇪🇺",
+        "title": "Data in the EU",
+        "body": "Everything runs in European data centres (Finland). GDPR-friendly — your data never leaves the EU."
+      },
+      {
+        "icon": "💾",
+        "title": "Daily backup",
+        "body": "Automatic backup every day, so nothing is lost."
+      },
+      {
+        "icon": "🔄",
+        "title": "Automatic updates",
+        "body": "You always get the latest version without lifting a finger."
+      },
+      {
+        "icon": "🔒",
+        "title": "Secure login",
+        "body": "A dedicated account per user and encrypted HTTPS all the way."
+      },
+      {
+        "icon": "⚡",
+        "title": "Ready in minutes",
+        "body": "Your own domain is set up automatically when you sign up."
+      },
+      {
+        "icon": "📈",
+        "title": "Grows with the team",
+        "body": "From a small team to the whole company — without you noticing the operations."
+      }
     ],
     "faqHeading": "Frequently asked questions",
     "faq": [
-      { "q": "Do users need to install an app?", "a": "No. NFC scanning just opens a web page in the phone's browser. Those who want to can create a profile to collect their own badges, but you can also log cups without one." },
-      { "q": "Does it work on iPhone?", "a": "Yes. Because the tags use a regular web link (URL), scanning works on both iPhone and Android — without an extra app or special permissions." },
-      { "q": "Where is the data stored?", "a": "In the self-hosted version: on your own machine/server — you own everything. In the hosted version: safely with us in European data centres (Finland, GDPR-friendly — your data never leaves the EU), with daily backup and updates included." },
-      { "q": "Can we switch from self-hosted to hosted later?", "a": "Yes. The physical tags then need to be rewritten once because the domain changes, but all functionality is the same." }
+      {
+        "q": "Do users need to install an app?",
+        "a": "No. NFC scanning just opens a web page in the phone's browser. Those who want to can create a profile to collect their own badges, but you can also log cups without one."
+      },
+      {
+        "q": "Does it work on iPhone?",
+        "a": "Yes. Because the tags use a regular web link (URL), scanning works on both iPhone and Android — without an extra app or special permissions."
+      },
+      {
+        "q": "Where is the data stored?",
+        "a": "In the self-hosted version: on your own machine/server — you own everything. In the hosted version: safely with us in European data centres (Finland, GDPR-friendly — your data never leaves the EU), with daily backup and updates included."
+      },
+      {
+        "q": "Can we switch from self-hosted to hosted later?",
+        "a": "Yes. The physical tags then need to be rewritten once because the domain changes, but all functionality is the same."
+      }
     ]
   },
   "Download": {
@@ -222,7 +353,11 @@
     "login": "Log in",
     "pinMismatch": "The PINs don't match",
     "registerFailed": "Registration failed",
-    "photoLater": "You can add a picture later on your profile page."
+    "photoLater": "You can add a picture later on your profile page.",
+    "adminEmailPrompt": "Admin? Sign in with email",
+    "emailLabel": "Email",
+    "sendMagicLink": "Send login link",
+    "magicLinkSent": "Check your inbox – we sent a login link if the address exists."
   },
   "Me": {
     "uploadPhoto": "Upload picture",
@@ -275,5 +410,19 @@
     "headingLabel": "Heading",
     "bodyLabel": "Promo text",
     "logoAlt": "Logo"
+  },
+  "Onboarding": {
+    "title": "Get started",
+    "intro": "Create your own instance. Pay securely by card and your space is set up automatically within minutes.",
+    "orgName": "Organisation",
+    "subdomain": "Preferred web address",
+    "email": "Email (admin)",
+    "plan": "Plan",
+    "planStandard": "Standard – $20/mo",
+    "planTeam": "Team – $45/mo",
+    "submit": "Continue to payment",
+    "submitting": "Taking you to checkout…",
+    "genericError": "Something went wrong. Please try again.",
+    "subdomainHint": "3–30 chars: a–z, 0–9 and hyphen."
   }
 }

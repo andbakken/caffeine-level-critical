@@ -1,0 +1,146 @@
+# Infra-stack for hostet drift (modell A). Kjører på Hetzner-VPS-en.
+#   docker compose -f compose.infra.yml --env-file .env up -d
+#
+# Inneholder: Traefik (reverse proxy + auto-TLS), delt Postgres, control-plane.
+# Tenant-app-containere startes IKKE her – control-plane lager dem dynamisk
+# og kobler dem på nettene bq_edge (Traefik) + bq_data (Postgres).
+
+networks:
+  bq_edge:
+    name: bq_edge      # Traefik <-> apper. Eksplisitt navn så control-plane kan attache tenants.
+  bq_data:
+    name: bq_data      # Postgres <-> control-plane + tenants. Intern, ikke rutet ut.
+    internal: true
+
+volumes:
+  traefik_acme:
+  pgdata:
+  marketing_uploads:
+
+services:
+  traefik:
+    image: traefik:v3.3
+    restart: unless-stopped
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=bq_edge
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      # Tving HTTPS
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      # Let's Encrypt per host via HTTP-01 (krever bare at <host> peker på serveren – wildcard-DNS ordner det)
+      - --certificatesresolvers.le.acme.httpchallenge=true
+      - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.le.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/acme/acme.json
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_acme:/acme
+    networks:
+      - bq_edge
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_SUPER_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_SUPER_PASSWORD}
+      POSTGRES_DB: control_plane     # control-plane sin egen registry-DB
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - bq_data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_SUPER_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Bygger app-imaget én gang og tagger det som TENANT_IMAGE, slik at control-plane
+  # kan kjøre nøyaktig samme image per kunde. Tjener også selve marketing-/onboarding-
+  # nettstedet på apex-domenet.
+  marketing:
+    image: ${TENANT_IMAGE}
+    build:
+      context: ..
+    restart: unless-stopped
+    depends_on:
+      marketing-db-init:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_SUPER_USER}:${POSTGRES_SUPER_PASSWORD}@postgres:5432/marketing
+      ADMIN_EMAIL: ${OWNER_EMAIL}
+      CONTROL_PLANE_URL: http://control-plane:8080
+      NEXT_PUBLIC_SITE_URL: https://${BASE_DOMAIN}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      MAIL_FROM: ${MAIL_FROM}
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - marketing_uploads:/app/uploads
+    networks:
+      - bq_edge
+      - bq_data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.marketing.rule=Host(`${BASE_DOMAIN}`) || Host(`www.${BASE_DOMAIN}`)
+      - traefik.http.routers.marketing.entrypoints=websecure
+      - traefik.http.routers.marketing.tls.certresolver=le
+      - traefik.http.services.marketing.loadbalancer.server.port=3000
+
+  # Oppretter «marketing»-databasen én gang (Prisma lager ikke selve databasen).
+  marketing-db-init:
+    image: postgres:17-alpine
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: ${POSTGRES_SUPER_PASSWORD}
+    entrypoint:
+      - sh
+      - -c
+      - >
+        psql -h postgres -U ${POSTGRES_SUPER_USER} -tc
+        "SELECT 1 FROM pg_database WHERE datname='marketing'" | grep -q 1 ||
+        psql -h postgres -U ${POSTGRES_SUPER_USER} -c "CREATE DATABASE marketing"
+    networks:
+      - bq_data
+    restart: "no"
+
+  control-plane:
+    build: ../control-plane
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      CONTROL_PLANE_DATABASE_URL: ${CONTROL_PLANE_DATABASE_URL}
+      POSTGRES_SUPER_USER: ${POSTGRES_SUPER_USER}
+      POSTGRES_SUPER_PASSWORD: ${POSTGRES_SUPER_PASSWORD}
+      POSTGRES_HOST: postgres
+      BASE_DOMAIN: ${BASE_DOMAIN}
+      TENANT_IMAGE: ${TENANT_IMAGE}
+      EDGE_NETWORK: ${EDGE_NETWORK}
+      DATA_NETWORK: ${DATA_NETWORK}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      STRIPE_PRICE_STANDARD: ${STRIPE_PRICE_STANDARD}
+      STRIPE_PRICE_TEAM: ${STRIPE_PRICE_TEAM}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      MAIL_FROM: ${MAIL_FROM}
+    volumes:
+      # Privilegert: starter tenant-containere. Holdes liten og kun nådd via Traefik-webhook.
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - bq_edge
+      - bq_data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cp.rule=Host(`admin.${BASE_DOMAIN}`)
+      - traefik.http.routers.cp.entrypoints=websecure
+      - traefik.http.routers.cp.tls.certresolver=le
+      - traefik.http.services.cp.loadbalancer.server.port=8080
