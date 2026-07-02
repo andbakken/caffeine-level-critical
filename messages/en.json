@@ -11,7 +11,13 @@
     },
     "footer": {
       "tagline": "Turn the coffee break into a competition.",
-      "copyright": "© {year} %BRAND%"
+      "copyright": "© {year} %BRAND%",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "dpa": "Data processing"
+    },
+    "legal": {
+      "updated": "Last updated"
     },
     "language": {
       "label": "Language",
@@ -29,6 +35,8 @@
     "ctaStart": "Get started",
     "ctaDemo": "See the demo",
     "pricingNote": "Free to self-host · or hosted from {price}{period}",
+    "cupsCounted": "☕ {count, number} cups logged so far",
+    "cupsNote": "Just an anonymous, aggregate total across all hosted instances — we never count per person or per customer.",
     "featuresHeading": "Everything the team needs",
     "features": [
       {
@@ -93,6 +101,7 @@
       "Hosted in the EU — GDPR-friendly"
     ],
     "startTrial": "Start free trial",
+    "trialNote": "14 days free · cancel any time · no charge until the trial ends",
     "endTitle": "Ready to get brewing?",
     "endBody": "Set up %BRAND% for your team today — and find out who really keeps the office running."
   },
@@ -192,6 +201,7 @@
     "hostedDesc": "Ready in minutes. No operations, secure login, backup and updates included — hosted in the EU (GDPR).",
     "recommended": "RECOMMENDED",
     "startTrial": "Start free trial",
+    "trialNote": "14 days free, then {price}. Your card isn't charged until the trial ends — cancel for free any time before that.",
     "hostingHeading": "What the hosting includes",
     "hostingIntro": "Choose the hosted version and we take care of all the operations — secure, up to date and predictable.",
     "hostingBullets": [
@@ -243,6 +253,14 @@
       {
         "q": "Can we switch from self-hosted to hosted later?",
         "a": "Yes. The physical tags then need to be rewritten once because the domain changes, but all functionality is the same."
+      },
+      {
+        "q": "What does the free trial mean?",
+        "a": "You get full access to the hosted version for 14 days without paying. You add a card when you sign up, but we don't charge anything until the trial ends. Cancel before day 14 and you pay nothing. After the trial the subscription renews automatically at the regular monthly price, and you can cancel any time."
+      },
+      {
+        "q": "Do you collect usage statistics?",
+        "a": "Only a single anonymous, aggregate total: how many cups have been logged in total across all hosted instances. We never count per person, per department or per customer, we set no tracking cookies, and we share nothing with third parties. The number is shown as \"cups logged so far\" on our website."
       }
     ]
   },
@@ -360,7 +378,10 @@
     "adminEmailPrompt": "Admin? Sign in with email",
     "emailLabel": "Email",
     "sendMagicLink": "Send login link",
-    "magicLinkSent": "Check your inbox – we sent a login link if the address exists."
+    "magicLinkSent": "Check your inbox – we sent a login link if the address exists.",
+    "inviteCode": "Invite code",
+    "inviteCodePlaceholder": "e.g. abcd2345",
+    "inviteCodeHint": "Get this from your administrator. Required to create a profile."
   },
   "Me": {
     "uploadPhoto": "Upload picture",
@@ -415,17 +436,31 @@
     "logoAlt": "Logo"
   },
   "Onboarding": {
-    "title": "Get started",
-    "intro": "Create your own instance. Pay securely by card and your space is set up automatically within minutes.",
+    "title": "Start your 14-day free trial",
+    "intro": "Create your own instance in minutes. You add a card now to get started, but we won't charge anything until the trial ends.",
     "orgName": "Organisation",
     "subdomain": "Preferred web address",
     "email": "Email (admin)",
-    "plan": "Plan",
-    "planStandard": "Standard – $20/mo",
-    "planTeam": "Team – $45/mo",
-    "submit": "Continue to payment",
+    "trialNote": "14 days free, then $20/mo. Your card isn't charged until the trial ends, and you can cancel for free any time before that.",
+    "submit": "Start free trial",
     "submitting": "Taking you to checkout…",
     "genericError": "Something went wrong. Please try again.",
     "subdomainHint": "3–30 chars: a–z, 0–9 and hyphen."
+  },
+  "Welcome": {
+    "metaTitle": "Thanks – your instance is being set up",
+    "metaDescription": "Payment received. Your %BRAND% instance is being provisioned, and you'll get a login link by email.",
+    "title": "Thanks! Your instance is being set up",
+    "intro": "We've received your order and your instance is being provisioned right now. It's usually ready within a couple of minutes.",
+    "nextHeading": "How to get started",
+    "steps": [
+      "Check your email – we'll send a welcome message with a login link as soon as your instance is ready.",
+      "Sign in as admin via the link (passwordless – no PIN to remember).",
+      "Set up departments and coffee stations, and attach NFC tags at the machines.",
+      "Share the invite code from the admin panel with your team so they can create profiles."
+    ],
+    "spamNote": "Don't see the email within a few minutes? Check your junk/spam folder. If you're using a work email, your company's filter may delay it.",
+    "learnMore": "Learn more about the product",
+    "contactSupport": "Contact support"
   }
 }

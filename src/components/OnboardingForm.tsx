@@ -8,7 +8,6 @@ export function OnboardingForm() {
   const [orgName, setOrgName] = useState("");
   const [subdomain, setSubdomain] = useState("");
   const [email, setEmail] = useState("");
-  const [plan, setPlan] = useState("standard");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +19,7 @@ export function OnboardingForm() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orgName, subdomain, email, plan }),
+        body: JSON.stringify({ orgName, subdomain, email }),
       });
       const data = await res.json();
       if (!res.ok || !data.url) {
@@ -62,13 +61,9 @@ export function OnboardingForm() {
         <input className="pixel-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
       </label>
 
-      <label className="flex flex-col gap-1">
-        <span className="text-ink-dim text-base">{t("plan")}</span>
-        <select className="pixel-input" value={plan} onChange={(e) => setPlan(e.target.value)}>
-          <option value="standard">{t("planStandard")}</option>
-          <option value="team">{t("planTeam")}</option>
-        </select>
-      </label>
+      <p className="text-ink-dim text-sm leading-relaxed border-t border-line/60 pt-3">
+        {t("trialNote")}
+      </p>
 
       {error && <p className="text-danger text-base">⚠ {error}</p>}
       <button className="pixel-btn pixel-btn-gold" disabled={loading}>

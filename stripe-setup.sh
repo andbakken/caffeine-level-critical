@@ -20,15 +20,6 @@ PRICE_STD=$(stripe prices create \
   --lookup-key standard_monthly \
   --format json | sed -n 's/.*"id": "\(price_[^"]*\)".*/\1/p' | head -1)
 
-echo "▶ Produkt + pris: Team (499 kr/mnd)…"
-P_TEAM=$(stripe products create --name "Caffeine Level Critical – Team" --format json | sed -n 's/.*"id": "\(prod_[^"]*\)".*/\1/p' | head -1)
-PRICE_TEAM=$(stripe prices create \
-  --unit-amount 49900 --currency nok \
-  --recurring.interval month \
-  --product "$P_TEAM" \
-  --lookup-key team_monthly \
-  --format json | sed -n 's/.*"id": "\(price_[^"]*\)".*/\1/p' | head -1)
-
 echo "▶ Webhook-endepunkt → admin.${BASE_DOMAIN}…"
 WH=$(stripe webhook_endpoints create \
   --url "https://admin.${BASE_DOMAIN}/stripe/webhook" \
@@ -43,7 +34,6 @@ cat <<EOF
 ✅ Ferdig. Legg disse i infra/.env:
 
   STRIPE_PRICE_STANDARD=${PRICE_STD}
-  STRIPE_PRICE_TEAM=${PRICE_TEAM}
   STRIPE_WEBHOOK_SECRET=${WH_SECRET}
 
 Tips lokal test:  stripe listen --forward-to https://admin.${BASE_DOMAIN}/stripe/webhook

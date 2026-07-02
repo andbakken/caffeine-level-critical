@@ -11,7 +11,13 @@
     },
     "footer": {
       "tagline": "Gjør kaffepausen til en konkurranse.",
-      "copyright": "© {year} %BRAND%"
+      "copyright": "© {year} %BRAND%",
+      "terms": "Vilkår",
+      "privacy": "Personvern",
+      "dpa": "Databehandleravtale"
+    },
+    "legal": {
+      "updated": "Sist oppdatert"
     },
     "language": {
       "label": "Språk",
@@ -29,6 +35,8 @@
     "ctaStart": "Kom i gang",
     "ctaDemo": "Se demoen",
     "pricingNote": "Gratis å kjøre selv · eller hostet fra {price}{period}",
+    "cupsCounted": "☕ {count, number} kopper logget så langt",
+    "cupsNote": "Kun et anonymt, aggregert totaltall på tvers av alle hostede instanser — vi teller aldri per person eller per kunde.",
     "featuresHeading": "Alt teamet trenger",
     "features": [
       {
@@ -93,6 +101,7 @@
       "Hostet i EU — GDPR-vennlig"
     ],
     "startTrial": "Start gratis prøveperiode",
+    "trialNote": "14 dager gratis · si opp når som helst · ingen belastning før prøveperioden er over",
     "endTitle": "Klar til å koke i gang?",
     "endBody": "Sett opp %BRAND% for teamet ditt i dag — og finn ut hvem som egentlig holder kontoret i gang."
   },
@@ -192,6 +201,7 @@
     "hostedDesc": "Klar på minutter. Ingen drift, sikker innlogging, backup og oppdateringer inkludert — driftet i EU (GDPR).",
     "recommended": "ANBEFALT",
     "startTrial": "Start gratis prøveperiode",
+    "trialNote": "14 dager gratis, deretter {price}. Kortet belastes først når prøveperioden er over — si opp gratis når som helst før det.",
     "hostingHeading": "Rammene for hostingen",
     "hostingIntro": "Velger du den hostede versjonen, tar vi oss av hele driften — trygt, oppdatert og forutsigbart.",
     "hostingBullets": [
@@ -243,6 +253,14 @@
       {
         "q": "Kan vi bytte fra selvhostet til hostet senere?",
         "a": "Ja. Da må de fysiske brikkene skrives om én gang fordi domenet endres, men all funksjonalitet er den samme."
+      },
+      {
+        "q": "Hva betyr den gratis prøveperioden?",
+        "a": "Du får full tilgang til den hostede versjonen i 14 dager uten å betale. Du legger inn kort ved oppstart, men vi belaster ingenting før prøveperioden er over. Sier du opp før dag 14, betaler du ingenting. Etter prøveperioden fornyes abonnementet automatisk til vanlig månedspris, og du kan si opp når som helst."
+      },
+      {
+        "q": "Samler dere inn statistikk om bruken?",
+        "a": "Kun ett anonymt, aggregert totaltall: hvor mange kopper som er logget til sammen på tvers av alle hostede instanser. Vi teller aldri per person, per avdeling eller per kunde, setter ingen sporingscookies, og deler ingenting med tredjepart. Tallet vises som «kopper logget så langt» på nettsiden vår."
       }
     ]
   },
@@ -360,7 +378,10 @@
     "adminEmailPrompt": "Admin? Logg inn med e-post",
     "emailLabel": "E-post",
     "sendMagicLink": "Send innloggingslenke",
-    "magicLinkSent": "Sjekk e-posten din – vi har sendt en innloggingslenke hvis adressen finnes."
+    "magicLinkSent": "Sjekk e-posten din – vi har sendt en innloggingslenke hvis adressen finnes.",
+    "inviteCode": "Invitasjonskode",
+    "inviteCodePlaceholder": "f.eks. abcd2345",
+    "inviteCodeHint": "Fås av administratoren din. Kreves for å lage profil."
   },
   "Me": {
     "uploadPhoto": "Last opp bilde",
@@ -415,17 +436,31 @@
     "logoAlt": "Logo"
   },
   "Onboarding": {
-    "title": "Kom i gang",
-    "intro": "Opprett din egen instans. Du betaler trygt med kort, og løsningen settes opp automatisk på minutter.",
+    "title": "Start 14 dager gratis",
+    "intro": "Opprett din egen instans på minutter. Du legger inn kort nå for å komme i gang, men vi belaster ingenting før prøveperioden er over.",
     "orgName": "Organisasjon",
     "subdomain": "Ønsket nettadresse",
     "email": "E-post (admin)",
-    "plan": "Plan",
-    "planStandard": "Standard – 249 kr/mnd",
-    "planTeam": "Team – 499 kr/mnd",
-    "submit": "Til betaling",
+    "trialNote": "14 dager gratis, deretter 249 kr/mnd. Kortet belastes først når prøveperioden er over, og du kan si opp gratis når som helst før det.",
+    "submit": "Start gratis prøveperiode",
     "submitting": "Sender deg videre…",
     "genericError": "Noe gikk galt. Prøv igjen.",
     "subdomainHint": "3–30 tegn: a–z, 0–9 og bindestrek."
+  },
+  "Welcome": {
+    "metaTitle": "Takk – instansen din settes opp",
+    "metaDescription": "Betalingen er mottatt. Instansen din for %BRAND% provisjoneres nå, og du får en innloggingslenke på e-post.",
+    "title": "Takk! Instansen din settes opp",
+    "intro": "Vi har mottatt bestillingen din, og instansen provisjoneres akkurat nå. Den er normalt klar i løpet av et par minutter.",
+    "nextHeading": "Slik kommer du i gang",
+    "steps": [
+      "Sjekk e-posten din – vi sender en velkomstmelding med en innloggingslenke så snart instansen er klar.",
+      "Logg inn som admin via lenken (passordløs – ingen PIN å huske).",
+      "Sett opp avdelinger og kaffestasjoner, og fest NFC-brikker ved maskinene.",
+      "Del invitasjonskoden fra admin-panelet med teamet så de kan lage profiler."
+    ],
+    "spamNote": "Får du ikke e-posten innen noen minutter? Sjekk søppelpost/spam. Bruker du en jobb-e-post, kan den bli forsinket av bedriftens filter.",
+    "learnMore": "Les mer om produktet",
+    "contactSupport": "Kontakt support"
   }
 }

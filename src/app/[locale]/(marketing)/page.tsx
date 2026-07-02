@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { useTranslations, useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { OfficeScene } from "@/components/OfficeScene";
+import { CupCounter } from "@/components/CupCounter";
 import { Link } from "@/i18n/navigation";
 import { hostedPrice } from "@/lib/pricing";
 import { marketingMetadata } from "@/lib/seo";
@@ -59,6 +60,9 @@ export default function LandingPage() {
 
         <OfficeScene />
       </section>
+
+      {/* ---- KOPP-TELLER (social proof) ---- */}
+      <CupCounter />
 
       {/* ---- FUNKSJONER ---- */}
       <section id="funksjoner" className="bg-bg-2/50 border-y-[3px] border-line">
@@ -137,6 +141,9 @@ export default function LandingPage() {
               <Link href="/kom-i-gang" className="pixel-btn pixel-btn-gold mt-auto">
                 {t("startTrial")}
               </Link>
+              <p className="text-ink-dim text-xs leading-relaxed text-center">
+                {t("trialNote")}
+              </p>
             </div>
           </div>
         </div>

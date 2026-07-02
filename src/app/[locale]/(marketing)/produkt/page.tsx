@@ -162,6 +162,9 @@ export default function ProductPage() {
             <Link href="/kom-i-gang" className="pixel-btn pixel-btn-gold mt-auto">
               {t("startTrial")}
             </Link>
+            <p className="text-ink-dim text-xs leading-relaxed text-center">
+              {t("trialNote", { price: `${price.amount}${price.period}` })}
+            </p>
           </div>
         </div>
       </section>
