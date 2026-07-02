@@ -15,6 +15,8 @@ export const registerSchema = z.object({
   nickname: nicknameSchema,
   pin: pinSchema,
   departmentId: z.coerce.number().int().positive(),
+  // Valgfritt i skjemaet – kreves kun når REQUIRE_INVITE=1, håndteres i register-ruten.
+  inviteCode: z.string().trim().max(40).optional(),
 });
 
 export const loginSchema = z.object({

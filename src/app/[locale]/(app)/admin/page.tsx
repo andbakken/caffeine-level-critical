@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
-import { getOrgProfile } from "@/lib/orgProfile";
+import { getOrgProfile, isInviteRequired, getInviteCode } from "@/lib/orgProfile";
 import { AdminClient } from "@/components/AdminClient";
 
 export const dynamic = "force-dynamic";
@@ -36,10 +36,13 @@ export default async function AdminPage() {
     getOrgProfile(),
   ]);
 
+  const requireInvite = isInviteRequired();
+  const inviteCode = requireInvite ? await getInviteCode() : null;
+
   return (
     <AdminClient
       currentUserId={user.id}
-      branding={branding}
+      branding={{ ...branding, requireInvite, inviteCode }}
       users={users.map((u) => ({
         id: u.id,
         nickname: u.nickname,

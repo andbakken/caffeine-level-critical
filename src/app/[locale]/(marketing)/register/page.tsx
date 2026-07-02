@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { isInviteRequired } from "@/lib/orgProfile";
 import { RegisterForm } from "@/components/RegisterForm";
 
 export const dynamic = "force-dynamic";
@@ -16,7 +17,7 @@ export default async function RegisterPage() {
 
   return (
     <div className="py-8">
-      <RegisterForm departments={departments} />
+      <RegisterForm departments={departments} requireInvite={isInviteRequired()} />
     </div>
   );
 }

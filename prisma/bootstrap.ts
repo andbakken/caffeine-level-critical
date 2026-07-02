@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { randomBytes } from "node:crypto";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
@@ -71,6 +72,29 @@ async function main() {
     console.log(`Opprettet admin-bruker «${nickname}»${email ? ` (${email})` : ""}.`);
   } else {
     console.log(`Admin-bruker finnes allerede — hopper over.`);
+  }
+
+  // --- Invitasjonskode (kun hostet: REQUIRE_INVITE=1) ---
+  // Generer én kode ved første oppstart hvis den mangler. Overskriv aldri en
+  // eksisterende kode (admin kan ha rotert den bevisst). Samme forvekslingsvennlige
+  // alfabet som src/lib/orgProfile.ts (uten 0/o/1/l/i).
+  if (process.env.REQUIRE_INVITE === "1") {
+    const alphabet = "abcdefghjkmnpqrstuvwxyz23456789";
+    const bytes = randomBytes(8);
+    const inviteCode = Array.from(bytes, (b) => alphabet[b % alphabet.length]).join("");
+
+    const profile = await prisma.orgProfile.upsert({
+      where: { id: 1 },
+      create: { id: 1, inviteCode },
+      update: {},
+      select: { inviteCode: true },
+    });
+    if (!profile.inviteCode) {
+      await prisma.orgProfile.update({ where: { id: 1 }, data: { inviteCode } });
+      console.log(`Genererte invitasjonskode: ${inviteCode}`);
+    } else {
+      console.log("Invitasjonskode finnes allerede — hopper over.");
+    }
   }
 
   console.log("Bootstrap ferdig ✔");

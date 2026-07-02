@@ -7,12 +7,19 @@ import { Link } from "@/i18n/navigation";
 
 type Dept = { id: number; name: string; color: string };
 
-export function RegisterForm({ departments }: { departments: Dept[] }) {
+export function RegisterForm({
+  departments,
+  requireInvite = false,
+}: {
+  departments: Dept[];
+  requireInvite?: boolean;
+}) {
   const t = useTranslations("Auth");
   const router = useRouter();
   const [nickname, setNickname] = useState("");
   const [pin, setPin] = useState("");
   const [pin2, setPin2] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
   const [departmentId, setDepartmentId] = useState<number | "">(departments[0]?.id ?? "");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -29,7 +36,7 @@ export function RegisterForm({ departments }: { departments: Dept[] }) {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nickname, pin, departmentId }),
+        body: JSON.stringify({ nickname, pin, departmentId, inviteCode }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
@@ -48,6 +55,22 @@ export function RegisterForm({ departments }: { departments: Dept[] }) {
   return (
     <form onSubmit={submit} className="pixel-panel p-6 max-w-md mx-auto flex flex-col gap-4">
       <h1 className="heading text-gold text-xl">{t("registerTitle")}</h1>
+      {requireInvite && (
+        <label className="flex flex-col gap-1">
+          <span className="text-ink-dim text-base">{t("inviteCode")}</span>
+          <input
+            className="pixel-input"
+            value={inviteCode}
+            onChange={(e) => setInviteCode(e.target.value)}
+            placeholder={t("inviteCodePlaceholder")}
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            required
+          />
+          <span className="text-ink-dim text-sm">{t("inviteCodeHint")}</span>
+        </label>
+      )}
       <label className="flex flex-col gap-1">
         <span className="text-ink-dim text-base">{t("nickname")}</span>
         <input

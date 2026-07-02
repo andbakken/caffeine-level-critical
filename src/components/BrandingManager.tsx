@@ -8,6 +8,8 @@ export type Branding = {
   logoPath: string | null;
   posterHeading: string | null;
   posterBody: string | null;
+  requireInvite?: boolean;
+  inviteCode?: string | null;
 };
 
 // Admin-fane for bedriftens branding: logo + plakat-tekst som brukes på A5-arkene.
@@ -19,9 +21,27 @@ export function BrandingManager({ branding }: { branding: Branding }) {
   const [logoPath, setLogoPath] = useState(branding.logoPath);
   const [heading, setHeading] = useState(branding.posterHeading ?? "");
   const [body, setBody] = useState(branding.posterBody ?? "");
+  const [inviteCode, setInviteCode] = useState(branding.inviteCode ?? null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+
+  async function regenerateInvite() {
+    if (!confirm("Generer ny invitasjonskode? Den gamle slutter å virke umiddelbart.")) return;
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/branding/invite", { method: "POST" });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        flash(data.error ?? "Kunne ikke lage ny kode");
+        return;
+      }
+      setInviteCode(data.code);
+      flash(null, "Ny invitasjonskode laget!");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   function flash(error: string | null, message: string | null = null) {
     setErr(error);
@@ -86,6 +106,32 @@ export function BrandingManager({ branding }: { branding: Branding }) {
       {(err || msg) && (
         <div className={`pixel-panel px-4 py-2 text-base ${err ? "text-danger" : "text-accent-2"}`}>
           {err ? `⚠ ${err}` : `✔ ${msg}`}
+        </div>
+      )}
+
+      {/* ---- Invitasjonskode (kun hostet) ---- */}
+      {branding.requireInvite && (
+        <div className="pixel-panel p-4 flex flex-col gap-3">
+          <h3 className="font-display text-sm text-gold">Invitasjonskode</h3>
+          <p className="text-ink-dim text-base">
+            Nye brukere må oppgi denne koden for å lage en profil. Del den med teamet ditt.
+          </p>
+          <div className="flex items-center gap-3 flex-wrap">
+            <code className="bg-[#100d22] border-[3px] border-line px-4 py-2 text-lg tracking-widest select-all">
+              {inviteCode ?? "—"}
+            </code>
+            <button
+              type="button"
+              className="pixel-btn pixel-btn-ghost !py-2"
+              onClick={regenerateInvite}
+              disabled={busy}
+            >
+              Generer ny kode
+            </button>
+          </div>
+          <p className="text-ink-dim text-sm">
+            Lager du en ny kode, slutter den gamle å virke umiddelbart.
+          </p>
         </div>
       )}
 
