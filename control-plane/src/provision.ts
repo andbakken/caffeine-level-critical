@@ -4,7 +4,7 @@ import Docker from "dockerode";
 import { env } from "./env.js";
 import { dbNameFor, dbRoleFor, containerNameFor } from "./validate.js";
 import { setStatus, type Tenant } from "./registry.js";
-import { sendWelcome } from "./email.js";
+import { sendWelcome, sendEmail } from "./email.js";
 
 const docker = new Docker(); // bruker /var/run/docker.sock
 
@@ -34,6 +34,12 @@ async function ensureDatabase(subdomain: string): Promise<{ dbName: string; dbUr
     if (dbExists.rowCount === 0) {
       await admin.query(`CREATE DATABASE "${dbName}" OWNER "${role}"`);
     }
+
+    // Herding: kun tenantens egen rolle kan koble til databasen. Idempotent, så den
+    // kjøres også for gamle tenants ved re-provisjonering. Eierskapet hindrer lesing
+    // uansett – dette fjerner unødvendig angrepsflate (PUBLIC har CONNECT som default).
+    await admin.query(`REVOKE CONNECT ON DATABASE "${dbName}" FROM PUBLIC`);
+    await admin.query(`GRANT CONNECT ON DATABASE "${dbName}" TO "${role}"`);
   } finally {
     await admin.end();
   }
@@ -68,6 +74,8 @@ async function ensureContainer(subdomain: string, adminEmail: string, dbUrl: str
       `NEXT_PUBLIC_TAG_BASE_URL=${siteUrl}`,
       `RESEND_API_KEY=${env.resendApiKey}`,
       `MAIL_FROM=${env.mailFrom}`,
+      "IS_TENANT=1", // markedssidene på tenant-subdomener merkes noindex (se src/proxy.ts)
+      "REQUIRE_INVITE=1", // ny bruker-registrering krever invitasjonskode (se register-API)
       "NODE_ENV=production",
     ],
     Labels: {
@@ -81,6 +89,11 @@ async function ensureContainer(subdomain: string, adminEmail: string, dbUrl: str
     HostConfig: {
       RestartPolicy: { Name: "unless-stopped" },
       Binds: [`${name}-uploads:/app/uploads`],
+      // Ressurstak: én løpsk tenant skal ikke kunne ta ned hele serveren (alle kunder).
+      // Tak, ikke reservasjon – oversubscription er greit ved normal idle-last.
+      Memory: env.tenantMemoryMb * 1024 * 1024,
+      MemoryReservation: Math.floor((env.tenantMemoryMb * 1024 * 1024) / 3),
+      NanoCpus: Math.round(env.tenantCpus * 1_000_000_000),
     },
     NetworkingConfig: {
       EndpointsConfig: { [env.dataNetwork]: {} },
@@ -92,16 +105,39 @@ async function ensureContainer(subdomain: string, adminEmail: string, dbUrl: str
   await container.start();
 }
 
-/** Full provisjonering, idempotent. Trygg å kjøre flere ganger for samme subdomene. */
+/** Full provisjonering, idempotent. Trygg å kjøre flere ganger for samme subdomene.
+ *  Ved feil settes status «failed» og eieren varsles – kunden har betalt, så en stille
+ *  feil er ikke akseptabel. Retry-løkka i index.ts plukker opp «failed»/«provisioning». */
 export async function provisionTenant(t: Tenant): Promise<void> {
-  await setStatus(t.subdomain, "provisioning");
-  const { dbUrl } = await ensureDatabase(t.subdomain);
-  await ensureContainer(t.subdomain, t.adminEmail, dbUrl);
-  await setStatus(t.subdomain, "active");
+  try {
+    await setStatus(t.subdomain, "provisioning");
+    const { dbUrl } = await ensureDatabase(t.subdomain);
+    await ensureContainer(t.subdomain, t.adminEmail, dbUrl);
+    await setStatus(t.subdomain, "active");
 
-  const siteUrl = `https://${t.subdomain}.${env.baseDomain}`;
-  await sendWelcome(t.adminEmail, t.orgName, siteUrl);
-  console.log(`✅ Provisjonerte ${t.subdomain} (${t.adminEmail})`);
+    const siteUrl = `https://${t.subdomain}.${env.baseDomain}`;
+    await sendWelcome(t.adminEmail, t.orgName, siteUrl);
+    console.log(`✅ Provisjonerte ${t.subdomain} (${t.adminEmail})`);
+  } catch (err) {
+    await setStatus(t.subdomain, "failed").catch(() => {});
+    console.error(`❌ Provisjonering feilet (${t.subdomain}):`, err);
+    await notifyOwner(
+      `Provisjonering feilet: ${t.subdomain}`,
+      `Provisjonering av <strong>${t.subdomain}</strong> (${t.adminEmail}) feilet.<br>` +
+        `Feil: <pre>${String(err instanceof Error ? err.message : err)}</pre>` +
+        `Retry kjører automatisk hver time, men sjekk gjerne loggen.`,
+    ).catch(() => {});
+    throw err; // la kalleren logge også
+  }
+}
+
+/** Sender et driftsvarsel til eieren. Stille no-op hvis OWNER_EMAIL/RESEND ikke er satt. */
+export async function notifyOwner(subject: string, html: string): Promise<void> {
+  if (!env.ownerEmail) {
+    console.warn(`[varsel – ingen OWNER_EMAIL] ${subject}`);
+    return;
+  }
+  await sendEmail(env.ownerEmail, subject, `<div style="font-family:system-ui,sans-serif">${html}</div>`);
 }
 
 /** Stopper en tenant (ved oppsigelse/manglende betaling). Beholder data inntil videre. */

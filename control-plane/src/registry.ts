@@ -6,7 +6,12 @@ import { env } from "./env.js";
 
 export const registryPool = new pg.Pool({ connectionString: env.controlPlaneDatabaseUrl });
 
-export type TenantStatus = "provisioning" | "active" | "paused" | "deprovisioning";
+export type TenantStatus =
+  | "provisioning"
+  | "active"
+  | "paused"
+  | "failed"
+  | "deprovisioning";
 
 export type Tenant = {
   id: number;
@@ -83,4 +88,15 @@ export async function upsertTenant(t: {
 
 export async function setStatus(subdomain: string, status: TenantStatus): Promise<void> {
   await registryPool.query("UPDATE tenants SET status = $1 WHERE subdomain = $2", [status, subdomain]);
+}
+
+/** Alle tenants med en av de oppgitte statusene. Brukes av retry-løkka. */
+export async function findByStatuses(statuses: TenantStatus[]): Promise<Tenant[]> {
+  const { rows } = await registryPool.query("SELECT * FROM tenants WHERE status = ANY($1)", [statuses]);
+  return rows.map(rowToTenant);
+}
+
+/** Fjerner tenant-raden fra registry (siste steg i deprovisjonering). */
+export async function deleteTenant(subdomain: string): Promise<void> {
+  await registryPool.query("DELETE FROM tenants WHERE subdomain = $1", [subdomain]);
 }

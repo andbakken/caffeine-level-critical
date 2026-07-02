@@ -24,6 +24,7 @@ export async function sendWelcome(to: string, orgName: string, url: string): Pro
        <p>Din instans for <strong>${orgName}</strong> er satt opp og kjører.</p>
        <p><a href="${url}/login" style="display:inline-block;background:#7c5cff;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none">Gå til ${url.replace(/^https?:\/\//, "")}</a></p>
        <p>Logg inn som admin med e-posten <strong>${to}</strong> – du får en innloggingslenke på e-post.</p>
+       <p style="color:#555">Når du er innlogget, finner du en <strong>invitasjonskode</strong> under «Profil» i admin-panelet. Ansatte trenger denne koden for å lage sin egen profil.</p>
      </div>`,
   );
 }

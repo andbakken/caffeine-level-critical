@@ -1,4 +1,5 @@
 import { json, fail } from "@/lib/http";
+import { clientIp } from "@/lib/rateLimit";
 
 // Videresender onboarding til control-plane (server-til-server, så Stripe/CP-detaljer
 // aldri eksponeres mot nettleseren og vi slipper CORS). CONTROL_PLANE_URL settes kun
@@ -18,7 +19,12 @@ export async function POST(req: Request) {
   try {
     res = await fetch(`${cp}/checkout`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        // Videresend klient-IP så control-plane kan rate-limite per faktisk bruker,
+        // ikke per marketing-container (som ellers ville sett all trafikk fra én IP).
+        "X-Forwarded-For": clientIp(req),
+      },
       body: JSON.stringify(body),
     });
   } catch {

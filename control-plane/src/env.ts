@@ -21,17 +21,18 @@ export const env = {
     secretKey: req("STRIPE_SECRET_KEY"),
     webhookSecret: req("STRIPE_WEBHOOK_SECRET"),
     priceStandard: process.env.STRIPE_PRICE_STANDARD ?? "",
-    priceTeam: process.env.STRIPE_PRICE_TEAM ?? "",
   },
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   mailFrom: process.env.MAIL_FROM ?? "no-reply@localhost",
+  ownerEmail: process.env.OWNER_EMAIL ?? "", // driftsvarsler (provisjoneringsfeil, subdomene-kollisjon). Tom = kun logg.
+  statsToken: process.env.STATS_TOKEN ?? "", // beskytter GET /internal/stats; tom = ruten av
+  // Ressurstak per tenant-container (idle ~150–250 MB; tak, ikke reservasjon).
+  tenantMemoryMb: Number(process.env.TENANT_MEMORY_MB ?? 768),
+  tenantCpus: Number(process.env.TENANT_CPUS ?? 1),
   port: Number(process.env.PORT ?? 8080),
 };
 
-export type Plan = "standard" | "team";
-
-export function priceForPlan(plan: Plan): string {
-  const id = plan === "team" ? env.stripe.priceTeam : env.stripe.priceStandard;
-  if (!id) throw new Error(`Ingen Stripe-pris konfigurert for plan: ${plan}`);
-  return id;
+export function standardPrice(): string {
+  if (!env.stripe.priceStandard) throw new Error("Ingen Stripe-pris konfigurert (STRIPE_PRICE_STANDARD)");
+  return env.stripe.priceStandard;
 }

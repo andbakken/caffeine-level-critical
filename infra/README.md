@@ -51,3 +51,21 @@ Aldri commit `infra/.env` i klartekst.
 - **Skaler opp:** `hcloud server change-type <navn> cx43` (én reboot, ingen migrering).
 - **Backup:** restic-timer (Fase 4). Verifiser med `restic snapshots`.
 - **Logger:** `docker logs <container>`, Traefik-access-logg.
+- **Provisjoneringsfeil:** control-plane setter status `failed` og varsler `OWNER_EMAIL`.
+  Retry kjører automatisk ved oppstart og hver time (idempotent) – som regel trengs
+  ingen manuell handling. Sjekk `docker logs <control-plane>` ved gjentatte varsler.
+
+## Oppsigelse og sletting
+
+- **Oppsigelse:** når kunden sier opp i Stripe (eller ved endelig betalingsmislighold),
+  pauses instansen automatisk via webhook (`status = paused`, container stoppet). Data
+  beholdes.
+- **Sletting (deprovisjonering):** etter oppbevaringsperioden i databehandleravtalen
+  (se `src/content/legal.ts` – p.t. 60 dager) fjernes tenanten manuelt:
+  ```bash
+  CP=$(docker ps --filter name=control-plane --format '{{.Names}}' | head -1)
+  docker exec "$CP" npx tsx src/deprovision.ts <subdomain>         # dry-run: viser hva som fjernes
+  docker exec "$CP" npx tsx src/deprovision.ts <subdomain> --yes   # utfør: container, volum, DB, rolle, registry-rad
+  ```
+  Skriptet er idempotent. **Merk:** backupen (`pg_dumpall`) inneholder fortsatt tenanten
+  inntil restic-rotasjonen (30 dager) har passert. Reell sletting = deprovision + 30 dager.

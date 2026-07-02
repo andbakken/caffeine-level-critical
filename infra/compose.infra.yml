@@ -68,14 +68,22 @@ services:
     image: ${TENANT_IMAGE}
     build:
       context: ..
+      args:
+        # Bakes inn i sitemap.ts/robots.ts ved build (statisk prerender). Samme image
+        # gjenbrukes for tenants; kun apex indekseres (tenants får noindex via proxy).
+        NEXT_PUBLIC_SITE_URL: https://${BASE_DOMAIN}
     restart: unless-stopped
     depends_on:
       marketing-db-init:
         condition: service_completed_successfully
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_SUPER_USER}:${POSTGRES_SUPER_PASSWORD}@postgres:5432/marketing
+      # Egen, begrenset rolle – IKKE superbrukeren. Marketing er eksponert på apex og
+      # kjører samme image som tenants; en sårbarhet her skal ikke gi tilgang til andre
+      # kunders databaser. Rollen eier kun «marketing»-databasen (se marketing-db-init).
+      DATABASE_URL: postgresql://marketing_app:${MARKETING_DB_PASSWORD}@postgres:5432/marketing
       ADMIN_EMAIL: ${OWNER_EMAIL}
       CONTROL_PLANE_URL: http://control-plane:8080
+      STATS_TOKEN: ${STATS_TOKEN}
       NEXT_PUBLIC_SITE_URL: https://${BASE_DOMAIN}
       RESEND_API_KEY: ${RESEND_API_KEY}
       MAIL_FROM: ${MAIL_FROM}
@@ -92,7 +100,9 @@ services:
       - traefik.http.routers.marketing.tls.certresolver=le
       - traefik.http.services.marketing.loadbalancer.server.port=3000
 
-  # Oppretter «marketing»-databasen én gang (Prisma lager ikke selve databasen).
+  # Oppretter «marketing»-databasen + en begrenset rolle som eier den (Prisma lager
+  # verken databasen eller rollen). Idempotent: hopper over det som finnes, men setter
+  # alltid passordet på nytt så det følger MARKETING_DB_PASSWORD i .env.
   marketing-db-init:
     image: postgres:17-alpine
     depends_on:
@@ -100,13 +110,26 @@ services:
         condition: service_healthy
     environment:
       PGPASSWORD: ${POSTGRES_SUPER_PASSWORD}
+      MARKETING_DB_PASSWORD: ${MARKETING_DB_PASSWORD}
     entrypoint:
       - sh
       - -c
-      - >
-        psql -h postgres -U ${POSTGRES_SUPER_USER} -tc
-        "SELECT 1 FROM pg_database WHERE datname='marketing'" | grep -q 1 ||
-        psql -h postgres -U ${POSTGRES_SUPER_USER} -c "CREATE DATABASE marketing"
+      - |
+        set -e
+        PSQL="psql -h postgres -U ${POSTGRES_SUPER_USER} -v ON_ERROR_STOP=1"
+        # Rolle (opprett hvis mangler, sett/roter alltid passord)
+        if [ -z "$$($$PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='marketing_app'")" ]; then
+          $$PSQL -c "CREATE ROLE marketing_app LOGIN PASSWORD '$$MARKETING_DB_PASSWORD'"
+        else
+          $$PSQL -c "ALTER ROLE marketing_app WITH PASSWORD '$$MARKETING_DB_PASSWORD'"
+        fi
+        # Database eid av rollen (opprett hvis mangler)
+        if [ -z "$$($$PSQL -tAc "SELECT 1 FROM pg_database WHERE datname='marketing'")" ]; then
+          $$PSQL -c "CREATE DATABASE marketing OWNER marketing_app"
+        fi
+        # Herding: kun eier-rollen kan koble til databasen
+        $$PSQL -c "REVOKE CONNECT ON DATABASE marketing FROM PUBLIC"
+        $$PSQL -c "GRANT CONNECT ON DATABASE marketing TO marketing_app"
     networks:
       - bq_data
     restart: "no"
@@ -129,9 +152,13 @@ services:
       STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
       STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
       STRIPE_PRICE_STANDARD: ${STRIPE_PRICE_STANDARD}
-      STRIPE_PRICE_TEAM: ${STRIPE_PRICE_TEAM}
       RESEND_API_KEY: ${RESEND_API_KEY}
       MAIL_FROM: ${MAIL_FROM}
+      OWNER_EMAIL: ${OWNER_EMAIL}          # driftsvarsler (provisjoneringsfeil, subdomene-kollisjon, mislighold)
+      STATS_TOKEN: ${STATS_TOKEN}
+      # Ressurstak per tenant-container (valgfritt; defaults 768 / 1 i control-plane).
+      TENANT_MEMORY_MB: ${TENANT_MEMORY_MB:-768}
+      TENANT_CPUS: ${TENANT_CPUS:-1}
     volumes:
       # Privilegert: starter tenant-containere. Holdes liten og kun nådd via Traefik-webhook.
       - /var/run/docker.sock:/var/run/docker.sock
