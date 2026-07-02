@@ -18,7 +18,7 @@ export async function sendEmail(to: string, subject: string, html: string): Prom
 export async function sendWelcome(to: string, orgName: string, url: string): Promise<void> {
   await sendEmail(
     to,
-    `Velkommen til Quest of the Roasted Bean – ${orgName}`,
+    `Velkommen til Caffeine Level Critical – ${orgName}`,
     `<div style="font-family:system-ui,sans-serif;max-width:480px">
        <h2>Klart! ☕</h2>
        <p>Din instans for <strong>${orgName}</strong> er satt opp og kjører.</p>

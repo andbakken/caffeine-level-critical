@@ -1,6 +1,7 @@
 {
   "Common": {
     "brand": "%BRAND%",
+    "brandFull": "%BRAND_FULL%",
     "nav": {
       "produkt": "Product",
       "lastNed": "Download",
@@ -20,8 +21,9 @@
     "madeFor": "Track your team's drink habits"
   },
   "Landing": {
-    "metaTitle": "%BRAND% — turn the coffee break into a competition",
+    "metaTitle": "%BRAND_FULL% — turn the coffee break into a competition",
     "metaDescription": "Track coffee, tea and cocoa at work with NFC tags, leaderboards and badges. Run it free, self-hosted with Docker, or let us host it for you — safely in the EU.",
+    "heroEyebrow": "%BRAND_FULL%",
     "heroTitle": "Turn the coffee break into a competition",
     "heroBody": "%BRAND% tracks coffee, tea and cocoa for the whole team — with NFC scanning, leaderboards and badges. Build a little friendly rivalry around the coffee machine. ☕",
     "ctaStart": "Get started",
@@ -95,8 +97,9 @@
     "endBody": "Set up %BRAND% for your team today — and find out who really keeps the office running."
   },
   "Product": {
-    "metaTitle": "Product — %BRAND%",
+    "metaTitle": "Product — %BRAND_FULL%",
     "metaDescription": "Everything in %BRAND%: NFC scanning, leaderboards, rule-based badges, statistics and full admin control. Compare self-hosted and hosted.",
+    "heroEyebrow": "%BRAND_FULL%",
     "heroTitle": "The whole coffee contest, in one little app",
     "heroBody": "%BRAND% turns everyday coffee breaks into a light game with points, badges and leaderboards — built for teams that like a bit of competition.",
     "details": [
@@ -244,7 +247,7 @@
     ]
   },
   "Download": {
-    "metaTitle": "Download & install — %BRAND%",
+    "metaTitle": "Download & install — %BRAND_FULL%",
     "metaDescription": "Run %BRAND% for free on your own machine with Docker. All dependencies are included — follow the five steps.",
     "title": "Download & install",
     "intro": "Run %BRAND% for free on your own machine or server. Docker packages <b>everything</b> — app, database (PostgreSQL) and all dependencies. You don't need to install Node, a database or anything else.",
@@ -260,7 +263,7 @@
     "step3Title": "Set up configuration",
     "step3Intro": "Copy the example file to <code>.env</code> and adjust as needed (port and admin PIN for the first login):",
     "step3Example": "Example contents:",
-    "step3EnvExample": "# Port the app should run on\nPORT=3000\n\n# First admin user (created on startup)\nADMIN_NICKNAME=GameMaster\nADMIN_PIN=1234\n\n# Database password (can stay as-is for local use)\nPOSTGRES_PASSWORD=quest-of-the-roasted-bean",
+    "step3EnvExample": "# Port the app should run on\nPORT=3000\n\n# First admin user (created on startup)\nADMIN_NICKNAME=GameMaster\nADMIN_PIN=1234\n\n# Database password (can stay as-is for local use)\nPOSTGRES_PASSWORD=caffeine-level-critical",
     "step4Title": "Start everything with one command",
     "step4Intro": "This command starts both the app and the database, runs the database setup automatically and adds the default drinks and badges:",
     "step4Note": "The first time it downloads the images — that takes a couple of minutes. After that it starts in seconds.",

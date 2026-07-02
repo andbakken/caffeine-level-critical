@@ -14,7 +14,7 @@ export default function MarketingLayout({
 
       <footer className="border-t-[3px] border-line bg-bg-2/60">
         <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-ink-dim text-base">
-          <span className="heading text-gold text-base">☕ {t("brand")}</span>
+          <span className="heading text-gold text-base">☕ {t("brandFull")}</span>
           <span>{t("footer.tagline")}</span>
           <span>{t("footer.copyright", { year: new Date().getFullYear() })}</span>
         </div>

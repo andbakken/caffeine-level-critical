@@ -1,6 +1,7 @@
 {
   "Common": {
     "brand": "%BRAND%",
+    "brandFull": "%BRAND_FULL%",
     "nav": {
       "produkt": "Produkt",
       "lastNed": "Last ned",
@@ -20,8 +21,9 @@
     "madeFor": "Spor drikkevanene på jobben"
   },
   "Landing": {
-    "metaTitle": "%BRAND% — gjør kaffepausen til en konkurranse",
+    "metaTitle": "%BRAND_FULL% — gjør kaffepausen til en konkurranse",
     "metaDescription": "Spor kaffe, te og kakao på jobben med NFC-tagger, toppliste og merker. Kjør gratis selvhostet med Docker, eller la oss hoste det trygt i EU for deg.",
+    "heroEyebrow": "%BRAND_FULL%",
     "heroTitle": "Gjør kaffepausen til en konkurranse",
     "heroBody": "%BRAND% sporer kaffe, te og kakao for hele teamet — med NFC-skanning, toppliste og merker. Bygg en liten, sunn rivalisering rundt kaffemaskinen. ☕",
     "ctaStart": "Kom i gang",
@@ -95,8 +97,9 @@
     "endBody": "Sett opp %BRAND% for teamet ditt i dag — og finn ut hvem som egentlig holder kontoret i gang."
   },
   "Product": {
-    "metaTitle": "Produkt — %BRAND%",
+    "metaTitle": "Produkt — %BRAND_FULL%",
     "metaDescription": "Alt i %BRAND%: NFC-skanning, toppliste, regelstyrte merker, statistikk og full admin-kontroll. Sammenlign selvhostet og hostet.",
+    "heroEyebrow": "%BRAND_FULL%",
     "heroTitle": "Hele kaffekonkurransen, i én liten app",
     "heroBody": "%BRAND% gjør hverdagens kaffepauser om til et lett spill med poeng, merker og topplister — bygget for team som liker å konkurrere litt.",
     "details": [
@@ -244,7 +247,7 @@
     ]
   },
   "Download": {
-    "metaTitle": "Last ned & installer — %BRAND%",
+    "metaTitle": "Last ned & installer — %BRAND_FULL%",
     "metaDescription": "Kjør %BRAND% gratis på din egen maskin med Docker. Alle avhengigheter er inkludert — følg de fem stegene.",
     "title": "Last ned & installer",
     "intro": "Kjør %BRAND% gratis på din egen maskin eller server. Docker pakker <b>alt</b> — app, database (PostgreSQL) og alle avhengigheter. Du trenger ikke installere Node, en database eller noe annet.",
@@ -260,7 +263,7 @@
     "step3Title": "Sett opp konfigurasjon",
     "step3Intro": "Kopier eksempelfila til <code>.env</code> og juster ved behov (port og admin-PIN for første innlogging):",
     "step3Example": "Eksempel på innhold:",
-    "step3EnvExample": "# Port appen skal kjøre på\nPORT=3000\n\n# Første admin-bruker (lages ved oppstart)\nADMIN_NICKNAME=GameMaster\nADMIN_PIN=1234\n\n# Database-passord (kan stå som det er for lokal kjøring)\nPOSTGRES_PASSWORD=quest-of-the-roasted-bean",
+    "step3EnvExample": "# Port appen skal kjøre på\nPORT=3000\n\n# Første admin-bruker (lages ved oppstart)\nADMIN_NICKNAME=GameMaster\nADMIN_PIN=1234\n\n# Database-passord (kan stå som det er for lokal kjøring)\nPOSTGRES_PASSWORD=caffeine-level-critical",
     "step4Title": "Start alt med ett kommando",
     "step4Intro": "Denne kommandoen starter både appen og databasen, kjører databaseoppsettet automatisk og legger inn standard drikker og merker:",
     "step4Note": "Første gang laster den ned bildene — det tar et par minutter. Senere starter den på sekunder.",

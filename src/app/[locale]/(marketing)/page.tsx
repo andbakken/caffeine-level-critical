@@ -38,6 +38,9 @@ export default function LandingPage() {
       {/* ---- HERO ---- */}
       <section className="max-w-6xl mx-auto px-4 pt-12 pb-10 grid lg:grid-cols-2 gap-10 items-center">
         <div className="flex flex-col gap-6">
+          <p className="heading text-accent-2 text-xs sm:text-sm tracking-widest uppercase">
+            {t("heroEyebrow")}
+          </p>
           <h1 className="heading text-gold text-2xl sm:text-4xl leading-relaxed">
             {t("heroTitle")}
           </h1>

@@ -1,6 +1,8 @@
 // Transaksjons-e-post via Resend (HTTP API – ingen SDK-avhengighet).
 // Uten RESEND_API_KEY (lokal dev / selvhosting) logges e-posten til konsollen i stedet.
 
+import { APP_NAME } from "@/lib/brand";
+
 const RESEND_API = "https://api.resend.com/emails";
 
 type SendArgs = { to: string; subject: string; html: string };
@@ -32,7 +34,7 @@ export async function sendEmail({ to, subject, html }: SendArgs): Promise<void> 
 export async function sendMagicLink(to: string, url: string): Promise<void> {
   await sendEmail({
     to,
-    subject: "Innloggingslenke – Quest of the Roasted Bean",
+    subject: `Innloggingslenke – ${APP_NAME}`,
     html: `
       <div style="font-family:system-ui,sans-serif;max-width:480px">
         <h2>Logg inn</h2>

@@ -37,6 +37,9 @@ export default function ProductPage() {
     <div className="flex flex-col">
       {/* HERO */}
       <section className="max-w-6xl mx-auto px-4 pt-12 pb-8 text-center flex flex-col items-center gap-5">
+        <p className="heading text-accent-2 text-xs sm:text-sm tracking-widest uppercase">
+          {t("heroEyebrow")}
+        </p>
         <h1 className="heading text-gold text-2xl sm:text-4xl leading-relaxed">
           {t("heroTitle")}
         </h1>
@@ -69,14 +72,14 @@ export default function ProductPage() {
             <h3 className="font-display text-sm text-gold">{t("selfHosted")}</h3>
             <p className="text-ink-dim text-base leading-relaxed">{t("nfcSelfBody")}</p>
             <code className="bg-[#100d22] border-[3px] border-line px-3 py-2 text-base break-all">
-              http://quest-of-the-roasted-bean.lokal/t/&lt;token&gt;
+              http://caffeine-level-critical.lokal/t/&lt;token&gt;
             </code>
           </div>
           <div className="pixel-panel p-6 flex flex-col gap-3" style={{ borderColor: "var(--color-gold)" }}>
             <h3 className="font-display text-sm text-gold">{t("hosted")}</h3>
             <p className="text-ink-dim text-base leading-relaxed">{t("nfcHostedBody")}</p>
             <code className="bg-[#100d22] border-[3px] border-line px-3 py-2 text-base break-all">
-              https://app.quest-of-the-roasted-bean.no/t/&lt;token&gt;
+              https://app.caffeine-level-critical.no/t/&lt;token&gt;
             </code>
           </div>
         </div>

@@ -1,0 +1,8 @@
+[Unit]
+Description=Caffeine Level Critical – nattlig backup (restic)
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/caffeine-level-critical/infra/backup/backup.sh

@@ -1,5 +1,5 @@
 [Unit]
-Description=Kjør Quest of the Roasted Bean-backup hver natt
+Description=Kjør Caffeine Level Critical-backup hver natt
 
 [Timer]
 OnCalendar=*-*-* 03:30:00

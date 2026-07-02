@@ -29,7 +29,7 @@ write_files:
       PasswordAuthentication no
       PermitRootLogin prohibit-password
       KbdInteractiveAuthentication no
-  - path: /opt/brewquest/README.txt
+  - path: /opt/caffeine-level-critical/README.txt
     content: |
       Infra-stacken bor her. Kopier infra/.env og infra/compose.infra.yml hit,
       så: `docker compose -f compose.infra.yml --env-file .env up -d`.
@@ -43,7 +43,7 @@ runcmd:
   - cp /root/.ssh/authorized_keys /home/deploy/.ssh/authorized_keys
   - chown -R deploy:deploy /home/deploy/.ssh
   - chmod 700 /home/deploy/.ssh && chmod 600 /home/deploy/.ssh/authorized_keys
-  - chown -R deploy:deploy /opt/brewquest
+  - chown -R deploy:deploy /opt/caffeine-level-critical
   # Brannmur (Hetzner Cloud Firewall er primær; ufw er belte+seler)
   - ufw default deny incoming
   - ufw default allow outgoing

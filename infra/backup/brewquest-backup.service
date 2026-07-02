@@ -1,8 +1,0 @@
-[Unit]
-Description=Quest of the Roasted Bean – nattlig backup (restic)
-After=docker.service
-Requires=docker.service
-
-[Service]
-Type=oneshot
-ExecStart=/opt/brewquest/infra/backup/backup.sh

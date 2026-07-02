@@ -12,7 +12,7 @@ BASE_DOMAIN="${BASE_DOMAIN:?Sett BASE_DOMAIN, f.eks. questroasted.app}"
 command -v stripe >/dev/null || { echo "Stripe CLI ikke funnet – installer den først"; exit 1; }
 
 echo "▶ Produkt + pris: Standard (249 kr/mnd)…"
-P_STD=$(stripe products create --name "Quest of the Roasted Bean – Standard" --format json | sed -n 's/.*"id": "\(prod_[^"]*\)".*/\1/p' | head -1)
+P_STD=$(stripe products create --name "Caffeine Level Critical – Standard" --format json | sed -n 's/.*"id": "\(prod_[^"]*\)".*/\1/p' | head -1)
 PRICE_STD=$(stripe prices create \
   --unit-amount 24900 --currency nok \
   --recurring.interval month \
@@ -21,7 +21,7 @@ PRICE_STD=$(stripe prices create \
   --format json | sed -n 's/.*"id": "\(price_[^"]*\)".*/\1/p' | head -1)
 
 echo "▶ Produkt + pris: Team (499 kr/mnd)…"
-P_TEAM=$(stripe products create --name "Quest of the Roasted Bean – Team" --format json | sed -n 's/.*"id": "\(prod_[^"]*\)".*/\1/p' | head -1)
+P_TEAM=$(stripe products create --name "Caffeine Level Critical – Team" --format json | sed -n 's/.*"id": "\(prod_[^"]*\)".*/\1/p' | head -1)
 PRICE_TEAM=$(stripe prices create \
   --unit-amount 49900 --currency nok \
   --recurring.interval month \

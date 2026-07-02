@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Press_Start_2P, VT323 } from "next/font/google";
 import { siteUrl } from "@/lib/seo";
-import { APP_NAME } from "@/lib/brand";
+import { APP_NAME_FULL } from "@/lib/brand";
 import "./globals.css";
 
 const pixel = Press_Start_2P({
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   // Gjør alle URL-baserte metadata-felt (canonical, hreflang, og:image …)
   // absolutte. Uten denne knekker delings- og kanoniske lenker.
   metadataBase: new URL(siteUrl),
-  title: APP_NAME,
+  title: APP_NAME_FULL,
   description: "Spor kaffe, te og kakao på jobben ☕",
 };
 

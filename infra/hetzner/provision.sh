@@ -25,12 +25,12 @@ if ! hcloud ssh-key describe "$SSH_KEY_NAME" >/dev/null 2>&1; then
   hcloud ssh-key create --name "$SSH_KEY_NAME" --public-key-from-file "$SSH_PUB"
 fi
 
-echo "▶ Brannmur (brewquest-fw)…"
-if ! hcloud firewall describe brewquest-fw >/dev/null 2>&1; then
-  hcloud firewall create --name brewquest-fw
+echo "▶ Brannmur (caffeine-level-critical-fw)…"
+if ! hcloud firewall describe caffeine-level-critical-fw >/dev/null 2>&1; then
+  hcloud firewall create --name caffeine-level-critical-fw
 fi
 # Erstatt regler (idempotent): SSH kun fra din IP, HTTP/HTTPS åpent.
-hcloud firewall replace-rules brewquest-fw --rules-file /dev/stdin <<JSON
+hcloud firewall replace-rules caffeine-level-critical-fw --rules-file /dev/stdin <<JSON
 [
   { "direction":"in", "protocol":"tcp", "port":"22",  "source_ips":["${ADMIN_SSH_IP}"] },
   { "direction":"in", "protocol":"tcp", "port":"80",  "source_ips":["0.0.0.0/0","::/0"] },
@@ -46,7 +46,7 @@ if ! hcloud server describe "$SERVER_NAME" >/dev/null 2>&1; then
     --location "$LOCATION" \
     --image "$IMAGE" \
     --ssh-key "$SSH_KEY_NAME" \
-    --firewall brewquest-fw \
+    --firewall caffeine-level-critical-fw \
     --user-data-from-file "${HERE}/cloud-init.yaml"
 else
   echo "  finnes allerede – hopper over."
@@ -59,5 +59,5 @@ echo
 echo "Neste steg:"
 echo "  1) DNS hos registraren/Hetzner DNS:  A @ -> $IP   og   A * -> $IP   (wildcard)"
 echo "  2) Vent på cloud-init (~2 min), så:"
-echo "       scp infra/.env infra/compose.infra.yml deploy@$IP:/opt/brewquest/"
-echo "       ssh deploy@$IP 'cd /opt/brewquest && docker compose -f compose.infra.yml --env-file .env up -d'"
+echo "       scp infra/.env infra/compose.infra.yml deploy@$IP:/opt/caffeine-level-critical/"
+echo "       ssh deploy@$IP 'cd /opt/caffeine-level-critical && docker compose -f compose.infra.yml --env-file .env up -d'"

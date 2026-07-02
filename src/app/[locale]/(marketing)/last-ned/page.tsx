@@ -111,8 +111,8 @@ export default function DownloadPage() {
 
       <Step n="2" title={t("step2Title")}>
         <p>{t("step2Intro")}</p>
-        <Code>{`git clone https://github.com/andbakken/quest-of-the-roasted-bean.git
-cd quest-of-the-roasted-bean`}</Code>
+        <Code>{`git clone https://github.com/andbakken/caffeine-level-critical.git
+cd caffeine-level-critical`}</Code>
         <p className="text-sm">{t("step2Zip")}</p>
       </Step>
 
@@ -150,7 +150,7 @@ cd quest-of-the-roasted-bean`}</Code>
           <Code>{`docker compose pull
 docker compose up -d`}</Code>
           <p className="text-ink">{t("maintBackup")}</p>
-          <Code>docker compose exec db pg_dump -U quest-of-the-roasted-bean quest-of-the-roasted-bean &gt; backup.sql</Code>
+          <Code>docker compose exec db pg_dump -U caffeine-level-critical caffeine-level-critical &gt; backup.sql</Code>
           <p className="text-ink">{t("maintStop")}</p>
           <Code>docker compose down</Code>
         </div>

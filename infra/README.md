@@ -17,8 +17,8 @@ Strategien står i [../docs/hostet-drift-og-prising.md](../docs/hostet-drift-og-
    `A @ → IP` og `A * → IP` (wildcard – gjør at alle `<sub>.<domene>` virker).
 5. **Start infra-stacken på serveren:**
    ```bash
-   scp infra/.env infra/compose.infra.yml deploy@<IP>:/opt/brewquest/
-   ssh deploy@<IP> 'cd /opt/brewquest && docker compose -f compose.infra.yml --env-file .env up -d'
+   scp infra/.env infra/compose.infra.yml deploy@<IP>:/opt/caffeine-level-critical/
+   ssh deploy@<IP> 'cd /opt/caffeine-level-critical && docker compose -f compose.infra.yml --env-file .env up -d'
    ```
 6. **Stripe-produkter + webhook:** `bash stripe-setup.sh` (se Fase 3).
 

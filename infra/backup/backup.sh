@@ -3,7 +3,7 @@
 # (kryptert, 30 dagers oppbevaring). Kjøres på serveren via systemd-timer.
 set -euo pipefail
 
-ENV_FILE="${ENV_FILE:-/opt/brewquest/.env}"
+ENV_FILE="${ENV_FILE:-/opt/caffeine-level-critical/.env}"
 set -a; . "$ENV_FILE"; set +a
 export RESTIC_REPOSITORY RESTIC_PASSWORD
 

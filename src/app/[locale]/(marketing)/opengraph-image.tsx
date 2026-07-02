@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
-import { APP_NAME } from "@/lib/brand";
+import { APP_NAME, APP_NAME_FULL, APP_SUBTITLE } from "@/lib/brand";
 
-export const alt = APP_NAME;
+export const alt = APP_NAME_FULL;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -36,20 +36,41 @@ export default async function Image({
         <div
           style={{
             display: "flex",
-            fontSize: 90,
-            fontWeight: 800,
-            color: "#ffd34d",
-            textAlign: "center",
-            lineHeight: 1.1,
-            letterSpacing: -1,
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 12,
           }}
         >
-          {APP_NAME}
+          <div
+            style={{
+              display: "flex",
+              fontSize: 78,
+              fontWeight: 800,
+              color: "#ffd34d",
+              textAlign: "center",
+              lineHeight: 1.05,
+              letterSpacing: -1,
+            }}
+          >
+            {APP_NAME}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              fontSize: 44,
+              fontWeight: 700,
+              color: "#39d98a",
+              textAlign: "center",
+              letterSpacing: 2,
+            }}
+          >
+            {APP_SUBTITLE}
+          </div>
         </div>
         <div
           style={{
             display: "flex",
-            fontSize: 40,
+            fontSize: 36,
             color: "#9a92c9",
             textAlign: "center",
           }}

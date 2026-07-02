@@ -1,8 +1,8 @@
-# ☕ Quest of the Roasted Bean
+# ☕ Caffeine Level Critical: A Cubicle Odyssey
 
 > Gjør kaffepausen til en konkurranse. Spor kaffe, te og kakao for hele teamet — med NFC-skanning, toppliste og merker.
 
-**Quest of the Roasted Bean** er en liten, selvhostbar webapp som gjør hverdagens kaffepauser om til et lett spill. Fest en NFC-brikke ved kaffemaskinen, hold telefonen mot den, og koppen logges på sekundet — uten app eller innlogging i farten. Poeng, regelstyrte merker og topplister per person og avdeling gir litt sunn intern rivalisering.
+**Caffeine Level Critical: A Cubicle Odyssey** er en liten, selvhostbar webapp som gjør hverdagens kaffepauser om til et lett spill. Fest en NFC-brikke ved kaffemaskinen, hold telefonen mot den, og koppen logges på sekundet — uten app eller innlogging i farten. Poeng, regelstyrte merker og topplister per person og avdeling gir litt sunn intern rivalisering.
 
 Pixel-stil UI, bygget for mobil og internt nett.
 
@@ -42,8 +42,8 @@ Det finnes to veier: **selvhosting med Docker** (enklest — alt følger med) el
 Eneste krav er Docker. `docker compose` kjører både app og database, kjører migreringer og legger inn standarddata automatisk.
 
 ```bash
-git clone https://github.com/andbakken/quest-of-the-roasted-bean.git
-cd quest-of-the-roasted-bean
+git clone https://github.com/andbakken/caffeine-level-critical.git
+cd caffeine-level-critical
 
 cp .env.example .env        # juster PORT, ADMIN_PIN, POSTGRES_PASSWORD ved behov
 docker compose up -d
@@ -61,9 +61,9 @@ Krever Node.js 24 og en kjørende PostgreSQL på `localhost:5432`. Enkleste måt
 
 ```bash
 docker run -d --name roastedbean-db \
-  -e POSTGRES_USER=quest-of-the-roasted-bean \
-  -e POSTGRES_PASSWORD=quest-of-the-roasted-bean \
-  -e POSTGRES_DB=quest-of-the-roasted-bean \
+  -e POSTGRES_USER=caffeine-level-critical \
+  -e POSTGRES_PASSWORD=caffeine-level-critical \
+  -e POSTGRES_DB=caffeine-level-critical \
   -p 5432:5432 postgres:17-alpine
 ```
 
@@ -107,7 +107,7 @@ Appen kjører på <http://localhost:3000>.
 | Variabel | Standard | Beskrivelse |
 | --- | --- | --- |
 | `DATABASE_URL` | — | PostgreSQL-tilkoblingsstreng (brukes ved lokal kjøring) |
-| `POSTGRES_PASSWORD` | `quest-of-the-roasted-bean` | Passord for den innebygde databasen (Docker) |
+| `POSTGRES_PASSWORD` | `caffeine-level-critical` | Passord for den innebygde databasen (Docker) |
 | `EXTERNAL_DATABASE_URL` | _(tom)_ | Sett for å bruke en ekstern database i stedet for den innebygde |
 | `PORT` | `3000` | Porten appen kjører på |
 | `ADMIN_NICKNAME` | `GameMaster` | Kallenavn for admin-brukeren som opprettes ved oppstart |
