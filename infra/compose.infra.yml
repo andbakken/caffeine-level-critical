@@ -19,10 +19,11 @@ volumes:
 
 services:
   traefik:
-    image: traefik:v3.3
+    # v3.6: v3.3 sin docker-klient defaulter til API 1.24, som Docker 29 (min 1.40)
+    # avviser → Traefik leser ikke labels (ingen ruter/TLS). Nyere Traefik forhandler
+    # API-versjon riktig. DOCKER_API_VERSION beholdt som ekstra sikring.
+    image: traefik:v3.6
     restart: unless-stopped
-    # Docker 29+ krever API >= 1.40; Traefik sin docker-klient defaulter til 1.24.
-    # Tving en støttet versjon så Traefik kan lese container-labels (ellers ingen ruter/TLS).
     environment:
       DOCKER_API_VERSION: "1.44"
     command:
