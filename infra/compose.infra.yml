@@ -21,6 +21,10 @@ services:
   traefik:
     image: traefik:v3.3
     restart: unless-stopped
+    # Docker 29+ krever API >= 1.40; Traefik sin docker-klient defaulter til 1.24.
+    # Tving en støttet versjon så Traefik kan lese container-labels (ellers ingen ruter/TLS).
+    environment:
+      DOCKER_API_VERSION: "1.44"
     command:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
