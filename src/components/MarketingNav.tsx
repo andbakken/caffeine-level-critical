@@ -5,12 +5,18 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
-export function MarketingNav() {
+// isTenant: på en kunde-instans skjuler vi salgslenkene (produkt/priser/last-ned/
+// kom-i-gang) og viser bare innlogging – markedssidene finnes ikke der (se proxy.ts).
+export function MarketingNav({ isTenant = false }: { isTenant?: boolean }) {
   const t = useTranslations("Common");
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
-  const links = (
+  const links = isTenant ? (
+    <Link href="/login" className="pixel-btn !py-2 !px-3" onClick={close}>
+      {t("nav.loggInn")}
+    </Link>
+  ) : (
     <>
       <Link href="/produkt" className="hover:text-accent-2" onClick={close}>
         {t("nav.produkt")}
@@ -33,7 +39,11 @@ export function MarketingNav() {
   return (
     <header className="border-b-[3px] border-line bg-bg-2/80 backdrop-blur sticky top-0 z-40">
       <nav className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-        <Link href="/" className="heading text-gold text-base sm:text-xl truncate min-w-0" onClick={close}>
+        <Link
+          href={isTenant ? "/login" : "/"}
+          className="heading text-gold text-base sm:text-xl truncate min-w-0"
+          onClick={close}
+        >
           ☕ {t("brand")}
         </Link>
 

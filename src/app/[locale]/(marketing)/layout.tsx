@@ -6,10 +6,12 @@ export default function MarketingLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const t = useTranslations("Common");
+  // På kunde-instanser (IS_TENANT=1) vises kun innlogging – ikke salgslenkene.
+  const isTenant = process.env.IS_TENANT === "1";
 
   return (
     <>
-      <MarketingNav />
+      <MarketingNav isTenant={isTenant} />
 
       <main className="flex-1 w-full">{children}</main>
 
