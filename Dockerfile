@@ -12,7 +12,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 # Marketing-domenet må bakes inn ved build fordi sitemap.ts/robots.ts prerendres
 # statisk. Uten dette faller siteUrl tilbake på http://localhost:3000 og
-# produksjons-sitemapen blir full av localhost-URLer. Se docs/lanseringsplan.md (A11).
+# produksjons-sitemapen blir full av localhost-URLer.
 ARG NEXT_PUBLIC_SITE_URL
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 COPY --from=deps /app/node_modules ./node_modules

@@ -7,22 +7,31 @@ import { routing } from "./i18n/routing";
 // next-intl sin middleware er bare en (request) => response-funksjon.
 const intlProxy = createMiddleware(routing);
 
-// Tenant-instanser (IS_TENANT=1, satt av control-plane ved provisjonering) kjører
-// nøyaktig samme image som marketing-apex – inkludert markedssidene. På en tenant er
-// salgssidene (landing, priser, onboarding, last-ned) irrelevante og forvirrende:
-// kunden HAR allerede en instans. Vi sender dem rett til innlogging i stedet, og merker
-// alt som noindex (unngår duplicate content på *.<domene>). Apex har ikke flagget.
+// Tre varianter av samme image:
+//  - Apex/marketing: ingen flagg – full salgs-side.
+//  - Hostet tenant (IS_TENANT=1, satt av control-plane): salgssidene er irrelevante
+//    (kunden HAR allerede en instans), men de juridiske sidene beholdes – kunden
+//    trenger dem for den hostede tjenesten.
+//  - Selvhost (SELF_HOST=1): skjuler BÅDE salgssidene OG de juridiske sidene
+//    (Vilkår/Personvern/DPA gjelder kun vår hostede tjeneste, ikke selvhost).
+// I begge de skjulte modusene sender vi salgs-treff rett til innlogging og merker
+// alt som noindex (unngår duplicate content på *.<domene>).
 const IS_TENANT = process.env.IS_TENANT === "1";
+const SELF_HOST = process.env.SELF_HOST === "1";
+const HIDE_SALES = IS_TENANT || SELF_HOST;
 
-// Rene salgs-ruter (uten locale-prefiks) som ikke gir mening på en kunde-instans.
-// /login, /register og de juridiske sidene beholdes – de trengs på en tenant.
+// Rene salgs-ruter (uten locale-prefiks) som ikke gir mening på tenant/selvhost.
+// /login og /register beholdes alltid – de trengs overalt.
 const MARKETING_ONLY = new Set(["", "produkt", "last-ned", "kom-i-gang", "velkommen"]);
+// Juridiske sider: beholdes på tenant, men skjules på selvhost (se over).
+const LEGAL_ONLY = new Set(["vilkar", "personvern", "databehandleravtale"]);
 
-function tenantRedirect(request: NextRequest): NextResponse | null {
+function salesRedirect(request: NextRequest): NextResponse | null {
   const segments = request.nextUrl.pathname.split("/").filter(Boolean);
   const locale = segments[0] === "en" ? "en" : "";
   const logical = (locale ? segments.slice(1) : segments).join("/");
-  if (!MARKETING_ONLY.has(logical)) return null;
+  const hidden = MARKETING_ONLY.has(logical) || (SELF_HOST && LEGAL_ONLY.has(logical));
+  if (!hidden) return null;
 
   const url = request.nextUrl.clone();
   url.pathname = locale ? "/en/login" : "/login";
@@ -31,12 +40,12 @@ function tenantRedirect(request: NextRequest): NextResponse | null {
 }
 
 export default function proxy(request: NextRequest) {
-  if (IS_TENANT) {
-    const redirect = tenantRedirect(request);
+  if (HIDE_SALES) {
+    const redirect = salesRedirect(request);
     if (redirect) return redirect;
   }
   const response = intlProxy(request);
-  if (IS_TENANT) {
+  if (HIDE_SALES) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
   }
   return response;

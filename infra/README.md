@@ -2,7 +2,6 @@
 
 Self-hostet SaaS (modell A): mange tenant-containere på én Hetzner-VPS, bak Traefik,
 med delt Postgres og en control-plane som provisjonerer på Stripe-webhook.
-Strategien står i [../docs/hostet-drift-og-prising.md](../docs/hostet-drift-og-prising.md).
 
 ## Engangsoppsett
 

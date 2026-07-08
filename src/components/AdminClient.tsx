@@ -384,7 +384,7 @@ export function AdminClient({
             ⚠ Du er på <span className="font-display">localhost</span>. Brikke-lenkene under
             blir da uleselige for mobiler (de prøver å nå seg selv → uendelig lasting).
             Åpne admin via maskinens nettverksadresse — f.eks.{" "}
-            <span className="font-display">http://192.0.2.3:3000/admin</span> — og kopier
+            <span className="font-display">http://192.168.1.20:3000/admin</span> — og kopier
             lenken på nytt. (Eller sett <span className="font-display">NEXT_PUBLIC_TAG_BASE_URL</span>.)
           </div>
         )}

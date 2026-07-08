@@ -49,3 +49,7 @@ next-env.d.ts
 
 # Netdata basic-auth (hemmelig hash, kun på server)
 infra/netdata.htpasswd
+
+# Interne forretningsnotater (lanseringsplan, prising/marginer, branding-strategi).
+# Holdes utenfor det offentlige repoet – lever kun lokalt / i privat notat.
+/docs/

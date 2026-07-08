@@ -28,6 +28,10 @@ services:
       DATABASE_URL: ${EXTERNAL_DATABASE_URL:-postgresql://caffeine-level-critical:${POSTGRES_PASSWORD:-caffeine-level-critical}@db:5432/caffeine-level-critical}
       ADMIN_NICKNAME: ${ADMIN_NICKNAME:-GameMaster}
       ADMIN_PIN: ${ADMIN_PIN:-1234}
+      # Selvhost-modus: skjuler salgs-/markedssidene og de juridiske sidene (de gjelder
+      # kun den hostede tjenesten). Appen starter da rett på innlogging. Sett SELF_HOST=0
+      # i .env hvis du vil vise markedssidene også på din instans.
+      SELF_HOST: ${SELF_HOST:-1}
       # Valgfritt: support-e-post. Vises som «Hjelp»-lenke i menyen når satt.
       SUPPORT_EMAIL: ${SUPPORT_EMAIL:-}
       UPLOAD_DIR: /app/uploads
