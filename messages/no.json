@@ -447,18 +447,6 @@
     "selfHostAlt": "Vil du heller starte i dag? %BRAND% er gratis å kjøre selv med Docker.",
     "selfHostCta": "Slik installerer du selv"
   },
-  "Onboarding": {
-    "title": "Start 14 dager gratis",
-    "intro": "Opprett din egen instans på minutter. Du legger inn kort nå for å komme i gang, men vi belaster ingenting før prøveperioden er over.",
-    "orgName": "Organisasjon",
-    "subdomain": "Ønsket nettadresse",
-    "email": "E-post (admin)",
-    "trialNote": "14 dager gratis, deretter 249 kr/mnd. Kortet belastes først når prøveperioden er over, og du kan si opp gratis når som helst før det.",
-    "submit": "Start gratis prøveperiode",
-    "submitting": "Sender deg videre…",
-    "genericError": "Noe gikk galt. Prøv igjen.",
-    "subdomainHint": "3–30 tegn: a–z, 0–9 og bindestrek."
-  },
   "Welcome": {
     "metaTitle": "Takk – instansen din settes opp",
     "metaDescription": "Betalingen er mottatt. Instansen din for %BRAND% provisjoneres nå, og du får en innloggingslenke på e-post.",

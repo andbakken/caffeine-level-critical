@@ -447,18 +447,6 @@
     "selfHostAlt": "Prefer to start today? %BRAND% is free to run yourself with Docker.",
     "selfHostCta": "How to install it yourself"
   },
-  "Onboarding": {
-    "title": "Start your 14-day free trial",
-    "intro": "Create your own instance in minutes. You add a card now to get started, but we won't charge anything until the trial ends.",
-    "orgName": "Organisation",
-    "subdomain": "Preferred web address",
-    "email": "Email (admin)",
-    "trialNote": "14 days free, then $20/mo. Your card isn't charged until the trial ends, and you can cancel for free any time before that.",
-    "submit": "Start free trial",
-    "submitting": "Taking you to checkout…",
-    "genericError": "Something went wrong. Please try again.",
-    "subdomainHint": "3–30 chars: a–z, 0–9 and hyphen."
-  },
   "Welcome": {
     "metaTitle": "Thanks – your instance is being set up",
     "metaDescription": "Payment received. Your %BRAND% instance is being provisioned, and you'll get a login link by email.",
