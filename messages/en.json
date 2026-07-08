@@ -100,8 +100,8 @@
       "Backup and updates included",
       "Hosted in the EU — GDPR-friendly"
     ],
-    "startTrial": "Start free trial",
-    "trialNote": "14 days free · cancel any time · no charge until the trial ends",
+    "startTrial": "Contact us about hosting",
+    "trialNote": "Self-service checkout is coming soon · get in touch and we'll set up an instance for your team",
     "endTitle": "Ready to get brewing?",
     "endBody": "Set up %BRAND% for your team today — and find out who really keeps the office running."
   },
@@ -200,8 +200,8 @@
     "installButton": "How to install",
     "hostedDesc": "Ready in minutes. No operations, secure login, backup and updates included — hosted in the EU (GDPR).",
     "recommended": "RECOMMENDED",
-    "startTrial": "Start free trial",
-    "trialNote": "14 days free, then {price}. Your card isn't charged until the trial ends — cancel for free any time before that.",
+    "startTrial": "Contact us about hosting",
+    "trialNote": "Self-service checkout is coming soon. Get in touch and we'll set up an instance for your team and send you a login link.",
     "hostingHeading": "What the hosting includes",
     "hostingIntro": "Choose the hosted version and we take care of all the operations — secure, up to date and predictable.",
     "hostingBullets": [
@@ -255,8 +255,8 @@
         "a": "Yes. The physical tags then need to be rewritten once because the domain changes, but all functionality is the same."
       },
       {
-        "q": "What does the free trial mean?",
-        "a": "You get full access to the hosted version for 14 days without paying. You add a card when you sign up, but we don't charge anything until the trial ends. Cancel before day 14 and you pay nothing. After the trial the subscription renews automatically at the regular monthly price, and you can cancel any time."
+        "q": "How do we get started with the hosted version?",
+        "a": "Self-service checkout online is just around the corner. In the meantime we set the instance up manually: get in touch by email and we'll create an instance for your team, send you a login link and arrange payment directly. Prefer to start today without waiting? You can always self-host for free."
       },
       {
         "q": "Do you collect usage statistics?",
@@ -434,6 +434,18 @@
     "headingLabel": "Heading",
     "bodyLabel": "Promo text",
     "logoAlt": "Logo"
+  },
+  "Contact": {
+    "metaTitle": "Contact us about hosting — %BRAND_FULL%",
+    "metaDescription": "Want us to host %BRAND% for your team? Get in touch and we'll set up a hosted instance for you.",
+    "title": "Contact us about hosting",
+    "intro": "Self-service checkout online is almost ready. In the meantime we're happy to set it up manually — send us a short email and we'll create an instance for your team, send you a login link and arrange payment directly.",
+    "emailCta": "Send us an email",
+    "emailSubject": "I'd like hosting for %BRAND%",
+    "emailBody": "Hi!\n\nWe'd like a hosted instance of %BRAND%.\n\nOrganisation: \nDesired web address (subdomain): \nApprox. number of users: \n\nBest, ",
+    "responseNote": "We usually reply within one business day.",
+    "selfHostAlt": "Prefer to start today? %BRAND% is free to run yourself with Docker.",
+    "selfHostCta": "How to install it yourself"
   },
   "Onboarding": {
     "title": "Start your 14-day free trial",
