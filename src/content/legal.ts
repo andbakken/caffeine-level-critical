@@ -51,7 +51,7 @@ export const legal: Record<Locale, Record<LegalKey, LegalDoc>> = {
         {
           heading: "3. Priser, betaling og prøveperiode",
           body: [
-            "Hostet tjeneste koster 249 kr per måned (eks. mva. der det er relevant). Nye kunder får en gratis prøveperiode på 14 dager. Du oppgir betalingskort ved oppstart, men belastes ikke før prøveperioden er over.",
+            "Hostet tjeneste koster 249 kr per måned. Vi er foreløpig ikke merverdiavgiftsregistrert, og det påløper derfor ikke MVA på beløpet. Nye kunder får en gratis prøveperiode på 14 dager. Du oppgir betalingskort ved oppstart, men belastes ikke før prøveperioden er over.",
             "Sier du opp før prøveperioden utløper, belastes du ingenting. Etter prøveperioden fornyes abonnementet automatisk hver måned til du sier det opp. Betaling håndteres av Stripe.",
           ],
         },
@@ -289,7 +289,7 @@ export const legal: Record<Locale, Record<LegalKey, LegalDoc>> = {
         {
           heading: "3. Pricing, payment and trial",
           body: [
-            "The hosted service costs 249 NOK per month (excl. VAT where applicable). New customers get a 14-day free trial. You add a payment card at sign-up but are not charged until the trial ends.",
+            "The hosted service costs 249 NOK per month. We are not currently VAT-registered, so no VAT is added to this amount. New customers get a 14-day free trial. You add a payment card at sign-up but are not charged until the trial ends.",
             "If you cancel before the trial ends, you are charged nothing. After the trial the subscription renews automatically each month until you cancel. Payments are handled by Stripe.",
           ],
         },
