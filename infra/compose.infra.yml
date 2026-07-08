@@ -98,6 +98,9 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY}
       MAIL_FROM: ${MAIL_FROM}
       UPLOAD_DIR: /app/uploads
+      # Umami web-analyse (kun apex; tom = ingen sporing). Runtime, ikke build-time.
+      UMAMI_SRC: ${UMAMI_SRC:-}
+      UMAMI_WEBSITE_ID: ${UMAMI_WEBSITE_ID:-}
     volumes:
       - marketing_uploads:/app/uploads
     networks:

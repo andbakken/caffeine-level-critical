@@ -129,7 +129,7 @@ export const legal: Record<Locale, Record<LegalKey, LegalDoc>> = {
         {
           heading: "3. Informasjonskapsler",
           body: [
-            "Vi bruker kun strengt nødvendige informasjonskapsler (for innlogging og sikkerhet). Vi bruker ingen analyse-, sporings- eller reklamecookies, og trenger derfor ikke et samtykkebanner for slike.",
+            "Vi bruker kun strengt nødvendige informasjonskapsler (for innlogging og sikkerhet). For å forstå trafikken på nettsidene våre bruker vi Umami – en personvernvennlig, selvhostet analyseløsning som kjører på våre egne servere i EU. Den setter ingen informasjonskapsler, sporer deg ikke på tvers av nettsteder, og samler ikke inn opplysninger som identifiserer deg. Vi bruker ingen reklame- eller tredjeparts sporingscookies, og trenger derfor ikke et samtykkebanner.",
           ],
         },
         {
@@ -367,7 +367,7 @@ export const legal: Record<Locale, Record<LegalKey, LegalDoc>> = {
         {
           heading: "3. Cookies",
           body: [
-            "We use only strictly necessary cookies (for login and security). We use no analytics, tracking or advertising cookies, so no consent banner is required for such purposes.",
+            "We use only strictly necessary cookies (for login and security). To understand traffic on our websites we use Umami – a privacy-friendly, self-hosted analytics tool running on our own EU servers. It sets no cookies, does not track you across sites, and collects no data that identifies you. We use no advertising or third-party tracking cookies, so no consent banner is required.",
           ],
         },
         {

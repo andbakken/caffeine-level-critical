@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { useTranslations } from "next-intl";
 import { MarketingNav } from "@/components/MarketingNav";
 import { Link } from "@/i18n/navigation";
@@ -8,9 +9,16 @@ export default function MarketingLayout({
   const t = useTranslations("Common");
   // På kunde-instanser (IS_TENANT=1) vises kun innlogging – ikke salgslenkene.
   const isTenant = process.env.IS_TENANT === "1";
+  // Anonym web-analyse (Umami). Runtime-env, satt KUN på apex/marketing-instansen –
+  // aldri på tenants (IS_TENANT), og tom for selvhostere (da lastes ingen sporing).
+  const umamiSrc = process.env.UMAMI_SRC;
+  const umamiWebsiteId = process.env.UMAMI_WEBSITE_ID;
 
   return (
     <>
+      {!isTenant && umamiSrc && umamiWebsiteId && (
+        <Script defer src={umamiSrc} data-website-id={umamiWebsiteId} />
+      )}
       <MarketingNav isTenant={isTenant} />
 
       <main className="flex-1 w-full">{children}</main>
