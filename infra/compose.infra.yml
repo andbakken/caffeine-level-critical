@@ -16,6 +16,9 @@ volumes:
   traefik_acme:
   pgdata:
   marketing_uploads:
+  netdataconfig:
+  netdatalib:
+  netdatacache:
 
 services:
   traefik:
@@ -46,6 +49,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik_acme:/acme
+      # htpasswd-fil for basic-auth foran Netdata (ligger i infra/, git-ignorert).
+      - ./netdata.htpasswd:/auth/netdata.htpasswd:ro
     networks:
       - bq_edge
 
@@ -176,3 +181,87 @@ services:
       - traefik.http.routers.cp.entrypoints=websecure
       - traefik.http.routers.cp.tls.certresolver=le
       - traefik.http.services.cp.loadbalancer.server.port=8080
+
+  # ── Web-analyse (Umami) ──────────────────────────────────────────────────────
+  # Personvernvennlig, cookieløs trafikkstatistikk på analytics.<domene>.
+  # Egen database + begrenset rolle i den delte Postgres-en (som marketing).
+  umami-db-init:
+    image: postgres:17-alpine
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: ${POSTGRES_SUPER_PASSWORD}
+      UMAMI_DB_PASSWORD: ${UMAMI_DB_PASSWORD}
+    entrypoint:
+      - sh
+      - -c
+      - |
+        set -e
+        PSQL="psql -h postgres -U ${POSTGRES_SUPER_USER} -v ON_ERROR_STOP=1"
+        if [ -z "$$($$PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='umami_app'")" ]; then
+          $$PSQL -c "CREATE ROLE umami_app LOGIN PASSWORD '$$UMAMI_DB_PASSWORD'"
+        else
+          $$PSQL -c "ALTER ROLE umami_app WITH PASSWORD '$$UMAMI_DB_PASSWORD'"
+        fi
+        if [ -z "$$($$PSQL -tAc "SELECT 1 FROM pg_database WHERE datname='umami'")" ]; then
+          $$PSQL -c "CREATE DATABASE umami OWNER umami_app"
+        fi
+        $$PSQL -c "REVOKE CONNECT ON DATABASE umami FROM PUBLIC"
+        $$PSQL -c "GRANT CONNECT ON DATABASE umami TO umami_app"
+    networks:
+      - bq_data
+    restart: "no"
+
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    restart: unless-stopped
+    depends_on:
+      umami-db-init:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_TYPE: postgresql
+      DATABASE_URL: postgresql://umami_app:${UMAMI_DB_PASSWORD}@postgres:5432/umami
+      APP_SECRET: ${UMAMI_APP_SECRET}
+    networks:
+      - bq_edge
+      - bq_data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.umami.rule=Host(`analytics.${BASE_DOMAIN}`)
+      - traefik.http.routers.umami.entrypoints=websecure
+      - traefik.http.routers.umami.tls.certresolver=le
+      - traefik.http.services.umami.loadbalancer.server.port=3000
+
+  # ── Server-dashbord (Netdata) ────────────────────────────────────────────────
+  # Sanntids CPU/RAM/disk/nett + per-container på status.<domene>, bak basic-auth.
+  netdata:
+    image: netdata/netdata:stable
+    restart: unless-stopped
+    hostname: ${BASE_DOMAIN}
+    pid: host
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - netdataconfig:/etc/netdata
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - bq_edge
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.netdata.rule=Host(`status.${BASE_DOMAIN}`)
+      - traefik.http.routers.netdata.entrypoints=websecure
+      - traefik.http.routers.netdata.tls.certresolver=le
+      - traefik.http.services.netdata.loadbalancer.server.port=19999
+      - traefik.http.routers.netdata.middlewares=netdata-auth
+      - traefik.http.middlewares.netdata-auth.basicauth.usersfile=/auth/netdata.htpasswd
