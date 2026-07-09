@@ -50,7 +50,8 @@ async function ensureDatabase(subdomain: string): Promise<{ dbName: string; dbUr
 
 // (Re)starter tenant-containeren med riktig env + Traefik-labels. Idempotent:
 // fjerner en eksisterende container med samme navn først, så env alltid er fersk.
-async function ensureContainer(subdomain: string, adminEmail: string, dbUrl: string): Promise<void> {
+// Eksportert så rollout.ts kan gjenbruke NØYAKTIG samme spec ved oppgradering (ny image).
+export async function ensureContainer(subdomain: string, adminEmail: string, dbUrl: string): Promise<void> {
   const name = containerNameFor(subdomain);
   const host = `${subdomain}.${env.baseDomain}`;
   const siteUrl = `https://${host}`;
