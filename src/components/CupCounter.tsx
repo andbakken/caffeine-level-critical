@@ -2,11 +2,12 @@ import { getTranslations } from "next-intl/server";
 import { getGlobalCups } from "@/lib/globalStats";
 
 // «Social proof» på landingssiden: totalt antall loggede kopper på tvers av alle
-// hostede instanser. Rendrer ingenting hvis tallet ikke er tilgjengelig (dev/selvhostet)
-// eller er null, så siden ser like ren ut uansett.
+// hostede instanser. Vises alltid på den hostede markedssiden — også når totalen er 0.
+// Skjules KUN når tallet ikke er tilgjengelig (dev/selvhostet eller control-plane nede),
+// dvs. når getGlobalCups() returnerer null. En ekte 0 skal vises.
 export async function CupCounter() {
   const cups = await getGlobalCups();
-  if (!cups || cups <= 0) return null;
+  if (cups === null) return null;
 
   const t = await getTranslations("Landing");
   return (
