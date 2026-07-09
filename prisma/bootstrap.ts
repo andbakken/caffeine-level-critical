@@ -47,6 +47,29 @@ async function main() {
     { key: "streak-5", name: "Trofast", description: "Logg minst én kopp 5 dager på rad", icon: "🔥", ruleType: "streak", threshold: 5, drinkId: null, sortOrder: 10 },
     { key: "marathon", name: "Maraton", description: "Logg 5 kopper på samme dag", icon: "🏃", ruleType: "day_total", threshold: 5, drinkId: null, sortOrder: 11 },
     { key: "weekend-warrior", name: "Helgekriger", description: "Logg en kopp i helgen", icon: "🎉", ruleType: "weekend", threshold: 1, drinkId: null, sortOrder: 12 },
+    // --- Del A: flere data-merker (eksisterende regeltyper) ---
+    { key: "total-250", name: "Overdose", description: "Logg 250 kopper totalt", icon: "💀", ruleType: "total", threshold: 250, drinkId: null, sortOrder: 13 },
+    { key: "total-500", name: "Koffein-legende", description: "Logg 500 kopper totalt", icon: "🏆", ruleType: "total", threshold: 500, drinkId: null, sortOrder: 14 },
+    { key: "total-1000", name: "Udødelig", description: "Logg 1000 kopper totalt", icon: "🌟", ruleType: "total", threshold: 1000, drinkId: null, sortOrder: 15 },
+    { key: "streak-3", name: "God start", description: "Logg minst én kopp 3 dager på rad", icon: "🌱", ruleType: "streak", threshold: 3, drinkId: null, sortOrder: 16 },
+    { key: "streak-10", name: "Jernvilje", description: "Logg minst én kopp 10 dager på rad", icon: "💪", ruleType: "streak", threshold: 10, drinkId: null, sortOrder: 17 },
+    { key: "streak-30", name: "Måned uten miss", description: "Logg minst én kopp 30 dager på rad", icon: "📅", ruleType: "streak", threshold: 30, drinkId: null, sortOrder: 18 },
+    { key: "day-3", name: "Trippel", description: "Logg 3 kopper på samme dag", icon: "🎰", ruleType: "day_total", threshold: 3, drinkId: null, sortOrder: 19 },
+    { key: "day-10", name: "Overdrivelse", description: "Logg 10 kopper på samme dag", icon: "🤯", ruleType: "day_total", threshold: 10, drinkId: null, sortOrder: 20 },
+    { key: "all-types", name: "Smaksmester", description: "Prøv alle 5 drikketyper", icon: "🎨", ruleType: "distinct", threshold: 5, drinkId: null, sortOrder: 21 },
+    { key: "tea-lover", name: "Tedronning", description: "Logg 25 te", icon: "🍵", ruleType: "drink", threshold: 25, drinkId: drinkByKey.tea, sortOrder: 22 },
+    { key: "cocoa-lover", name: "Kakaokonge", description: "Logg 25 kakao", icon: "🍫", ruleType: "drink", threshold: 25, drinkId: drinkByKey.cocoa, sortOrder: 23 },
+    { key: "hydrated", name: "Hydrert", description: "Logg 25 glass vann", icon: "🥛", ruleType: "drink", threshold: 25, drinkId: drinkByKey.water_glass, sortOrder: 24 },
+    { key: "super-early", name: "Grytidlig", description: "Logg en kopp før kl. 06", icon: "🐓", ruleType: "before_hour", threshold: 6, drinkId: null, sortOrder: 25 },
+    { key: "midnight", name: "Midnattstørst", description: "Logg en kopp kl. 23 eller senere", icon: "🌙", ruleType: "after_hour", threshold: 23, drinkId: null, sortOrder: 26 },
+    // --- Del B: nye regeltyper ---
+    { key: "explorer", name: "Utforsker", description: "Besøk 3 ulike stasjoner", icon: "🗺️", ruleType: "distinct_station", threshold: 3, drinkId: null, sortOrder: 27 },
+    { key: "tag-master", name: "Brikkemester", description: "Skann 5 ulike brikker", icon: "📟", ruleType: "distinct_tag", threshold: 5, drinkId: null, sortOrder: 28 },
+    { key: "nfc-native", name: "NFC-innfødt", description: "Logg 50 kopper via brikke", icon: "📲", ruleType: "tag_total", threshold: 50, drinkId: null, sortOrder: 29 },
+    { key: "record-streak", name: "Rekordholder", description: "Ha en rekke på 14 dager på rad", icon: "🔥", ruleType: "longest_streak", threshold: 14, drinkId: null, sortOrder: 30 },
+    { key: "regular", name: "Stamgjest", description: "Logg på 30 ulike dager totalt", icon: "🪑", ruleType: "active_days", threshold: 30, drinkId: null, sortOrder: 31 },
+    { key: "round-the-clock", name: "Døgnvill", description: "Logg i 8 ulike klokketimer", icon: "🕛", ruleType: "hour_slots", threshold: 8, drinkId: null, sortOrder: 32 },
+    { key: "lunch-break", name: "Lunsjpause", description: "Logg en kopp kl. 12", icon: "🥪", ruleType: "at_hour", threshold: 12, drinkId: null, sortOrder: 33 },
   ];
   for (const a of achievements) {
     await prisma.achievement.upsert({ where: { key: a.key }, update: a, create: a });
