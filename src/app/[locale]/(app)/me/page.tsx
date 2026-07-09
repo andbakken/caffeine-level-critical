@@ -13,6 +13,10 @@ export default async function MePage() {
   if (!user) redirect("/login?next=/me");
 
   const t = await getTranslations("Me");
+  const at = await getTranslations("Achievements");
+  // Lokaliser merker via katalog; fall tilbake på DB-teksten (f.eks. egendefinerte merker).
+  const badgeText = (key: string, field: "name" | "description", fallback: string) =>
+    at.has(`${key}.${field}`) ? at(`${key}.${field}`) : fallback;
 
   const today = periodStart("today")!;
   const [total, todayCount, grouped, drinks, earned, allAchievements, departments] =
@@ -83,10 +87,12 @@ export default async function MePage() {
               <div
                 key={a.key}
                 className={`pixel-panel p-3 text-center ${has ? "" : "opacity-40 grayscale"}`}
-                title={a.description}
+                title={badgeText(a.key, "description", a.description)}
               >
                 <div className="text-4xl">{has ? a.icon : "🔒"}</div>
-                <div className="font-display text-[0.5rem] mt-2 leading-relaxed">{a.name}</div>
+                <div className="font-display text-[0.5rem] mt-2 leading-relaxed">
+                  {badgeText(a.key, "name", a.name)}
+                </div>
               </div>
             );
           })}

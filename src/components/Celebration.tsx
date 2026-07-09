@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import type { AwardedBadge } from "@/lib/consumption";
 
 export function Celebration({
@@ -11,6 +12,9 @@ export function Celebration({
   badges: AwardedBadge[];
   onDone: () => void;
 }) {
+  const t = useTranslations("Achievements");
+  const badgeName = (b: AwardedBadge) => (t.has(`${b.key}.name`) ? t(`${b.key}.name`) : b.name);
+
   useEffect(() => {
     if (badges.length === 0) return;
     const t = setTimeout(onDone, 4000);
@@ -44,7 +48,7 @@ export function Celebration({
                   transition={{ delay: 0.2 }}
                 >
                   <span className="text-5xl wiggle">{b.icon}</span>
-                  <span className="heading text-base text-accent-2 text-left">{b.name}</span>
+                  <span className="heading text-base text-accent-2 text-left">{badgeName(b)}</span>
                 </motion.div>
               ))}
             </div>

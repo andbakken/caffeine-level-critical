@@ -30,6 +30,13 @@ const RULE_LABELS: Record<string, string> = {
   streak: "Antall dager på rad",
   day_total: "Antall på samme dag",
   weekend: "Logg en kopp i helgen",
+  distinct_station: "Antall ulike stasjoner besøkt",
+  distinct_tag: "Antall ulike brikker skannet",
+  tag_total: "Antall kopper via brikke (NFC)",
+  longest_streak: "Lengste dager-på-rad noensinne",
+  active_days: "Antall aktive dager totalt",
+  hour_slots: "Antall ulike klokketimer logget",
+  at_hour: "En kopp i en bestemt time",
 };
 
 function isThresholdless(ruleType: string): boolean {
@@ -37,7 +44,7 @@ function isThresholdless(ruleType: string): boolean {
 }
 
 function isHourRule(ruleType: string): boolean {
-  return ruleType === "before_hour" || ruleType === "after_hour";
+  return ruleType === "before_hour" || ruleType === "after_hour" || ruleType === "at_hour";
 }
 
 type Draft = {
@@ -73,10 +80,33 @@ function ruleSummary(a: AdminAchievement, drinks: DrinkOpt[]): string {
       return `${a.threshold} på samme dag`;
     case "weekend":
       return "kopp i helgen (lør/søn)";
+    case "distinct_station":
+      return `${a.threshold} ulike stasjoner`;
+    case "distinct_tag":
+      return `${a.threshold} ulike brikker`;
+    case "tag_total":
+      return `${a.threshold} kopper via brikke`;
+    case "longest_streak":
+      return `${a.threshold} dager på rad (rekord)`;
+    case "active_days":
+      return `${a.threshold} aktive dager`;
+    case "hour_slots":
+      return `${a.threshold} ulike klokketimer`;
+    case "at_hour":
+      return `kopp kl. ${String(a.threshold).padStart(2, "0")}`;
     default:
       return a.ruleType;
   }
 }
+
+// Kuratert palett av forslag til merke-ikoner (fritekst fungerer fortsatt).
+const ICON_CHOICES = [
+  "🏆", "🥇", "🥈", "🥉", "🏅", "👑", "⭐", "🌟", "✨", "🎯",
+  "🔥", "⚡", "💪", "🚀", "🧠", "🎉", "🎊", "🌈", "🎨", "💎",
+  "☕", "🍵", "🍫", "🥛", "💧", "🧋", "🥤", "🫖",
+  "🌅", "🌙", "🕛", "🦉", "🐓", "🥪",
+  "🗺️", "📟", "📲", "🪑", "🌱", "💀",
+];
 
 const EMPTY: Draft = {
   name: "",
@@ -265,6 +295,27 @@ export function AchievementManager({
                 placeholder="f.eks. Tedronning"
               />
             </label>
+          </div>
+          <div className="flex flex-col gap-1">
+            <span className="text-ink-dim text-base">Velg ikon</span>
+            <div className="flex flex-wrap gap-1">
+              {ICON_CHOICES.map((emoji) => (
+                <button
+                  key={emoji}
+                  type="button"
+                  onClick={() => setDraft({ ...draft, icon: emoji })}
+                  aria-label={`Velg ikon ${emoji}`}
+                  aria-pressed={draft.icon === emoji}
+                  className={`text-2xl leading-none w-9 h-9 flex items-center justify-center rounded transition ${
+                    draft.icon === emoji
+                      ? "bg-accent-2/30 ring-2 ring-accent-2"
+                      : "hover:bg-white/10"
+                  }`}
+                >
+                  {emoji}
+                </button>
+              ))}
+            </div>
           </div>
           <label className="flex flex-col gap-1">
             <span className="text-ink-dim text-base">Beskrivelse</span>
