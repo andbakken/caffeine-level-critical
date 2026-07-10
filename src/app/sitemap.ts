@@ -7,6 +7,7 @@ const pages: { path: string; priority: number }[] = [
   { path: "", priority: 1 },
   { path: "produkt", priority: 0.8 },
   { path: "priser", priority: 0.9 },
+  { path: "merker", priority: 0.7 },
   { path: "kom-i-gang", priority: 0.6 },
   { path: "last-ned", priority: 0.8 },
   { path: "vilkar", priority: 0.3 },

@@ -7,7 +7,14 @@ import { hostedPrice } from "@/lib/pricing";
 import { faqJsonLd, jsonLdString, marketingMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
-type Detail = { icon: string; title: string; body: string };
+type Detail = {
+  icon: string;
+  title: string;
+  body: string;
+  /** Valgfri intern lenke («les mer»-vei) fra kortet, f.eks. /merker. */
+  href?: string;
+  linkLabel?: string;
+};
 type Faq = { q: string; a: string };
 type Row = { label: string; self: string; hosted: string };
 
@@ -58,10 +65,17 @@ export default function ProductPage() {
       <section id="funksjoner" className="bg-bg-2/50 border-y-[3px] border-line">
         <div className="max-w-6xl mx-auto px-4 py-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {details.map((d) => (
-            <div key={d.title} className="pixel-panel p-5 flex flex-col gap-3">
-              <span className="text-4xl">{d.icon}</span>
+            <div key={d.title} className="pixel-panel feature-card p-5 flex flex-col gap-3">
+              <span className="text-4xl feature-icon" aria-hidden>
+                {d.icon}
+              </span>
               <h3 className="font-display text-sm text-gold leading-relaxed">{d.title}</h3>
               <p className="text-ink-dim text-base leading-relaxed">{d.body}</p>
+              {d.href && d.linkLabel && (
+                <Link href={d.href} className="text-accent-2 hover:text-gold text-sm mt-auto">
+                  {d.linkLabel}
+                </Link>
+              )}
             </div>
           ))}
         </div>

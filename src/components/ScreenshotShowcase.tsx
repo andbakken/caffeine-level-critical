@@ -21,7 +21,7 @@ function Screen({
   sizes: string;
 }) {
   return (
-    <figure className="pixel-screen flex flex-col">
+    <figure className="pixel-screen scroll-pop flex flex-col">
       <div className="flex items-center gap-1.5 pb-2" aria-hidden>
         <span className="w-2 h-2 bg-danger" />
         <span className="w-2 h-2 bg-gold" />

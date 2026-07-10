@@ -5,12 +5,20 @@ import { OfficeScene } from "@/components/OfficeScene";
 import { CupCounter } from "@/components/CupCounter";
 import { PricingCards } from "@/components/PricingCards";
 import { ScreenshotShowcase } from "@/components/ScreenshotShowcase";
+import { Testimonials } from "@/components/Testimonials";
 import { Link } from "@/i18n/navigation";
 import { hostedPrice } from "@/lib/pricing";
 import { jsonLdString, marketingMetadata, softwareAppJsonLd } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
-type Feature = { icon: string; title: string; body: string };
+type Feature = {
+  icon: string;
+  title: string;
+  body: string;
+  /** Valgfri intern lenke («les mer»-vei) fra kortet, f.eks. /merker. */
+  href?: string;
+  linkLabel?: string;
+};
 type Step = { n: string; title: string; body: string };
 
 export async function generateMetadata({
@@ -98,12 +106,19 @@ export default function LandingPage() {
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {features.map((f) => (
-              <div key={f.title} className="pixel-panel p-5 flex flex-col gap-3">
-                <span className="text-4xl">{f.icon}</span>
+              <div key={f.title} className="pixel-panel feature-card p-5 flex flex-col gap-3">
+                <span className="text-4xl feature-icon" aria-hidden>
+                  {f.icon}
+                </span>
                 <h3 className="font-display text-sm text-gold leading-relaxed">
                   {f.title}
                 </h3>
                 <p className="text-ink-dim text-base leading-relaxed">{f.body}</p>
+                {f.href && f.linkLabel && (
+                  <Link href={f.href} className="text-accent-2 hover:text-gold text-sm mt-auto">
+                    {f.linkLabel}
+                  </Link>
+                )}
               </div>
             ))}
           </div>
@@ -117,24 +132,34 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ---- HVORDAN ---- */}
+      {/* ---- HVORDAN (quest-path: steg med fotspor mellom) ---- */}
       <section className="max-w-6xl mx-auto px-4 py-14 flex flex-col gap-8">
         <h2 className="heading text-accent-2 text-xl text-center">
           {t("howHeading")}
         </h2>
-        <div className="grid sm:grid-cols-3 gap-4">
-          {steps.map((s) => (
-            <div key={s.n} className="pixel-panel p-5 flex flex-col gap-2">
-              <span className="font-display text-2xl text-gold">{s.n}</span>
-              <h3 className="font-display text-sm text-accent-2">{s.title}</h3>
-              <p className="text-ink-dim text-base leading-relaxed">{s.body}</p>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-2">
+          {steps.map((s, i) => (
+            <div key={s.n} className="contents">
+              {i > 0 && (
+                <span className="quest-sep hidden sm:block shrink-0" aria-hidden>
+                  👣
+                </span>
+              )}
+              <div className="pixel-panel scroll-pop p-5 flex flex-col gap-2 flex-1">
+                <span className="font-display text-2xl text-gold">{s.n}</span>
+                <h3 className="font-display text-sm text-accent-2">{s.title}</h3>
+                <p className="text-ink-dim text-base leading-relaxed">{s.body}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
+      {/* ---- SOSIAL BEVISFØRING (high scores fra pilotkontorene) ---- */}
+      <Testimonials />
+
       {/* ---- PRISER ---- */}
-      <section id="priser" className="bg-bg-2/50 border-y-[3px] border-line">
+      <section id="priser" className="border-b-[3px] border-line">
         <div className="max-w-5xl mx-auto px-4 py-14 flex flex-col gap-8">
           <h2 className="heading text-accent-2 text-xl text-center">
             {t("pricingHeading")}

@@ -35,7 +35,7 @@
     "ctaStart": "Kom i gang",
     "ctaSecondary": "Se funksjonene",
     "pricingNote": "Gratis å kjøre selv · eller hostet fra {price}{period}",
-    "cupsCounted": "☕ {count, number} kopper logget så langt",
+    "cupsCountedLabel": "kopper logget så langt",
     "cupsNote": "Kun et anonymt, aggregert totaltall på tvers av alle hostede instanser — vi teller aldri per person eller per kunde.",
     "featuresHeading": "Alt teamet trenger",
     "featuresMore": "Se alle funksjonene i detalj →",
@@ -53,7 +53,9 @@
       {
         "icon": "🎖️",
         "title": "Merker",
-        "body": "Lås opp morsomme merker som «Morgenfugl» og «Koppmester». Admin lager og styrer reglene selv."
+        "body": "Lås opp morsomme merker som «Morgenfugl» og «Koppmester». Admin lager og styrer reglene selv.",
+        "href": "/merker",
+        "linkLabel": "Se alle 33 merkene →"
       },
       {
         "icon": "📊",
@@ -126,7 +128,9 @@
       {
         "icon": "🎖️",
         "title": "Regelstyrte merker",
-        "body": "Admin lager merker selv og setter regelen: antall kopper, ulike drikketyper, antall av én bestemt drikke, eller tidspunkt på dagen. De deles ut automatisk."
+        "body": "Admin lager merker selv og setter regelen: antall kopper, ulike drikketyper, antall av én bestemt drikke, eller tidspunkt på dagen. De deles ut automatisk.",
+        "href": "/merker",
+        "linkLabel": "Se alle 33 merkene →"
       },
       {
         "icon": "📊",
@@ -436,6 +440,50 @@
     "bodyLabel": "Promotekst",
     "logoAlt": "Logo"
   },
+  "Testimonials": {
+    "heading": "High scores fra pilotkontorene",
+    "cups": "{count, number} kopper logget",
+    "entries": [
+      {
+        "initials": "AAA",
+        "who": "Driftsleder, pilotkontor i Oslo",
+        "cups": 2341,
+        "quote": "Fredagsfinalen på topplista er blitt ukas høydepunkt — folk logger koppen før de har tatt av seg jakka.",
+        "avatar": "preset-07.png"
+      },
+      {
+        "initials": "KMB",
+        "who": "Teamlead utvikling, pilotkontor i Trondheim",
+        "cups": 1877,
+        "quote": "Vi satte opp brikken ved maskinen på fem minutter. Nå krangler avdelingene om «Morgenfugl»-merket.",
+        "avatar": "preset-13.png"
+      },
+      {
+        "initials": "HR!",
+        "who": "HR-ansvarlig, pilotkontor i Bergen",
+        "cups": 1204,
+        "quote": "Endelig et «sosialt tiltak» ingen måtte tvinges til. Kaffemaskinen er blitt et samlingspunkt igjen.",
+        "avatar": "preset-21.png"
+      }
+    ],
+    "note": "Tall og sitater fra pilotbruk. Vil kontoret ditt på lista? Bli pilotkunde."
+  },
+  "HeroGame": {
+    "tapLabel": "Logg en kopp (demo) — trykk på scenen",
+    "hint": "Trykk på koppen!",
+    "hudTitle": "Kontor-toppliste",
+    "you": "Du",
+    "youDept": "Besøkende",
+    "rivals": [
+      { "name": "Kari", "dept": "Regnskap" },
+      { "name": "Jonas", "dept": "Utvikling" }
+    ],
+    "badgeName": "Trippel",
+    "badgeUnlocked": "Merke låst opp: {badge}!",
+    "caption": "Psst — koppen kan trykkes på. Kjenn på hvordan det er å logge.",
+    "captionTapped": "{count, plural, one {# kopp logget} other {# kopper logget}} — fortsett, du klatrer på lista!",
+    "captionUnlocked": "Akkurat sånn er det på ekte: hver kopp teller, og merkene deles ut av seg selv."
+  },
   "Screens": {
     "heading": "Slik ser spillet ut",
     "intro": "Ekte skjermbilder fra appen — ingen mockups. Toppliste, live dashbord og merker i full pixel-prakt.",
@@ -451,6 +499,24 @@
       "caption": "Merkene: lås opp «Første slurk», «Tørst» og 20+ andre — reglene styrer admin selv.",
       "alt": "Skjermbilde av profilsiden i %BRAND% på mobil: opplåste og låste merker"
     }
+  },
+  "Badges": {
+    "metaTitle": "Merkegalleriet — alle merkene i %BRAND%",
+    "metaDescription": "Se alle de 33 regelstyrte merkene i %BRAND% — fra «Første slurk» til «Udødelig». Admin lager og styrer reglene selv.",
+    "eyebrow": "Merkegalleriet",
+    "title": "{count} merker å samle",
+    "intro": "Hvert merke deles ut automatisk av en regel — antall kopper, tidspunkt, dager på rad eller drikketype. Dette er standardsettet; admin kan endre reglene og lage helt egne merker.",
+    "flipHint": "Snu et kort for å se regelen bak merket.",
+    "ruleLabel": "Regelen",
+    "rarity": {
+      "common": "Vanlig",
+      "rare": "Sjelden",
+      "epic": "Episk",
+      "legendary": "Legendarisk"
+    },
+    "adminNote": "Vil du ha «Fredagsfinale» eller «Månedens mest allsidige»? Admin bygger egne merker med samme regelmotor — uten kode.",
+    "cta": "Få merkene på ditt kontor",
+    "backToProduct": "Se alle funksjonene"
   },
   "Pricing": {
     "metaTitle": "Priser — %BRAND_FULL%",

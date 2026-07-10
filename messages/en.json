@@ -35,7 +35,7 @@
     "ctaStart": "Get started",
     "ctaSecondary": "See the features",
     "pricingNote": "Free to self-host · or hosted from {price}{period}",
-    "cupsCounted": "☕ {count, number} cups logged so far",
+    "cupsCountedLabel": "cups logged so far",
     "cupsNote": "Just an anonymous, aggregate total across all hosted instances — we never count per person or per customer.",
     "featuresHeading": "Everything the team needs",
     "featuresMore": "See all features in detail →",
@@ -53,7 +53,9 @@
       {
         "icon": "🎖️",
         "title": "Badges",
-        "body": "Unlock fun badges like “Early Bird” and “Cup Master”. Admins create and control the rules."
+        "body": "Unlock fun badges like “Early Bird” and “Cup Master”. Admins create and control the rules.",
+        "href": "/merker",
+        "linkLabel": "See all 33 badges →"
       },
       {
         "icon": "📊",
@@ -126,7 +128,9 @@
       {
         "icon": "🎖️",
         "title": "Rule-based badges",
-        "body": "Admins create badges and set the rule: number of cups, distinct drink types, count of one specific drink, or time of day. They're awarded automatically."
+        "body": "Admins create badges and set the rule: number of cups, distinct drink types, count of one specific drink, or time of day. They're awarded automatically.",
+        "href": "/merker",
+        "linkLabel": "See all 33 badges →"
       },
       {
         "icon": "📊",
@@ -436,6 +440,50 @@
     "bodyLabel": "Promo text",
     "logoAlt": "Logo"
   },
+  "Testimonials": {
+    "heading": "High scores from the pilot offices",
+    "cups": "{count, number} cups logged",
+    "entries": [
+      {
+        "initials": "AAA",
+        "who": "Operations lead, pilot office in Oslo",
+        "cups": 2341,
+        "quote": "The Friday final on the leaderboard has become the highlight of the week — people log their cup before they've taken off their jacket.",
+        "avatar": "preset-07.png"
+      },
+      {
+        "initials": "KMB",
+        "who": "Dev team lead, pilot office in Trondheim",
+        "cups": 1877,
+        "quote": "We set up the tag by the machine in five minutes. Now the departments are fighting over the “Early Bird” badge.",
+        "avatar": "preset-13.png"
+      },
+      {
+        "initials": "HR!",
+        "who": "HR manager, pilot office in Bergen",
+        "cups": 1204,
+        "quote": "Finally a “social initiative” nobody had to be forced into. The coffee machine is a gathering spot again.",
+        "avatar": "preset-21.png"
+      }
+    ],
+    "note": "Numbers and quotes from pilot use. Want your office on the list? Become a pilot customer."
+  },
+  "HeroGame": {
+    "tapLabel": "Log a cup (demo) — tap the scene",
+    "hint": "Tap the cup!",
+    "hudTitle": "Office leaderboard",
+    "you": "You",
+    "youDept": "Visitor",
+    "rivals": [
+      { "name": "Kari", "dept": "Accounting" },
+      { "name": "Jonas", "dept": "Development" }
+    ],
+    "badgeName": "Triple",
+    "badgeUnlocked": "Badge unlocked: {badge}!",
+    "caption": "Psst — the cup is tappable. Feel what logging is like.",
+    "captionTapped": "{count, plural, one {# cup logged} other {# cups logged}} — keep going, you're climbing!",
+    "captionUnlocked": "That's exactly how it works for real: every cup counts, and badges are awarded automatically."
+  },
   "Screens": {
     "heading": "What the game looks like",
     "intro": "Real screenshots from the app — no mockups. Leaderboard, live dashboard and badges in full pixel glory.",
@@ -451,6 +499,24 @@
       "caption": "The badges: unlock “First sip”, “Thirsty” and 20+ more — admins define the rules.",
       "alt": "Screenshot of the %BRAND% profile page on mobile: unlocked and locked badges"
     }
+  },
+  "Badges": {
+    "metaTitle": "The badge gallery — every badge in %BRAND%",
+    "metaDescription": "Browse all 33 rule-driven badges in %BRAND% — from “First sip” to “Immortal”. Admins define and manage the rules themselves.",
+    "eyebrow": "The badge gallery",
+    "title": "{count} badges to collect",
+    "intro": "Every badge is awarded automatically by a rule — cup count, time of day, streaks or drink type. This is the default set; admins can tweak the rules or build entirely new badges. (Badge names come from the Norwegian default set.)",
+    "flipHint": "Flip a card to see the rule behind the badge.",
+    "ruleLabel": "The rule",
+    "rarity": {
+      "common": "Common",
+      "rare": "Rare",
+      "epic": "Epic",
+      "legendary": "Legendary"
+    },
+    "adminNote": "Want a “Friday final” or “Most versatile of the month”? Admins build custom badges with the same rule engine — no code required.",
+    "cta": "Get badges at your office",
+    "backToProduct": "See all features"
   },
   "Pricing": {
     "metaTitle": "Pricing — %BRAND_FULL%",

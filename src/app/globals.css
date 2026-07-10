@@ -178,6 +178,141 @@ img {
   );
 }
 
+/* ---------- Mikroanimasjoner (markedssidene) ---------- */
+
+/* Funksjonskort: NES-aktig sprite-hopp på ikonet — ett «frame», ingen easing. */
+.feature-card .feature-icon {
+  display: inline-block;
+}
+.feature-card:hover {
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.04),
+    6px 6px 0 0 rgba(0, 0, 0, 0.5);
+}
+.feature-card:hover .feature-icon {
+  animation: sprite-hop 0.3s steps(1) 1;
+}
+@keyframes sprite-hop {
+  0% {
+    transform: translateY(-6px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+}
+
+/* Pop-inn når elementet scrolles inn i viewport — CSS scroll-driven animation
+   der det støttes; ellers vises innholdet helt vanlig (progressiv forbedring).
+   Kun transform (ikke opacity): innholdet er alltid synlig/lesbart, også ved
+   utskrift og i fullside-skjermbilder der scroll-tidslinjen aldri kjører. */
+@supports (animation-timeline: view()) {
+  .scroll-pop {
+    animation: scroll-pop-in 1 both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+  @keyframes scroll-pop-in {
+    from {
+      transform: translateY(16px) scale(0.98);
+    }
+    to {
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+/* Quest-path: pikselerte fotspor mellom «Hvordan»-stegene (kun på brede skjermer). */
+.quest-sep {
+  font-size: 1.4rem;
+  letter-spacing: 0.4em;
+  color: var(--color-ink-dim);
+  animation: quest-walk 1.2s steps(2) infinite;
+  user-select: none;
+}
+@keyframes quest-walk {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card:hover .feature-icon,
+  .quest-sep {
+    animation: none !important;
+  }
+  .scroll-pop {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Merkegalleri: samlekort som flipper (hover/fokus) ---------- */
+.badge-card-wrap {
+  perspective: 800px;
+}
+.badge-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+  min-height: 11rem;
+  cursor: pointer;
+  outline: none;
+}
+.badge-card:hover,
+.badge-card:focus-visible,
+.badge-card:focus {
+  transform: rotateY(180deg);
+}
+.badge-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+  padding: 1rem;
+}
+.badge-back {
+  transform: rotateY(180deg);
+}
+.badge-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+.badge-rarity {
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .badge-card {
+    transition: none;
+  }
+}
+
+/* Sjeldenhetsfarger: kant på kortet + chip + legende-firkant */
+.badge-rarity-common .badge-face { border-color: var(--color-line); }
+.badge-rarity-rare .badge-face { border-color: var(--color-accent-2); }
+.badge-rarity-epic .badge-face { border-color: var(--color-accent); }
+.badge-rarity-legendary .badge-face { border-color: var(--color-gold); }
+.badge-rarity-common-chip { border: 2px solid var(--color-line); color: var(--color-ink-dim); }
+.badge-rarity-rare-chip { border: 2px solid var(--color-accent-2); color: var(--color-accent-2); }
+.badge-rarity-epic-chip { border: 2px solid var(--color-accent); color: #b3a1ff; }
+.badge-rarity-legendary-chip { border: 2px solid var(--color-gold); color: var(--color-gold); }
+.badge-rarity-common-swatch { background: var(--color-line); }
+.badge-rarity-rare-swatch { background: var(--color-accent-2); }
+.badge-rarity-epic-swatch { background: var(--color-accent); }
+.badge-rarity-legendary-swatch { background: var(--color-gold); }
+
 /* FAQ-accordion i pixel-stil: egen «trykknapp»-markør i stedet for browser-trekanten. */
 .faq-item > summary {
   list-style: none;
