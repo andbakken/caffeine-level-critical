@@ -24,13 +24,18 @@ export function MarketingNav({ hideSales = false }: { hideSales?: boolean }) {
       <Link href="/last-ned" className="hover:text-accent-2" onClick={close}>
         {t("nav.lastNed")}
       </Link>
-      <Link href="/produkt#priser" className="hover:text-accent-2" onClick={close}>
+      <Link href="/priser" className="hover:text-accent-2" onClick={close}>
         {t("nav.priser")}
       </Link>
       <Link href="/login" className="hover:text-accent-2" onClick={close}>
         {t("nav.loggInn")}
       </Link>
-      <Link href="/produkt#priser" className="pixel-btn !py-2 !px-3" onClick={close}>
+      <Link
+        href="/kom-i-gang"
+        className="pixel-btn !py-2 !px-3"
+        onClick={close}
+        data-umami-event="cta_nav"
+      >
         {t("nav.komIGang")}
       </Link>
     </>

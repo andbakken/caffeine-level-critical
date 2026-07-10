@@ -33,11 +33,12 @@
     "heroTitle": "Turn the coffee break into a competition",
     "heroBody": "%BRAND% tracks coffee, tea and cocoa for the whole team — with NFC scanning, leaderboards and badges. Build a little friendly rivalry around the coffee machine. ☕",
     "ctaStart": "Get started",
-    "ctaDemo": "See the demo",
+    "ctaSecondary": "See the features",
     "pricingNote": "Free to self-host · or hosted from {price}{period}",
     "cupsCounted": "☕ {count, number} cups logged so far",
     "cupsNote": "Just an anonymous, aggregate total across all hosted instances — we never count per person or per customer.",
     "featuresHeading": "Everything the team needs",
+    "featuresMore": "See all features in detail →",
     "features": [
       {
         "icon": "📟",
@@ -435,15 +436,45 @@
     "bodyLabel": "Promo text",
     "logoAlt": "Logo"
   },
+  "Screens": {
+    "heading": "What the game looks like",
+    "intro": "Real screenshots from the app — no mockups. Leaderboard, live dashboard and badges in full pixel glory.",
+    "leaderboard": {
+      "caption": "The leaderboard: today's, this week's and all-time rankings — per person or department.",
+      "alt": "Screenshot of the %BRAND% leaderboard: players ranked with pixel-style score bars"
+    },
+    "dashboard": {
+      "caption": "The dashboard: log a cup with one tap and follow today's numbers live.",
+      "alt": "Screenshot of the %BRAND% dashboard: drink picker, today/week/total cup counts and stats"
+    },
+    "badges": {
+      "caption": "The badges: unlock “First sip”, “Thirsty” and 20+ more — admins define the rules.",
+      "alt": "Screenshot of the %BRAND% profile page on mobile: unlocked and locked badges"
+    }
+  },
+  "Pricing": {
+    "metaTitle": "Pricing — %BRAND_FULL%",
+    "metaDescription": "What does %BRAND% cost? Free to self-host with Docker — or hosted in the EU from $20/mo with backups, updates and secure login included.",
+    "title": "Pricing",
+    "intro": "Simple and predictable: run it free on your own server, or let us run everything for a flat monthly price. No lock-in, no per-user pricing.",
+    "compareNote": "Wondering about the differences?",
+    "compareLink": "See the full self-hosted vs. hosted comparison →"
+  },
   "Contact": {
     "metaTitle": "Contact us about hosting — %BRAND_FULL%",
     "metaDescription": "Want us to host %BRAND% for your team? Get in touch and we'll set up a hosted instance for you.",
     "title": "Contact us about hosting",
-    "intro": "Self-service checkout online is almost ready. In the meantime we're happy to set it up manually — send us a short email and we'll create an instance for your team, send you a login link and arrange payment directly.",
-    "emailCta": "Send us an email",
-    "emailSubject": "I'd like hosting for %BRAND%",
-    "emailBody": "Hi!\n\nWe'd like a hosted instance of %BRAND%.\n\nOrganisation: \nDesired web address (subdomain): \nApprox. number of users: \n\nBest, ",
+    "intro": "Self-service checkout online is almost ready. In the meantime we're happy to set it up manually — fill in the form and we'll create an instance for your team, send you a login link and arrange payment directly.",
+    "formName": "Name",
+    "formCompany": "Company / organisation",
+    "formEmail": "Email (work)",
+    "formMessage": "Message (optional — e.g. preferred subdomain or number of users)",
+    "formSubmit": "Send request",
+    "formSuccessTitle": "Request sent!",
+    "formSuccessBody": "Thanks! We'll get back to you by email within one business day and set up the instance for your team.",
+    "formError": "Something went wrong — try again, or send us an email.",
     "responseNote": "We usually reply within one business day.",
+    "orEmail": "Prefer email? Write to",
     "selfHostAlt": "Prefer to start today? %BRAND% is free to run yourself with Docker.",
     "selfHostCta": "How to install it yourself"
   },

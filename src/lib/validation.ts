@@ -32,6 +32,14 @@ export const magicRequestSchema = z.object({
 
 export const drinkKeySchema = z.string().trim().min(1).max(40);
 
+// Hosting-henvendelse fra /kom-i-gang-skjemaet (erstatter mailto-lenken).
+export const contactRequestSchema = z.object({
+  name: z.string().trim().min(2, "Fyll inn navn").max(80),
+  company: z.string().trim().min(1, "Fyll inn firma/organisasjon").max(120),
+  email: emailSchema,
+  message: z.string().trim().max(1000).optional(),
+});
+
 export const updateProfileSchema = z.object({
   nickname: nicknameSchema.optional(),
   departmentId: z.coerce.number().int().positive().optional(),

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/routing";
-import { APP_NAME } from "@/lib/brand";
+import { APP_NAME, APP_NAME_FULL } from "@/lib/brand";
+import { hostedPrice } from "@/lib/pricing";
 
 /** Full base-URL for det offentlige marketing-domenet (uten etterfølgende «/»).
  *  Settes via NEXT_PUBLIC_SITE_URL i prod. Faller tilbake til localhost i dev
@@ -49,5 +50,70 @@ export function marketingMetadata(
       title: meta.title,
       description: meta.description,
     },
+  };
+}
+
+/* ---------- JSON-LD (strukturerte data for rich results) ----------
+ * Rendres som <script type="application/ld+json"> i side-/layout-komponentene,
+ * slik Next-dokumentasjonen anbefaler (native <script>, ikke next/script). */
+
+/** Serialiserer JSON-LD XSS-trygt: «<» escapes så innholdet aldri kan lukke
+ *  script-taggen (jf. guiden i node_modules/next/dist/docs/01-app/02-guides/json-ld.md). */
+export function jsonLdString(data: object): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+/** Organisasjonen bak tjenesten — legges i marketing-layouten (én gang per side). */
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: APP_NAME,
+    url: siteUrl,
+  };
+}
+
+/** Produktet med begge prisplanene (gratis selvhostet + hostet månedspris).
+ *  Gir sjanse til pris-utdrag i søkeresultatet. */
+export function softwareAppJsonLd(
+  locale: Locale,
+  names: { description: string; selfHosted: string; hosted: string },
+) {
+  const price = hostedPrice(locale);
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: APP_NAME_FULL,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: siteUrl,
+    description: names.description,
+    offers: [
+      {
+        "@type": "Offer",
+        name: names.selfHosted,
+        price: 0,
+        priceCurrency: price.currency,
+      },
+      {
+        "@type": "Offer",
+        name: names.hosted,
+        price: price.value,
+        priceCurrency: price.currency,
+      },
+    ],
+  };
+}
+
+/** FAQ-utdrag i Google — bygges fra samme i18n-data som FAQ-seksjonen viser. */
+export function faqJsonLd(faq: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   };
 }

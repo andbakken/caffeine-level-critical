@@ -22,7 +22,7 @@ const HIDE_SALES = IS_TENANT || SELF_HOST;
 
 // Rene salgs-ruter (uten locale-prefiks) som ikke gir mening på tenant/selvhost.
 // /login og /register beholdes alltid – de trengs overalt.
-const MARKETING_ONLY = new Set(["", "produkt", "last-ned", "kom-i-gang", "velkommen"]);
+const MARKETING_ONLY = new Set(["", "produkt", "priser", "last-ned", "kom-i-gang", "velkommen"]);
 // Juridiske sider: beholdes på tenant, men skjules på selvhost (se over).
 const LEGAL_ONLY = new Set(["vilkar", "personvern", "databehandleravtale"]);
 

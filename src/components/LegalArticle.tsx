@@ -3,8 +3,9 @@ import type { LegalDoc } from "@/content/legal";
 // Presentasjonskomponent for juridiske dokumenter (Vilkår, Personvern, DPA).
 // Ren og lesbar prosa i appens pixel-stil.
 export function LegalArticle({ doc, updatedLabel }: { doc: LegalDoc; updatedLabel: string }) {
+  // max-w-2xl gir ~65–75 tegn per linje — behagelig lesebredde for lange dokumenter.
   return (
-    <article className="max-w-3xl mx-auto px-4 py-14 flex flex-col gap-8">
+    <article className="max-w-2xl mx-auto px-4 py-14 flex flex-col gap-8">
       <header className="flex flex-col gap-3">
         <h1 className="heading text-gold text-2xl sm:text-3xl leading-relaxed">{doc.title}</h1>
         <p className="text-ink-dim text-sm">

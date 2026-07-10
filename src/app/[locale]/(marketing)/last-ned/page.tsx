@@ -159,7 +159,7 @@ docker compose up -d`}</Code>
       {/* CTA */}
       <div className="text-center flex flex-col items-center gap-4 py-4">
         <p className="text-ink-dim text-lg">{t("ctaQuestion")}</p>
-        <Link href="/produkt#priser" className="pixel-btn pixel-btn-gold">
+        <Link href="/priser" className="pixel-btn pixel-btn-gold">
           {t("ctaButton")}
         </Link>
       </div>

@@ -33,11 +33,12 @@
     "heroTitle": "Gjør kaffepausen til en konkurranse",
     "heroBody": "%BRAND% sporer kaffe, te og kakao for hele teamet — med NFC-skanning, toppliste og merker. Bygg en liten, sunn rivalisering rundt kaffemaskinen. ☕",
     "ctaStart": "Kom i gang",
-    "ctaDemo": "Se demoen",
+    "ctaSecondary": "Se funksjonene",
     "pricingNote": "Gratis å kjøre selv · eller hostet fra {price}{period}",
     "cupsCounted": "☕ {count, number} kopper logget så langt",
     "cupsNote": "Kun et anonymt, aggregert totaltall på tvers av alle hostede instanser — vi teller aldri per person eller per kunde.",
     "featuresHeading": "Alt teamet trenger",
+    "featuresMore": "Se alle funksjonene i detalj →",
     "features": [
       {
         "icon": "📟",
@@ -435,15 +436,45 @@
     "bodyLabel": "Promotekst",
     "logoAlt": "Logo"
   },
+  "Screens": {
+    "heading": "Slik ser spillet ut",
+    "intro": "Ekte skjermbilder fra appen — ingen mockups. Toppliste, live dashbord og merker i full pixel-prakt.",
+    "leaderboard": {
+      "caption": "Topplista: dagens, ukas og tidenes rangering — per person eller avdeling.",
+      "alt": "Skjermbilde av topplista i %BRAND%: spillere rangert med poengbarer i pixel-stil"
+    },
+    "dashboard": {
+      "caption": "Dashbordet: logg en kopp med ett trykk og følg dagens tall live.",
+      "alt": "Skjermbilde av dashbordet i %BRAND%: drikkevalg, dagens/ukas/totalt antall kopper og statistikk"
+    },
+    "badges": {
+      "caption": "Merkene: lås opp «Første slurk», «Tørst» og 20+ andre — reglene styrer admin selv.",
+      "alt": "Skjermbilde av profilsiden i %BRAND% på mobil: opplåste og låste merker"
+    }
+  },
+  "Pricing": {
+    "metaTitle": "Priser — %BRAND_FULL%",
+    "metaDescription": "Hva koster %BRAND%? Gratis å kjøre selv med Docker — eller hostet i EU fra 249 kr/mnd med backup, oppdateringer og sikker innlogging inkludert.",
+    "title": "Priser",
+    "intro": "Enkelt og forutsigbart: kjør gratis på egen server, eller la oss drifte alt for en fast månedspris. Ingen bindingstid, ingen pris per bruker.",
+    "compareNote": "Lurer du på forskjellene?",
+    "compareLink": "Se full sammenligning av selvhostet og hostet →"
+  },
   "Contact": {
     "metaTitle": "Ta kontakt om hosting — %BRAND_FULL%",
     "metaDescription": "Ønsker du at vi drifter %BRAND% for teamet ditt? Ta kontakt, så setter vi opp en hostet instans for dere.",
     "title": "Ta kontakt om hosting",
-    "intro": "Selvbetjent kjøp på nett er straks klart. I mellomtiden setter vi det gjerne opp manuelt — send en kort e-post, så oppretter vi en instans for teamet ditt, sender deg en innloggingslenke og avtaler betaling direkte.",
-    "emailCta": "Send oss en e-post",
-    "emailSubject": "Jeg ønsker hosting av %BRAND%",
-    "emailBody": "Hei!\n\nVi ønsker en hostet instans av %BRAND%.\n\nOrganisasjon: \nØnsket nettadresse (subdomene): \nAntall brukere (ca.): \n\nHilsen ",
+    "intro": "Selvbetjent kjøp på nett er straks klart. I mellomtiden setter vi det gjerne opp manuelt — fyll ut skjemaet, så oppretter vi en instans for teamet ditt, sender deg en innloggingslenke og avtaler betaling direkte.",
+    "formName": "Navn",
+    "formCompany": "Firma / organisasjon",
+    "formEmail": "E-post (jobb)",
+    "formMessage": "Melding (valgfritt — f.eks. ønsket subdomene eller antall brukere)",
+    "formSubmit": "Send henvendelsen",
+    "formSuccessTitle": "Henvendelsen er sendt!",
+    "formSuccessBody": "Takk! Vi tar kontakt på e-post innen én virkedag og setter opp instansen for teamet ditt.",
+    "formError": "Noe gikk galt — prøv igjen, eller send oss en e-post.",
     "responseNote": "Vi svarer normalt innen én virkedag.",
+    "orEmail": "Foretrekker du e-post? Skriv til",
     "selfHostAlt": "Vil du heller starte i dag? %BRAND% er gratis å kjøre selv med Docker.",
     "selfHostCta": "Slik installerer du selv"
   },

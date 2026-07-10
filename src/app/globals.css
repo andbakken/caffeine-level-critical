@@ -7,7 +7,8 @@
   --color-panel: #1f1b3a;
   --color-panel-2: #2a2450;
   --color-ink: #e8e6ff;
-  --color-ink-dim: #9a92c9;
+  /* Løftet fra #9a92c9 for å nå WCAG AA-kontrast mot panel-fargene. */
+  --color-ink-dim: #b3abdf;
   --color-line: #3a3266;
 
   --color-accent: #7c5cff;
@@ -21,6 +22,7 @@
 
   --font-display: var(--font-pixel), "Courier New", monospace;
   --font-body: var(--font-pixel-body), "Courier New", monospace;
+  --font-sans: var(--font-readable), ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
@@ -52,6 +54,15 @@ img {
 /* ---------- utilities ---------- */
 @utility font-display {
   font-family: var(--font-display);
+}
+
+/* Markedssidene settes i lesbar brødtekst (lesbarhetspass); appen beholder
+   VT323 som «spillfont». VT323/Press Start brukes fortsatt via font-body/
+   font-display der korte spill-elementer (tall, badges, eyebrows) skal poppe. */
+@utility marketing-copy {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 /* chunky NES-style border with stepped shadow */
@@ -138,6 +149,56 @@ img {
     line-height: 1.5;
     text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
   }
+}
+
+/* Pixel-CRT-ramme for produktskjermbilder («vis, ikke fortell»). */
+@utility pixel-screen {
+  background-color: #100d22;
+  border: 3px solid var(--color-line);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.04),
+    6px 6px 0 0 rgba(0, 0, 0, 0.5);
+  padding: 10px 12px 12px;
+}
+/* Skjermbildene er ekte UI, ikke pixel-art — de skal IKKE ha image-rendering:
+   pixelated (global img-regel), ellers blir nedskalert tekst grøtete. */
+.pixel-screen img {
+  image-rendering: auto;
+  width: 100%;
+  height: auto;
+}
+/* Subtile CRT-scanlinjer over skjermbildet. */
+.pixel-scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.12) 0px,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* FAQ-accordion i pixel-stil: egen «trykknapp»-markør i stedet for browser-trekanten. */
+.faq-item > summary {
+  list-style: none;
+  position: relative;
+  padding-right: 3rem;
+}
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item > summary::after {
+  content: "+";
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-accent-2);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+}
+.faq-item[open] > summary::after {
+  content: "−";
 }
 
 /* ---------- animations ---------- */

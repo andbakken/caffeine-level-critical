@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { useTranslations, useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { ScreenshotShowcase } from "@/components/ScreenshotShowcase";
 import { hostedPrice } from "@/lib/pricing";
-import { marketingMetadata } from "@/lib/seo";
+import { faqJsonLd, jsonLdString, marketingMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
 type Detail = { icon: string; title: string; body: string };
@@ -35,6 +36,11 @@ export default function ProductPage() {
 
   return (
     <div className="flex flex-col">
+      {/* Strukturerte data: FAQ-utdrag i Google, fra samme i18n-data som seksjonen under. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd(faq)) }}
+      />
       {/* HERO */}
       <section className="max-w-6xl mx-auto px-4 pt-12 pb-8 text-center flex flex-col items-center gap-5">
         <p className="heading text-accent-2 text-xs sm:text-sm tracking-widest uppercase">
@@ -49,7 +55,7 @@ export default function ProductPage() {
       </section>
 
       {/* FUNKSJONER */}
-      <section className="bg-bg-2/50 border-y-[3px] border-line">
+      <section id="funksjoner" className="bg-bg-2/50 border-y-[3px] border-line">
         <div className="max-w-6xl mx-auto px-4 py-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {details.map((d) => (
             <div key={d.title} className="pixel-panel p-5 flex flex-col gap-3">
@@ -60,6 +66,9 @@ export default function ProductPage() {
           ))}
         </div>
       </section>
+
+      {/* SKJERMBILDER (vis, ikke fortell) */}
+      <ScreenshotShowcase />
 
       {/* NFC-FORKLARING */}
       <section className="max-w-5xl mx-auto px-4 py-14 flex flex-col gap-6">
@@ -169,16 +178,18 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="bg-bg-2/50 border-t-[3px] border-line">
-        <div className="max-w-3xl mx-auto px-4 py-14 flex flex-col gap-6">
+      {/* FAQ — ekte accordion (<details>) gir semantikk for både lesere og roboter. */}
+      <section id="faq" className="bg-bg-2/50 border-t-[3px] border-line">
+        <div className="max-w-2xl mx-auto px-4 py-14 flex flex-col gap-6 w-full">
           <h2 className="heading text-accent-2 text-xl text-center">{t("faqHeading")}</h2>
           <div className="flex flex-col gap-3">
             {faq.map((f) => (
-              <div key={f.q} className="pixel-panel p-5 flex flex-col gap-2">
-                <h3 className="font-display text-sm text-gold leading-relaxed">{f.q}</h3>
-                <p className="text-ink-dim text-base leading-relaxed">{f.a}</p>
-              </div>
+              <details key={f.q} className="pixel-panel faq-item">
+                <summary className="font-display text-sm text-gold leading-relaxed cursor-pointer p-5 select-none">
+                  {f.q}
+                </summary>
+                <p className="text-ink-dim text-base leading-relaxed px-5 pb-5">{f.a}</p>
+              </details>
             ))}
           </div>
         </div>

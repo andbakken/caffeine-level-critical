@@ -3,9 +3,11 @@ import { useTranslations, useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { OfficeScene } from "@/components/OfficeScene";
 import { CupCounter } from "@/components/CupCounter";
+import { PricingCards } from "@/components/PricingCards";
+import { ScreenshotShowcase } from "@/components/ScreenshotShowcase";
 import { Link } from "@/i18n/navigation";
 import { hostedPrice } from "@/lib/pricing";
-import { marketingMetadata } from "@/lib/seo";
+import { jsonLdString, marketingMetadata, softwareAppJsonLd } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
 type Feature = { icon: string; title: string; body: string };
@@ -31,11 +33,20 @@ export default function LandingPage() {
 
   const features = t.raw("features") as Feature[];
   const steps = t.raw("steps") as Step[];
-  const selfHostedBullets = t.raw("selfHostedBullets") as string[];
-  const hostedBullets = t.raw("hostedBullets") as string[];
+
+  const appJsonLd = softwareAppJsonLd(locale, {
+    description: t("metaDescription"),
+    selfHosted: t("selfHostedTitle"),
+    hosted: t("hostedTitle"),
+  });
 
   return (
     <div className="flex flex-col">
+      {/* Strukturerte data: produkt + priser (rich results). */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdString(appJsonLd) }}
+      />
       {/* ---- HERO ---- */}
       <section className="max-w-6xl mx-auto px-4 pt-12 pb-10 grid lg:grid-cols-2 gap-10 items-center">
         <div className="flex flex-col gap-6">
@@ -49,9 +60,21 @@ export default function LandingPage() {
             {t("heroBody")}
           </p>
           <div className="flex flex-wrap gap-3">
-            <a href="#priser" className="pixel-btn pixel-btn-gold">
+            {/* Primær rett til konvertering; sekundær «se mer»-vei for de nysgjerrige. */}
+            <Link
+              href="/kom-i-gang"
+              className="pixel-btn pixel-btn-gold"
+              data-umami-event="cta_hero"
+            >
               {t("ctaStart")}
-            </a>
+            </Link>
+            <Link
+              href="/produkt"
+              className="pixel-btn pixel-btn-ghost"
+              data-umami-event="cta_hero_secondary"
+            >
+              {t("ctaSecondary")}
+            </Link>
           </div>
           <p className="text-ink-dim text-base">
             {t("pricingNote", { price: price.amount, period: price.period })}
@@ -63,6 +86,9 @@ export default function LandingPage() {
 
       {/* ---- KOPP-TELLER (social proof) ---- */}
       <CupCounter />
+
+      {/* ---- SKJERMBILDER (vis, ikke fortell) ---- */}
+      <ScreenshotShowcase />
 
       {/* ---- FUNKSJONER ---- */}
       <section id="funksjoner" className="bg-bg-2/50 border-y-[3px] border-line">
@@ -81,6 +107,13 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+          {/* Intern lenke til produktsiden — bedre crawl-sti og en tydelig «les mer»-vei. */}
+          <Link
+            href="/produkt#funksjoner"
+            className="text-accent-2 hover:text-gold text-center"
+          >
+            {t("featuresMore")}
+          </Link>
         </div>
       </section>
 
@@ -106,46 +139,7 @@ export default function LandingPage() {
           <h2 className="heading text-accent-2 text-xl text-center">
             {t("pricingHeading")}
           </h2>
-          <div className="grid md:grid-cols-2 gap-5">
-            {/* Selvhostet */}
-            <div className="pixel-panel p-6 flex flex-col gap-4">
-              <h3 className="font-display text-sm text-gold">{t("selfHostedTitle")}</h3>
-              <div className="font-display text-3xl text-ink">{t("free")}</div>
-              <p className="text-ink-dim text-base">{t("selfHostedBody")}</p>
-              <ul className="flex flex-col gap-2 text-base">
-                {selfHostedBullets.map((b) => (
-                  <Li key={b}>{b}</Li>
-                ))}
-              </ul>
-              <Link href="/last-ned" className="pixel-btn pixel-btn-ghost mt-auto">
-                {t("downloadDocker")}
-              </Link>
-            </div>
-
-            {/* Hostet */}
-            <div className="pixel-panel p-6 flex flex-col gap-4 relative" style={{ borderColor: "var(--color-gold)" }}>
-              <span className="absolute -top-3 right-4 font-display text-[0.6rem] bg-gold text-[#3a2a00] px-2 py-1">
-                {t("recommended")}
-              </span>
-              <h3 className="font-display text-sm text-gold">{t("hostedTitle")}</h3>
-              <div className="font-display text-3xl text-ink">
-                {price.amount}
-                <span className="text-lg text-ink-dim">{price.period}</span>
-              </div>
-              <p className="text-ink-dim text-base">{t("hostedBody")}</p>
-              <ul className="flex flex-col gap-2 text-base">
-                {hostedBullets.map((b) => (
-                  <Li key={b}>{b}</Li>
-                ))}
-              </ul>
-              <Link href="/kom-i-gang" className="pixel-btn pixel-btn-gold mt-auto">
-                {t("startTrial")}
-              </Link>
-              <p className="text-ink-dim text-xs leading-relaxed text-center">
-                {t("trialNote")}
-              </p>
-            </div>
-          </div>
+          <PricingCards />
         </div>
       </section>
 
@@ -155,19 +149,14 @@ export default function LandingPage() {
           {t("endTitle")}
         </h2>
         <p className="text-ink-dim text-lg max-w-xl">{t("endBody")}</p>
-        <a href="#priser" className="pixel-btn pixel-btn-gold">
+        <Link
+          href="/kom-i-gang"
+          className="pixel-btn pixel-btn-gold"
+          data-umami-event="cta_end"
+        >
           {t("ctaStart")}
-        </a>
+        </Link>
       </section>
     </div>
-  );
-}
-
-function Li({ children }: { children: React.ReactNode }) {
-  return (
-    <li className="flex items-start gap-2 text-ink">
-      <span className="text-accent-2">✔</span>
-      <span className="text-ink-dim">{children}</span>
-    </li>
   );
 }

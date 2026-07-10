@@ -1,7 +1,9 @@
 import Script from "next/script";
 import { useTranslations } from "next-intl";
 import { MarketingNav } from "@/components/MarketingNav";
+import { StickyCta } from "@/components/StickyCta";
 import { Link } from "@/i18n/navigation";
+import { jsonLdString, organizationJsonLd } from "@/lib/seo";
 
 export default function MarketingLayout({
   children,
@@ -22,26 +24,39 @@ export default function MarketingLayout({
       {!hideSales && umamiSrc && umamiWebsiteId && (
         <Script defer src={umamiSrc} data-website-id={umamiWebsiteId} />
       )}
-      <MarketingNav hideSales={hideSales} />
+      {/* Strukturerte data: hvem som står bak tjenesten (rich results). */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdString(organizationJsonLd()) }}
+      />
 
-      <main className="flex-1 w-full">{children}</main>
+      {/* Lesbarhetspass: markedssidene (inkl. nav/footer) settes i lesbar
+          brødtekst via .marketing-copy; appen beholder VT323. pb-20 på mobil
+          gir plass til den sticky bunn-CTA-en over footeren. */}
+      <div className="marketing-copy flex-1 flex flex-col pb-20 md:pb-0">
+        <MarketingNav hideSales={hideSales} />
 
-      <footer className="border-t-[3px] border-line bg-bg-2/60">
-        <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col gap-4 text-ink-dim text-base">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="heading text-gold text-base">☕ {t("brandFull")}</span>
-            <span>{t("footer.tagline")}</span>
-            <span>{t("footer.copyright", { year: new Date().getFullYear() })}</span>
+        <main className="flex-1 w-full">{children}</main>
+
+        <footer className="border-t-[3px] border-line bg-bg-2/60">
+          <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col gap-4 text-ink-dim text-base">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="heading text-gold text-base">☕ {t("brandFull")}</span>
+              <span>{t("footer.tagline")}</span>
+              <span>{t("footer.copyright", { year: new Date().getFullYear() })}</span>
+            </div>
+            {!hideLegal && (
+              <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-line/60 pt-4 text-sm">
+                <Link href="/vilkar" className="hover:text-gold">{t("footer.terms")}</Link>
+                <Link href="/personvern" className="hover:text-gold">{t("footer.privacy")}</Link>
+                <Link href="/databehandleravtale" className="hover:text-gold">{t("footer.dpa")}</Link>
+              </nav>
+            )}
           </div>
-          {!hideLegal && (
-            <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-line/60 pt-4 text-sm">
-              <Link href="/vilkar" className="hover:text-gold">{t("footer.terms")}</Link>
-              <Link href="/personvern" className="hover:text-gold">{t("footer.privacy")}</Link>
-              <Link href="/databehandleravtale" className="hover:text-gold">{t("footer.dpa")}</Link>
-            </nav>
-          )}
-        </div>
-      </footer>
+        </footer>
+
+        {!hideSales && <StickyCta />}
+      </div>
     </>
   );
 }
