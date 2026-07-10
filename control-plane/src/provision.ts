@@ -10,7 +10,8 @@ const docker = new Docker(); // bruker /var/run/docker.sock
 
 // Oppretter (idempotent) database + rolle for en tenant i den delte Postgres-instansen.
 // Identifikatorer kommer fra et VALIDERT subdomene (kun [a-z0-9_]) → trygge å interpolere.
-async function ensureDatabase(subdomain: string): Promise<{ dbName: string; dbUrl: string }> {
+// Eksportert så provision-demo.ts kan gjenbruke samme flyt uten Stripe/velkomst-e-post.
+export async function ensureDatabase(subdomain: string): Promise<{ dbName: string; dbUrl: string }> {
   const dbName = dbNameFor(subdomain);
   const role = dbRoleFor(subdomain);
   const password = randomBytes(24).toString("hex"); // url-trygt, ingen escaping nødvendig
@@ -78,6 +79,9 @@ export async function ensureContainer(subdomain: string, adminEmail: string, dbU
       "IS_TENANT=1", // markedssidene på tenant-subdomener merkes noindex (se src/proxy.ts)
       "REQUIRE_INVITE=1", // ny bruker-registrering krever invitasjonskode (se register-API)
       "NODE_ENV=production",
+      // Den offentlige prøv-selv-instansen: simulerte kolleger, gjeste-innlogging
+      // og nattlig reset (se src/lib/demo.ts i appen og infra/DEMO.md).
+      ...(subdomain === "demo" ? ["DEMO_MODE=1"] : []),
     ],
     Labels: {
       "traefik.enable": "true",

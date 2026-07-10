@@ -250,6 +250,37 @@ img {
   }
 }
 
+/* Konfetti (easter eggs): biter som faller over hele viewporten. */
+.confetti-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  pointer-events: none;
+  overflow: hidden;
+}
+.confetti-bit {
+  position: absolute;
+  top: -12px;
+  width: 8px;
+  height: 8px;
+  animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105vh) rotate(540deg);
+    opacity: 0.7;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .confetti-bit {
+    display: none;
+  }
+}
+
 /* ---------- Merkegalleri: samlekort som flipper (hover/fokus) ---------- */
 .badge-card-wrap {
   perspective: 800px;

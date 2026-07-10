@@ -6,6 +6,7 @@ import { CupCounter } from "@/components/CupCounter";
 import { PricingCards } from "@/components/PricingCards";
 import { ScreenshotShowcase } from "@/components/ScreenshotShowcase";
 import { Testimonials } from "@/components/Testimonials";
+import { DemoSection } from "@/components/DemoSection";
 import { Link } from "@/i18n/navigation";
 import { hostedPrice } from "@/lib/pricing";
 import { jsonLdString, marketingMetadata, softwareAppJsonLd } from "@/lib/seo";
@@ -97,6 +98,9 @@ export default function LandingPage() {
 
       {/* ---- SKJERMBILDER (vis, ikke fortell) ---- */}
       <ScreenshotShowcase />
+
+      {/* ---- PRØV DEMOEN (vises kun når DEMO_URL er satt — se infra/DEMO.md) ---- */}
+      <DemoSection />
 
       {/* ---- FUNKSJONER ---- */}
       <section id="funksjoner" className="bg-bg-2/50 border-y-[3px] border-line">

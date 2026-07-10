@@ -14,7 +14,10 @@
       "copyright": "© {year} %BRAND%",
       "terms": "Vilkår",
       "privacy": "Personvern",
-      "dpa": "Databehandleravtale"
+      "dpa": "Databehandleravtale",
+      "calculator": "Koffeinkalkulatoren",
+      "challenge": "Utfordre kontoret",
+      "badges": "Merkegalleriet"
     },
     "legal": {
       "updated": "Sist oppdatert"
@@ -499,6 +502,73 @@
       "caption": "Merkene: lås opp «Første slurk», «Tørst» og 20+ andre — reglene styrer admin selv.",
       "alt": "Skjermbilde av profilsiden i %BRAND% på mobil: opplåste og låste merker"
     }
+  },
+  "Calculator": {
+    "metaTitle": "Koffeinkalkulatoren — hvor mye koffein har kontoret ditt i blodet?",
+    "metaDescription": "Gratis miniverktøy: regn ut hvor mange milligram koffein kontoret ditt går på akkurat nå — og del resultatet med kollegene.",
+    "sharedTitle": "Kontoret vårt har {total} mg koffein i blodet ☕",
+    "shareTitle": "Koffeinkalkulatoren",
+    "shareText": "Kontoret vårt har {total} mg koffein i blodet ☕ Hva har ditt?",
+    "eyebrow": "Gratis miniverktøy",
+    "title": "Koffeinkalkulatoren",
+    "intro": "Hvor mye koffein har kontoret ditt i blodet akkurat nå? Fyll inn og finn ut — og del resultatet med kontoret i naborommet.",
+    "people": "Antall kolleger",
+    "coffee": "Kopper kaffe per person i dag",
+    "tea": "Kopper te per person i dag",
+    "cocoa": "Kopper kakao per person i dag",
+    "resultLabel": "Kontorets samlede dose",
+    "levelLabel": "Koffeinnivå",
+    "levels": {
+      "low": "Lavt",
+      "moderate": "Moderat",
+      "high": "Høyt",
+      "critical": "KRITISK!"
+    },
+    "equivalents": "Det tilsvarer omtrent {redBulls} bokser energidrikk — eller {espresso} espresso-shots.",
+    "criticalNote": "Over 400 mg per person og dag er mer enn EFSA anbefaler. Kanskje på tide med et glass vann? (Det kan dere selvsagt også logge.)",
+    "shareButton": "Del resultatet",
+    "copied": "Lenke kopiert! ✓",
+    "disclaimer": "Typetall: ca. 90 mg per kopp kaffe, 40 mg per te, 5 mg per kakao. Kalkulatoren er ment som kontor-moro, ikke helseråd.",
+    "pitch": "Vil du vite hvem som faktisk drikker mest — med toppliste, merker og NFC-brikker ved maskinen?",
+    "pitchCta": "Sett i gang gratis"
+  },
+  "Demo": {
+    "heading": "Prøv det nå — uten å registrere deg",
+    "intro": "Demo-kontoret er ekte og lever hele dagen: fiktive kolleger logger kopper, topplista beveger seg. Bli med dem — rett fra din egen mobil.",
+    "qrCaption": "Scan med mobilkameraet — akkurat som en NFC-brikke ved kaffemaskinen.",
+    "steps": [
+      { "n": "1", "title": "Scan QR-koden", "body": "Mobilen åpner demo-kontorets kaffebrikke. Ingen app, ingen registrering." },
+      { "n": "2", "title": "Logg en kopp", "body": "Velg drikke og tapp — du blir en anonym gjest med egen pixel-avatar." },
+      { "n": "3", "title": "Se deg selv på topplista", "body": "Åpne demoen her på skjermen og se gjesten din klatre — live." }
+    ],
+    "openButton": "Åpne demo-topplista →",
+    "note": "Demoen nullstilles hver natt. Alt du gjør der er anonymt og forsvinner innen døgnet er omme."
+  },
+  "EasterEggs": {
+    "konamiTitle": "Hemmelig merke låst opp!",
+    "konamiBody": "🕹️ «Konami-koden» — du er offisielt en av oss. Slike merker kan admin lage i appen også.",
+    "cupLabel": "En helt vanlig kaffekopp. Eller?",
+    "cupTitle": "Koppmester!",
+    "cupBody": "Ti trykk på én kopp — du hadde klart deg fint på topplista vår."
+  },
+  "Challenge": {
+    "metaTitle": "Utfordre kontoret — hvem drikker mest kaffe? ☕⚔️",
+    "metaDescription": "Lag en delbar kaffe-utfordring mellom to avdelinger eller kontorer — og finn ut hvem som egentlig holder koken oppe.",
+    "eyebrow": "Delbart kort",
+    "title": "Utfordre kontoret",
+    "intro": "Regnskap mot Utvikling? Oslo mot Bergen? Lag utfordringen, del lenken — og la topplista avgjøre.",
+    "fromLabel": "Hvem utfordrer?",
+    "toLabel": "Hvem utfordres?",
+    "defaultFrom": "Vårt kontor",
+    "defaultTo": "Nabokontoret",
+    "card": "{from} utfordrer {to} ☕⚔️",
+    "cardSub": "Hvem drikker mest kaffe? Lenken under viser kortet når den deles — med toppliste, merker og NFC-brikker som dommer.",
+    "shareTitle": "Kaffe-utfordring!",
+    "shareText": "{from} utfordrer {to} — hvem drikker mest kaffe? ☕⚔️",
+    "shareButton": "Del utfordringen",
+    "copied": "Lenke kopiert! ✓",
+    "pitch": "Klar til å gjøre alvor av det? Sett opp topplista på fem minutter — gratis selvhostet eller hostet av oss.",
+    "pitchCta": "Sett i gang"
   },
   "Badges": {
     "metaTitle": "Merkegalleriet — alle merkene i %BRAND%",

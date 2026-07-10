@@ -2,6 +2,7 @@ import Script from "next/script";
 import { useTranslations } from "next-intl";
 import { MarketingNav } from "@/components/MarketingNav";
 import { StickyCta } from "@/components/StickyCta";
+import { KonamiEgg, FooterCupEgg } from "@/components/EasterEggs";
 import { Link } from "@/i18n/navigation";
 import { jsonLdString, organizationJsonLd } from "@/lib/seo";
 
@@ -41,10 +42,26 @@ export default function MarketingLayout({
         <footer className="border-t-[3px] border-line bg-bg-2/60">
           <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col gap-4 text-ink-dim text-base">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="heading text-gold text-base">☕ {t("brandFull")}</span>
+              <span className="heading text-gold text-base">
+                <FooterCupEgg /> {t("brandFull")}
+              </span>
               <span>{t("footer.tagline")}</span>
               <span>{t("footer.copyright", { year: new Date().getFullYear() })}</span>
             </div>
+            {/* Lenkemagneter: gratisverktøyene som skaper trafikk og deling. */}
+            {!hideSales && (
+              <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-line/60 pt-4 text-sm">
+                <Link href="/koffein-kalkulator" className="hover:text-gold">
+                  {t("footer.calculator")}
+                </Link>
+                <Link href="/utfordring" className="hover:text-gold">
+                  {t("footer.challenge")}
+                </Link>
+                <Link href="/merker" className="hover:text-gold">
+                  {t("footer.badges")}
+                </Link>
+              </nav>
+            )}
             {!hideLegal && (
               <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-line/60 pt-4 text-sm">
                 <Link href="/vilkar" className="hover:text-gold">{t("footer.terms")}</Link>
@@ -56,6 +73,7 @@ export default function MarketingLayout({
         </footer>
 
         {!hideSales && <StickyCta />}
+        {!hideSales && <KonamiEgg />}
       </div>
     </>
   );

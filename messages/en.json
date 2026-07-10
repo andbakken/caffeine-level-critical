@@ -14,7 +14,10 @@
       "copyright": "© {year} %BRAND%",
       "terms": "Terms",
       "privacy": "Privacy",
-      "dpa": "Data processing"
+      "dpa": "Data processing",
+      "calculator": "The caffeine calculator",
+      "challenge": "Challenge the office",
+      "badges": "The badge gallery"
     },
     "legal": {
       "updated": "Last updated"
@@ -499,6 +502,73 @@
       "caption": "The badges: unlock “First sip”, “Thirsty” and 20+ more — admins define the rules.",
       "alt": "Screenshot of the %BRAND% profile page on mobile: unlocked and locked badges"
     }
+  },
+  "Calculator": {
+    "metaTitle": "The caffeine calculator — how much caffeine is your office running on?",
+    "metaDescription": "Free mini tool: calculate how many milligrams of caffeine your office is running on right now — and share the result with your colleagues.",
+    "sharedTitle": "Our office is running on {total} mg of caffeine ☕",
+    "shareTitle": "The caffeine calculator",
+    "shareText": "Our office is running on {total} mg of caffeine ☕ What about yours?",
+    "eyebrow": "Free mini tool",
+    "title": "The caffeine calculator",
+    "intro": "How much caffeine is your office running on right now? Fill in and find out — then share the result with the office next door.",
+    "people": "Number of colleagues",
+    "coffee": "Cups of coffee per person today",
+    "tea": "Cups of tea per person today",
+    "cocoa": "Cups of cocoa per person today",
+    "resultLabel": "The office's combined dose",
+    "levelLabel": "Caffeine level",
+    "levels": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "CRITICAL!"
+    },
+    "equivalents": "That's roughly {redBulls} cans of energy drink — or {espresso} espresso shots.",
+    "criticalNote": "More than 400 mg per person per day exceeds the EFSA recommendation. Maybe time for a glass of water? (Which you can log too, of course.)",
+    "shareButton": "Share the result",
+    "copied": "Link copied! ✓",
+    "disclaimer": "Ballpark figures: about 90 mg per cup of coffee, 40 mg per tea, 5 mg per cocoa. This calculator is office fun, not health advice.",
+    "pitch": "Want to know who actually drinks the most — with a leaderboard, badges and NFC tags by the machine?",
+    "pitchCta": "Start for free"
+  },
+  "Demo": {
+    "heading": "Try it now — no sign-up",
+    "intro": "The demo office is real and lives all day: fictional colleagues log cups, the leaderboard keeps moving. Join them — straight from your own phone.",
+    "qrCaption": "Scan with your phone camera — just like an NFC tag by the coffee machine.",
+    "steps": [
+      { "n": "1", "title": "Scan the QR code", "body": "Your phone opens the demo office's coffee tag. No app, no registration." },
+      { "n": "2", "title": "Log a cup", "body": "Pick a drink and tap — you become an anonymous guest with your own pixel avatar." },
+      { "n": "3", "title": "See yourself on the leaderboard", "body": "Open the demo here on your screen and watch your guest climb — live." }
+    ],
+    "openButton": "Open the demo leaderboard →",
+    "note": "The demo resets every night. Everything you do there is anonymous and gone within a day."
+  },
+  "EasterEggs": {
+    "konamiTitle": "Secret badge unlocked!",
+    "konamiBody": "🕹️ “The Konami code” — you're officially one of us. Admins can build badges like this in the app too.",
+    "cupLabel": "A perfectly ordinary coffee cup. Or is it?",
+    "cupTitle": "Cup Master!",
+    "cupBody": "Ten taps on a single cup — you'd do just fine on our leaderboard."
+  },
+  "Challenge": {
+    "metaTitle": "Challenge the office — who drinks the most coffee? ☕⚔️",
+    "metaDescription": "Create a shareable coffee challenge between two departments or offices — and find out who really keeps the place running.",
+    "eyebrow": "Shareable card",
+    "title": "Challenge the office",
+    "intro": "Accounting vs. Development? Oslo vs. Bergen? Create the challenge, share the link — and let the leaderboard decide.",
+    "fromLabel": "Who's challenging?",
+    "toLabel": "Who's being challenged?",
+    "defaultFrom": "Our office",
+    "defaultTo": "The office next door",
+    "card": "{from} challenges {to} ☕⚔️",
+    "cardSub": "Who drinks the most coffee? The link below shows this card when shared — with a leaderboard, badges and NFC tags as the referee.",
+    "shareTitle": "Coffee challenge!",
+    "shareText": "{from} challenges {to} — who drinks the most coffee? ☕⚔️",
+    "shareButton": "Share the challenge",
+    "copied": "Link copied! ✓",
+    "pitch": "Ready to make it official? Set up the leaderboard in five minutes — free self-hosted or hosted by us.",
+    "pitchCta": "Get started"
   },
   "Badges": {
     "metaTitle": "The badge gallery — every badge in %BRAND%",

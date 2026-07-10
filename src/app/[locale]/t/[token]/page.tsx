@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { DEMO_MODE } from "@/lib/demo";
 import { Link } from "@/i18n/navigation";
 import { TapClient } from "@/components/TapClient";
 
@@ -36,7 +37,12 @@ export default async function TapPage({ params }: { params: Promise<{ token: str
   }
 
   const user = await getCurrentUser();
-  if (!user) redirect(`/login?next=${encodeURIComponent(`/t/${token}`)}`);
+  if (!user) {
+    // Demo-instansen: hopp over innlogging — besøkende får en anonym
+    // gjestebruker automatisk (se /api/demo/guest) og lander rett tilbake her.
+    if (DEMO_MODE) redirect(`/api/demo/guest?next=${encodeURIComponent(`/t/${token}`)}`);
+    redirect(`/login?next=${encodeURIComponent(`/t/${token}`)}`);
+  }
 
   const drinks = await prisma.drink.findMany({ orderBy: { sortOrder: "asc" } });
   const drinkList = drinks.map((d) => ({
