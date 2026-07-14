@@ -35,6 +35,9 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/src/generated ./src/generated
+# prisma/bootstrap.ts deler achievements-katalogen med appen via src/content —
+# må være med i runtime-imaget, ellers krasjer bootstrap ved oppstart.
+COPY --from=builder /app/src/content ./src/content
 COPY package.json next.config.ts prisma.config.ts tsconfig.json ./
 COPY prisma ./prisma
 COPY docker/entrypoint.sh ./entrypoint.sh
