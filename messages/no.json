@@ -592,6 +592,18 @@
     "selfHostAlt": "Vil du heller starte i dag? %BRAND% er gratis å kjøre selv med Docker.",
     "selfHostCta": "Slik installerer du selv"
   },
+  "Workspace": {
+    "metaTitle": "Logg inn — %BRAND_FULL%",
+    "metaDescription": "Logg inn på bedriftens %BRAND%-instans. Hvert team har sitt eget arbeidsområde på et eget subdomene.",
+    "title": "Logg inn",
+    "intro": "Hvert team har sitt eget arbeidsområde. Skriv inn navnet dere fikk da instansen ble satt opp, så sender vi deg til innloggingen deres.",
+    "label": "Arbeidsområdet ditt",
+    "placeholder": "firmanavn",
+    "cta": "Gå til innlogging",
+    "help": "Adressen står i velkomst-e-posten. Husker du den ikke? Spør en administrator på teamet ditt.",
+    "noWorkspace": "Har ikke teamet ditt et arbeidsområde ennå?",
+    "getStartedCta": "Kom i gang"
+  },
   "Welcome": {
     "metaTitle": "Takk – instansen din settes opp",
     "metaDescription": "Betalingen er mottatt. Instansen din for %BRAND% provisjoneres nå, og du får en innloggingslenke på e-post.",

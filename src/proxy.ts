@@ -31,6 +31,7 @@ const MARKETING_ONLY = new Set([
   "utfordring",
   "last-ned",
   "kom-i-gang",
+  "logg-inn",
   "velkommen",
 ]);
 // Juridiske sider: beholdes på tenant, men skjules på selvhost (se over).

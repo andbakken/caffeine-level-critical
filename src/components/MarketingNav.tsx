@@ -27,7 +27,7 @@ export function MarketingNav({ hideSales = false }: { hideSales?: boolean }) {
       <Link href="/priser" className="hover:text-accent-2" onClick={close}>
         {t("nav.priser")}
       </Link>
-      <Link href="/login" className="hover:text-accent-2" onClick={close}>
+      <Link href="/logg-inn" className="hover:text-accent-2" onClick={close}>
         {t("nav.loggInn")}
       </Link>
       <Link

@@ -592,6 +592,18 @@
     "selfHostAlt": "Prefer to start today? %BRAND% is free to run yourself with Docker.",
     "selfHostCta": "How to install it yourself"
   },
+  "Workspace": {
+    "metaTitle": "Log in — %BRAND_FULL%",
+    "metaDescription": "Log in to your company's %BRAND% instance. Every team has its own workspace on its own subdomain.",
+    "title": "Log in",
+    "intro": "Every team has its own workspace. Enter the name you were given when your instance was set up, and we'll take you to your login.",
+    "label": "Your workspace",
+    "placeholder": "companyname",
+    "cta": "Go to login",
+    "help": "The address is in your welcome email. Can't remember it? Ask an administrator on your team.",
+    "noWorkspace": "Doesn't your team have a workspace yet?",
+    "getStartedCta": "Get started"
+  },
   "Welcome": {
     "metaTitle": "Thanks – your instance is being set up",
     "metaDescription": "Payment received. Your %BRAND% instance is being provisioned, and you'll get a login link by email.",
