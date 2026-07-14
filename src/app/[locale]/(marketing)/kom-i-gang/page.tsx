@@ -29,6 +29,15 @@ export default function GetStartedPage() {
 
   return (
     <div className="max-w-xl mx-auto px-4 py-12 flex flex-col gap-6">
+      {/* «Installer selv»-veien først: den gratise selvhostingen er hovedproduktet,
+          hosting-kontakten er alternativet for dem som heller vil at vi drifter. */}
+      <div className="pixel-panel p-6 flex flex-col gap-3">
+        <p className="text-ink-dim text-base leading-relaxed">{t("selfHostAlt")}</p>
+        <Link href="/last-ned" className="pixel-btn pixel-btn-ghost self-start">
+          {t("selfHostCta")}
+        </Link>
+      </div>
+
       <div className="pixel-panel p-6 flex flex-col gap-4">
         <h1 className="heading text-gold text-xl">{t("title")}</h1>
         <p className="text-ink-dim text-base leading-relaxed">{t("intro")}</p>
@@ -42,13 +51,6 @@ export default function GetStartedPage() {
             {CONTACT_EMAIL}
           </a>
         </p>
-      </div>
-
-      <div className="pixel-panel p-6 flex flex-col gap-3">
-        <p className="text-ink-dim text-base leading-relaxed">{t("selfHostAlt")}</p>
-        <Link href="/last-ned" className="pixel-btn pixel-btn-ghost self-start">
-          {t("selfHostCta")}
-        </Link>
       </div>
     </div>
   );

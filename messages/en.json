@@ -446,29 +446,7 @@
   "Testimonials": {
     "heading": "High scores from the pilot offices",
     "cups": "{count, number} cups logged",
-    "entries": [
-      {
-        "initials": "AAA",
-        "who": "Operations lead, pilot office in Oslo",
-        "cups": 2341,
-        "quote": "The Friday final on the leaderboard has become the highlight of the week — people log their cup before they've taken off their jacket.",
-        "avatar": "preset-07.png"
-      },
-      {
-        "initials": "KMB",
-        "who": "Dev team lead, pilot office in Trondheim",
-        "cups": 1877,
-        "quote": "We set up the tag by the machine in five minutes. Now the departments are fighting over the “Early Bird” badge.",
-        "avatar": "preset-13.png"
-      },
-      {
-        "initials": "HR!",
-        "who": "HR manager, pilot office in Bergen",
-        "cups": 1204,
-        "quote": "Finally a “social initiative” nobody had to be forced into. The coffee machine is a gathering spot again.",
-        "avatar": "preset-21.png"
-      }
-    ],
+    "entries": [],
     "note": "Numbers and quotes from pilot use. Want your office on the list? Become a pilot customer."
   },
   "HeroGame": {
@@ -489,7 +467,7 @@
   },
   "Screens": {
     "heading": "What the game looks like",
-    "intro": "Real screenshots from the app — no mockups. Leaderboard, live dashboard and badges in full pixel glory.",
+    "intro": "Leaderboard, live dashboard and badges in full pixel glory.",
     "leaderboard": {
       "caption": "The leaderboard: today's, this week's and all-time rankings — per person or department.",
       "alt": "Screenshot of the %BRAND% leaderboard: players ranked with pixel-style score bars"

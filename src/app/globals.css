@@ -148,6 +148,12 @@ img {
     font-family: var(--font-display);
     line-height: 1.5;
     text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.6);
+    /* Lange norske sammensatte ord i pixelfonten må kunne brytes, ellers
+       sprenger overskrifter viewporten på smale skjermer (horisontal scroll).
+       «anywhere» (ikke «break-word») fordi overskriftene ligger i flex-bokser
+       med items-center: kun «anywhere» teller bruddpunktene inn i boksens
+       intrinsiske bredde, så boksen faktisk krymper i stedet for å flyte ut. */
+    overflow-wrap: anywhere;
   }
 }
 
@@ -292,8 +298,13 @@ img {
   min-height: 11rem;
   cursor: pointer;
   outline: none;
+  /* Jevnere flipp uten flimmer/z-fighting under rotasjonen. */
+  will-change: transform;
 }
-.badge-card:hover,
+/* Hover-utløseren ligger på den STILLESTÅENDE wrapperen — ikke på selve kortet
+   som roterer. Ellers krymper kortets 2D-treffområde midt i flippen, musepekeren
+   faller utenfor, og kortet «vipper» frem og tilbake (stotringen). */
+.badge-card-wrap:hover .badge-card,
 .badge-card:focus-visible,
 .badge-card:focus {
   transform: rotateY(180deg);

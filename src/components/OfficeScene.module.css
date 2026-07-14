@@ -104,7 +104,8 @@
   font-size: 0.8rem;
   color: var(--color-gold);
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
-  z-index: 8;
+  /* Over HUD-topplista (z-index 9) så «+1 ☕» aldri forsvinner bak panelet. */
+  z-index: 11;
   animation: tapRise 1s ease-out forwards;
   pointer-events: none;
 }
@@ -125,8 +126,10 @@
 /* ---- hint: «trykk på koppen» ---- */
 .hint {
   position: absolute;
-  left: 44%;
-  top: 20%;
+  /* Plassert nede til venstre — nær kaffekoppen og godt klar av HUD-topplista
+     oppe til høyre, som ellers dekket «Trykk på koppen!»-teksten. */
+  left: 6%;
+  bottom: 12%;
   font-family: var(--font-display);
   font-size: 0.55rem;
   color: #3a2a00;
@@ -134,7 +137,7 @@
   border: 2px solid #6b4e00;
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
   padding: 4px 8px;
-  z-index: 9;
+  z-index: 10;
   animation: hintBob 1.6s ease-in-out infinite;
   pointer-events: none;
 }

@@ -446,29 +446,7 @@
   "Testimonials": {
     "heading": "High scores fra pilotkontorene",
     "cups": "{count, number} kopper logget",
-    "entries": [
-      {
-        "initials": "AAA",
-        "who": "Driftsleder, pilotkontor i Oslo",
-        "cups": 2341,
-        "quote": "Fredagsfinalen på topplista er blitt ukas høydepunkt — folk logger koppen før de har tatt av seg jakka.",
-        "avatar": "preset-07.png"
-      },
-      {
-        "initials": "KMB",
-        "who": "Teamlead utvikling, pilotkontor i Trondheim",
-        "cups": 1877,
-        "quote": "Vi satte opp brikken ved maskinen på fem minutter. Nå krangler avdelingene om «Morgenfugl»-merket.",
-        "avatar": "preset-13.png"
-      },
-      {
-        "initials": "HR!",
-        "who": "HR-ansvarlig, pilotkontor i Bergen",
-        "cups": 1204,
-        "quote": "Endelig et «sosialt tiltak» ingen måtte tvinges til. Kaffemaskinen er blitt et samlingspunkt igjen.",
-        "avatar": "preset-21.png"
-      }
-    ],
+    "entries": [],
     "note": "Tall og sitater fra pilotbruk. Vil kontoret ditt på lista? Bli pilotkunde."
   },
   "HeroGame": {
@@ -489,7 +467,7 @@
   },
   "Screens": {
     "heading": "Slik ser spillet ut",
-    "intro": "Ekte skjermbilder fra appen — ingen mockups. Toppliste, live dashbord og merker i full pixel-prakt.",
+    "intro": "Toppliste, live dashbord og merker i full pixel-prakt.",
     "leaderboard": {
       "caption": "Topplista: dagens, ukas og tidenes rangering — per person eller avdeling.",
       "alt": "Skjermbilde av topplista i %BRAND%: spillere rangert med poengbarer i pixel-stil"
