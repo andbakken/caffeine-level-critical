@@ -94,6 +94,12 @@ Alt er idempotent. **Unngå** å rulle tilbake over en schema-migrering uten en 
 `migrate deploy` er forover-only.
 
 ## Gotchas
+- **Serverens `infra/.env` er ikke i git.** Innfører en endring nye variabler, må de
+  legges inn der *før* `up -d` – ellers starter containeren med tomme verdier.
+  Sjekk mot `infra/.env.example` (som ER i git) ved hver utrulling som legger til env.
+  Konkret nå: `LEGAL_*` (juridisk identitet) kom til 2026-07-17. Mangler de, **404-er
+  `/vilkar` og `/personvern`** – en live, kommersiell side uten personvernerklæring.
+  Verifiser etter utrulling: `curl -o /dev/null -w '%{http_code}' https://<domene>/personvern` → 200.
 - `docker restart` / `docker compose restart` henter **ikke** ny image eller ny `.env`.
   Bruk `up -d` (apex) og `rollout.ts` (tenants) som **re-skaper** containere.
 - `rollout.ts` rører kun tenants med status `active` **og** en kjørende container.

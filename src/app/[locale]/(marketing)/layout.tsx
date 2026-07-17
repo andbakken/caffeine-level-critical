@@ -66,7 +66,6 @@ export default function MarketingLayout({
               <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-line/60 pt-4 text-sm">
                 <Link href="/vilkar" className="hover:text-gold">{t("footer.terms")}</Link>
                 <Link href="/personvern" className="hover:text-gold">{t("footer.privacy")}</Link>
-                <Link href="/databehandleravtale" className="hover:text-gold">{t("footer.dpa")}</Link>
               </nav>
             )}
           </div>

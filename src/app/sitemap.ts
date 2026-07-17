@@ -14,7 +14,6 @@ const pages: { path: string; priority: number }[] = [
   { path: "last-ned", priority: 0.8 },
   { path: "vilkar", priority: 0.3 },
   { path: "personvern", priority: 0.3 },
-  { path: "databehandleravtale", priority: 0.3 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

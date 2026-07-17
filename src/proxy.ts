@@ -13,7 +13,7 @@ const intlProxy = createMiddleware(routing);
 //    (kunden HAR allerede en instans), men de juridiske sidene beholdes – kunden
 //    trenger dem for den hostede tjenesten.
 //  - Selvhost (SELF_HOST=1): skjuler BÅDE salgssidene OG de juridiske sidene
-//    (Vilkår/Personvern/DPA gjelder kun vår hostede tjeneste, ikke selvhost).
+//    (Vilkår/Personvern gjelder kun vår hostede tjeneste, ikke selvhost).
 // I begge de skjulte modusene sender vi salgs-treff rett til innlogging og merker
 // alt som noindex (unngår duplicate content på *.<domene>).
 const IS_TENANT = process.env.IS_TENANT === "1";
@@ -35,7 +35,7 @@ const MARKETING_ONLY = new Set([
   "velkommen",
 ]);
 // Juridiske sider: beholdes på tenant, men skjules på selvhost (se over).
-const LEGAL_ONLY = new Set(["vilkar", "personvern", "databehandleravtale"]);
+const LEGAL_ONLY = new Set(["vilkar", "personvern"]);
 
 // Egen språkdeteksjon: norsk KUN når nettleseren faktisk foretrekker norsk –
 // alle andre språk (og ukjent/tomt) får engelsk. Et aktivt valg (NEXT_LOCALE-

@@ -59,8 +59,10 @@ Aldri commit `infra/.env` i klartekst.
 - **Oppsigelse:** når kunden sier opp i Stripe (eller ved endelig betalingsmislighold),
   pauses instansen automatisk via webhook (`status = paused`, container stoppet). Data
   beholdes.
-- **Sletting (deprovisjonering):** etter oppbevaringsperioden i databehandleravtalen
-  (se `src/content/legal.ts` – p.t. 60 dager) fjernes tenanten manuelt:
+- **Sletting (deprovisjonering):** vilkårene og personvernerklæringen
+  (`src/content/legal.ts`) lover sletting etter «en rimelig oppbevaringsperiode»;
+  i praksis 60 dager. Er det signert en databehandleravtale med kunden, gjelder
+  fristen der. Tenanten fjernes manuelt:
   ```bash
   CP=$(docker ps --filter name=control-plane --format '{{.Names}}' | head -1)
   docker exec "$CP" npx tsx src/deprovision.ts <subdomain>         # dry-run: viser hva som fjernes

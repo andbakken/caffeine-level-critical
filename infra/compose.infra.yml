@@ -101,6 +101,14 @@ services:
       # Umami web-analyse (kun apex; tom = ingen sporing). Runtime, ikke build-time.
       UMAMI_SRC: ${UMAMI_SRC:-}
       UMAMI_WEBSITE_ID: ${UMAMI_WEBSITE_ID:-}
+      # Juridisk identitet for vilkår/personvern. Står bevisst IKKE i koden – repoet er
+      # offentlig, og selvhostere skal ikke få våre personopplysninger med i klonen.
+      # Mangler de, 404-er /vilkar og /personvern (se src/content/legal.ts).
+      LEGAL_COMPANY_NAME: ${LEGAL_COMPANY_NAME:-}
+      LEGAL_COMPANY_ORGNR: ${LEGAL_COMPANY_ORGNR:-}
+      LEGAL_COMPANY_ADDRESS_NO: ${LEGAL_COMPANY_ADDRESS_NO:-}
+      LEGAL_COMPANY_ADDRESS_EN: ${LEGAL_COMPANY_ADDRESS_EN:-}
+      LEGAL_CONTACT_EMAIL: ${LEGAL_CONTACT_EMAIL:-}
     volumes:
       - marketing_uploads:/app/uploads
     networks:
@@ -169,6 +177,13 @@ services:
       MAIL_FROM: ${MAIL_FROM}
       OWNER_EMAIL: ${OWNER_EMAIL}          # driftsvarsler (provisjoneringsfeil, subdomene-kollisjon, mislighold)
       STATS_TOKEN: ${STATS_TOKEN}
+      # Videresendes til hver tenant-container (se control-plane/src/provision.ts):
+      # tenants viser vilkår/personvern, og sidene 404-er uten disse.
+      LEGAL_COMPANY_NAME: ${LEGAL_COMPANY_NAME:-}
+      LEGAL_COMPANY_ORGNR: ${LEGAL_COMPANY_ORGNR:-}
+      LEGAL_COMPANY_ADDRESS_NO: ${LEGAL_COMPANY_ADDRESS_NO:-}
+      LEGAL_COMPANY_ADDRESS_EN: ${LEGAL_COMPANY_ADDRESS_EN:-}
+      LEGAL_CONTACT_EMAIL: ${LEGAL_CONTACT_EMAIL:-}
       # Ressurstak per tenant-container (valgfritt; defaults 768 / 1 i control-plane).
       TENANT_MEMORY_MB: ${TENANT_MEMORY_MB:-768}
       TENANT_CPUS: ${TENANT_CPUS:-1}

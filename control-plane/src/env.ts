@@ -24,6 +24,16 @@ export const env = {
   },
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   mailFrom: process.env.MAIL_FROM ?? "no-reply@localhost",
+  // Juridisk identitet videresendes til hver tenant-container: tenants viser vilkår og
+  // personvern (kunden er bundet av dem), og sidene 404-er uten disse. Se
+  // src/content/legal.ts. Verdiene står i infra/.env, aldri i koden – repoet er offentlig.
+  legal: {
+    companyName: process.env.LEGAL_COMPANY_NAME ?? "",
+    orgnr: process.env.LEGAL_COMPANY_ORGNR ?? "",
+    addressNo: process.env.LEGAL_COMPANY_ADDRESS_NO ?? "",
+    addressEn: process.env.LEGAL_COMPANY_ADDRESS_EN ?? "",
+    contactEmail: process.env.LEGAL_CONTACT_EMAIL ?? "",
+  },
   ownerEmail: process.env.OWNER_EMAIL ?? "", // driftsvarsler (provisjoneringsfeil, subdomene-kollisjon). Tom = kun logg.
   statsToken: process.env.STATS_TOKEN ?? "", // beskytter GET /internal/stats; tom = ruten av
   // Ressurstak per tenant-container (idle ~150–250 MB; tak, ikke reservasjon).

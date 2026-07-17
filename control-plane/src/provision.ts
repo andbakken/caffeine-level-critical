@@ -76,6 +76,13 @@ export async function ensureContainer(subdomain: string, adminEmail: string, dbU
       `NEXT_PUBLIC_TAG_BASE_URL=${siteUrl}`,
       `RESEND_API_KEY=${env.resendApiKey}`,
       `MAIL_FROM=${env.mailFrom}`,
+      // Tenants viser vilkår/personvern (kunden er bundet av dem, se src/proxy.ts:
+      // LEGAL_ONLY skjules kun ved SELF_HOST). Uten disse 404-er sidene.
+      `LEGAL_COMPANY_NAME=${env.legal.companyName}`,
+      `LEGAL_COMPANY_ORGNR=${env.legal.orgnr}`,
+      `LEGAL_COMPANY_ADDRESS_NO=${env.legal.addressNo}`,
+      `LEGAL_COMPANY_ADDRESS_EN=${env.legal.addressEn}`,
+      `LEGAL_CONTACT_EMAIL=${env.legal.contactEmail}`,
       "IS_TENANT=1", // markedssidene på tenant-subdomener merkes noindex (se src/proxy.ts)
       "REQUIRE_INVITE=1", // ny bruker-registrering krever invitasjonskode (se register-API)
       "NODE_ENV=production",
