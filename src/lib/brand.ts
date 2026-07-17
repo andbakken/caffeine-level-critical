@@ -19,13 +19,6 @@ export const APP_SUBTITLE = "A Cubicle Odyssey";
 /** Fullt navn med undertittel — for sidetitler, delingsbilde, footer m.m. */
 export const APP_NAME_FULL = `${APP_NAME}: ${APP_SUBTITLE}`;
 
-/**
- * Kontakt-e-post for hosting-henvendelser. Midlertidig privat adresse frem til
- * selvbetjent kjøp (Stripe) er live — da byttes «ta kontakt»-flyten tilbake til
- * checkout. Endre KUN her ved bytte til en dedikert support-adresse.
- */
-export const CONTACT_EMAIL = "and.bakken@gmail.com";
-
 /** Plassholdere som brukes i messages/*.json i stedet for det faktiske navnet. */
 export const BRAND_TOKEN = "%BRAND%";
 export const BRAND_FULL_TOKEN = "%BRAND_FULL%";

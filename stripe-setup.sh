@@ -3,12 +3,21 @@
 # Skriver ut ID-ene du skal legge i infra/.env (STRIPE_PRICE_* + STRIPE_WEBHOOK_SECRET).
 #
 #   1. stripe login                       # autentiser CLI mot kontoen din
-#   2. BASE_DOMAIN=questroasted.app bash stripe-setup.sh
+#   2. BASE_DOMAIN=caffeinelevelcritical.com bash stripe-setup.sh
 #
 # Kjør i TEST-modus først (default). Ved go-live: bytt API-nøkkel til live og kjør på nytt.
+#
+# MVA: vi setter bevisst IKKE --tax-behavior, og checkout bruker ikke automatic_tax.
+# Selger er ikke MVA-registrert og har da ikke lov til å vise MVA på fakturaen.
+# Prisen står som «unspecified», som er den ENESTE reversible varianten – Stripe:
+# «Once specified as either inclusive or exclusive, it cannot be changed.» Blir du
+# MVA-pliktig (lovpålagt over 50 000 kr / rullerende 12 mnd), tas valget da.
+#
+# Valuta: én NOK-pris for alle språk – src/lib/pricing.ts annonserer det samme.
+# Skal det selges i USD, legg til currency_options HER først, så i pricing.ts.
 set -euo pipefail
 
-BASE_DOMAIN="${BASE_DOMAIN:?Sett BASE_DOMAIN, f.eks. questroasted.app}"
+BASE_DOMAIN="${BASE_DOMAIN:?Sett BASE_DOMAIN, f.eks. caffeinelevelcritical.com}"
 command -v stripe >/dev/null || { echo "Stripe CLI ikke funnet – installer den først"; exit 1; }
 
 echo "▶ Produkt + pris: Standard (249 kr/mnd)…"

@@ -1,10 +1,13 @@
 import type { Locale } from "@/i18n/routing";
 
-// Lokalisert prising for den hostede versjonen.
-// Bevisst IKKE valutakonvertering — faste markedspriser per locale (rund NOK-pris).
-// Når Stripe kommer (Fase 2): lag separate Price-objekter per valuta som matcher dette.
+// Prising for den hostede versjonen.
+// Samme NOK-pris på alle språk. Checkout belaster ÉN Stripe-Price uansett locale
+// (control-plane: standardPrice()), så en egen USD-pris her ville annonsert noe annet
+// enn kortet faktisk trekkes for – og motsagt vilkårene, som sier «249 NOK per month».
+// Skal det selges i USD, må Price-objektet i Stripe få currency_options først
+// (se stripe-setup.sh); prisen her følger etter, ikke omvendt.
 type Price = {
-  /** Ferdig formatert beløp, f.eks. "$20" eller "249 kr" */
+  /** Ferdig formatert beløp, f.eks. "249 kr" eller "NOK 249" */
   amount: string;
   /** Suffiks for periode, f.eks. "/mo" eller "/mnd" */
   period: string;
@@ -15,7 +18,7 @@ type Price = {
 };
 
 const HOSTED_PRICE: Record<Locale, Price> = {
-  en: { amount: "$20", period: "/mo", value: 20, currency: "USD" },
+  en: { amount: "NOK 249", period: "/mo", value: 249, currency: "NOK" },
   no: { amount: "249 kr", period: "/mnd", value: 249, currency: "NOK" },
 };
 

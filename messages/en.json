@@ -105,8 +105,8 @@
       "Backup and updates included",
       "Hosted in the EU — GDPR-friendly"
     ],
-    "startTrial": "Contact us about hosting",
-    "trialNote": "Self-service checkout is coming soon · get in touch and we'll set up an instance for your team",
+    "startTrial": "Start free trial",
+    "trialNote": "14 days free · cancel any time · no charge until the trial ends",
     "endTitle": "Ready to get brewing?",
     "endBody": "Set up %BRAND% for your team today — and find out who really keeps the office running."
   },
@@ -207,8 +207,8 @@
     "installButton": "How to install",
     "hostedDesc": "Ready in minutes. No operations, secure login, backup and updates included — hosted in the EU (GDPR).",
     "recommended": "RECOMMENDED",
-    "startTrial": "Contact us about hosting",
-    "trialNote": "Self-service checkout is coming soon. Get in touch and we'll set up an instance for your team and send you a login link.",
+    "startTrial": "Start free trial",
+    "trialNote": "14 days free, then {price}. Your card isn't charged until the trial ends — cancel for free any time before that.",
     "hostingHeading": "What the hosting includes",
     "hostingIntro": "Choose the hosted version and we take care of all the operations — secure, up to date and predictable.",
     "hostingBullets": [
@@ -262,8 +262,8 @@
         "a": "Yes. The physical tags then need to be rewritten once because the domain changes, but all functionality is the same."
       },
       {
-        "q": "How do we get started with the hosted version?",
-        "a": "Self-service checkout online is just around the corner. In the meantime we set the instance up manually: get in touch by email and we'll create an instance for your team, send you a login link and arrange payment directly. Prefer to start today without waiting? You can always self-host for free."
+        "q": "What does the free trial mean?",
+        "a": "You get full access to the hosted version for 14 days without paying. You add a card when you sign up, but we don't charge anything until the trial ends. Cancel before day 14 and you pay nothing. After the trial the subscription renews automatically at the regular monthly price, and you can cancel any time."
       },
       {
         "q": "Do you collect usage statistics?",
@@ -455,8 +455,14 @@
     "you": "You",
     "youDept": "Visitor",
     "rivals": [
-      { "name": "Kari", "dept": "Accounting" },
-      { "name": "Jonas", "dept": "Development" }
+      {
+        "name": "Kari",
+        "dept": "Accounting"
+      },
+      {
+        "name": "Jonas",
+        "dept": "Development"
+      }
     ],
     "badgeName": "Triple",
     "badgeUnlocked": "Badge unlocked: {badge}!",
@@ -514,9 +520,21 @@
     "intro": "The demo office is real and lives all day: fictional colleagues log cups, the leaderboard keeps moving. Join them — straight from your own phone.",
     "qrCaption": "Scan with your phone camera — just like an NFC tag by the coffee machine.",
     "steps": [
-      { "n": "1", "title": "Scan the QR code", "body": "Your phone opens the demo office's coffee tag. No app, no registration." },
-      { "n": "2", "title": "Log a cup", "body": "Pick a drink and tap — you become an anonymous guest with your own pixel avatar." },
-      { "n": "3", "title": "See yourself on the leaderboard", "body": "Open the demo here on your screen and watch your guest climb — live." }
+      {
+        "n": "1",
+        "title": "Scan the QR code",
+        "body": "Your phone opens the demo office's coffee tag. No app, no registration."
+      },
+      {
+        "n": "2",
+        "title": "Log a cup",
+        "body": "Pick a drink and tap — you become an anonymous guest with your own pixel avatar."
+      },
+      {
+        "n": "3",
+        "title": "See yourself on the leaderboard",
+        "body": "Open the demo here on your screen and watch your guest climb — live."
+      }
     ],
     "openButton": "Open the demo leaderboard →",
     "note": "The demo resets every night. Everything you do there is anonymous and gone within a day."
@@ -567,27 +585,25 @@
   },
   "Pricing": {
     "metaTitle": "Pricing — %BRAND_FULL%",
-    "metaDescription": "What does %BRAND% cost? Free to self-host with Docker — or hosted in the EU from $20/mo with backups, updates and secure login included.",
+    "metaDescription": "What does %BRAND% cost? Free to self-host with Docker — or hosted in the EU from NOK 249/mo with backups, updates and secure login included.",
     "title": "Pricing",
     "intro": "Simple and predictable: run it free on your own server, or let us run everything for a flat monthly price. No lock-in, no per-user pricing.",
     "compareNote": "Wondering about the differences?",
     "compareLink": "See the full self-hosted vs. hosted comparison →"
   },
-  "Contact": {
-    "metaTitle": "Contact us about hosting — %BRAND_FULL%",
-    "metaDescription": "Want us to host %BRAND% for your team? Get in touch and we'll set up a hosted instance for you.",
-    "title": "Contact us about hosting",
-    "intro": "Self-service checkout online is almost ready. In the meantime we're happy to set it up manually — fill in the form and we'll create an instance for your team, send you a login link and arrange payment directly.",
-    "formName": "Name",
-    "formCompany": "Company / organisation",
-    "formEmail": "Email (work)",
-    "formMessage": "Message (optional — e.g. preferred subdomain or number of users)",
-    "formSubmit": "Send request",
-    "formSuccessTitle": "Request sent!",
-    "formSuccessBody": "Thanks! We'll get back to you by email within one business day and set up the instance for your team.",
-    "formError": "Something went wrong — try again, or send us an email.",
-    "responseNote": "We usually reply within one business day.",
-    "orEmail": "Prefer email? Write to",
+  "Onboarding": {
+    "metaTitle": "Start your 14-day free trial — %BRAND_FULL%",
+    "metaDescription": "Create your own hosted %BRAND% instance in minutes. 14-day free trial, and no charge until it ends.",
+    "title": "Start your 14-day free trial",
+    "intro": "Create your own instance in minutes. You add a card now to get started, but we won't charge anything until the trial ends.",
+    "orgName": "Organisation",
+    "subdomain": "Preferred web address",
+    "email": "Email (admin)",
+    "trialNote": "14 days free, then NOK 249/mo. Your card isn't charged until the trial ends, and you can cancel for free any time before that.",
+    "submit": "Start free trial",
+    "submitting": "Taking you to checkout…",
+    "genericError": "Something went wrong. Please try again.",
+    "subdomainHint": "3–30 chars: a–z, 0–9 and hyphen.",
     "selfHostAlt": "Prefer to start today? %BRAND% is free to run yourself with Docker.",
     "selfHostCta": "How to install it yourself"
   },
@@ -620,38 +636,137 @@
     "contactSupport": "Contact support"
   },
   "Achievements": {
-    "first-sip": { "name": "First Sip", "description": "Log your very first cup" },
-    "ten-cups": { "name": "Thirsty", "description": "Log 10 cups total" },
-    "fifty-cups": { "name": "Caffeine Abuser", "description": "Log 50 cups total" },
-    "hundred-cups": { "name": "Cup Master", "description": "Log 100 cups total" },
-    "early-bird": { "name": "Early Bird", "description": "Log a cup before 08:00" },
-    "night-owl": { "name": "Night Owl", "description": "Log a cup after 20:00" },
-    "variety": { "name": "Versatile", "description": "Try 3 different drink types" },
-    "coffee-addict": { "name": "Coffeeholic", "description": "Log 25 coffees" },
-    "full-collection": { "name": "Full Collection", "description": "Log at least 10 of every drink" },
-    "streak-5": { "name": "Faithful", "description": "Log at least one cup 5 days in a row" },
-    "marathon": { "name": "Marathon", "description": "Log 5 cups in a single day" },
-    "weekend-warrior": { "name": "Weekend Warrior", "description": "Log a cup on the weekend" },
-    "total-250": { "name": "Overdose", "description": "Log 250 cups total" },
-    "total-500": { "name": "Caffeine Legend", "description": "Log 500 cups total" },
-    "total-1000": { "name": "Immortal", "description": "Log 1000 cups total" },
-    "streak-3": { "name": "Good Start", "description": "Log at least one cup 3 days in a row" },
-    "streak-10": { "name": "Iron Will", "description": "Log at least one cup 10 days in a row" },
-    "streak-30": { "name": "Month Without a Miss", "description": "Log at least one cup 30 days in a row" },
-    "day-3": { "name": "Triple", "description": "Log 3 cups in a single day" },
-    "day-10": { "name": "Overkill", "description": "Log 10 cups in a single day" },
-    "all-types": { "name": "Taste Master", "description": "Try all 5 drink types" },
-    "tea-lover": { "name": "Tea Queen", "description": "Log 25 teas" },
-    "cocoa-lover": { "name": "Cocoa King", "description": "Log 25 cocoas" },
-    "hydrated": { "name": "Hydrated", "description": "Log 25 glasses of water" },
-    "super-early": { "name": "Crack of Dawn", "description": "Log a cup before 06:00" },
-    "midnight": { "name": "Midnight Thirst", "description": "Log a cup at 23:00 or later" },
-    "explorer": { "name": "Explorer", "description": "Visit 3 different stations" },
-    "tag-master": { "name": "Tag Master", "description": "Scan 5 different tags" },
-    "nfc-native": { "name": "NFC Native", "description": "Log 50 cups via a tag" },
-    "record-streak": { "name": "Record Holder", "description": "Reach a streak of 14 days in a row" },
-    "regular": { "name": "Regular", "description": "Log on 30 different days total" },
-    "round-the-clock": { "name": "Round the Clock", "description": "Log in 8 different hours of the day" },
-    "lunch-break": { "name": "Lunch Break", "description": "Log a cup at 12:00" }
+    "first-sip": {
+      "name": "First Sip",
+      "description": "Log your very first cup"
+    },
+    "ten-cups": {
+      "name": "Thirsty",
+      "description": "Log 10 cups total"
+    },
+    "fifty-cups": {
+      "name": "Caffeine Abuser",
+      "description": "Log 50 cups total"
+    },
+    "hundred-cups": {
+      "name": "Cup Master",
+      "description": "Log 100 cups total"
+    },
+    "early-bird": {
+      "name": "Early Bird",
+      "description": "Log a cup before 08:00"
+    },
+    "night-owl": {
+      "name": "Night Owl",
+      "description": "Log a cup after 20:00"
+    },
+    "variety": {
+      "name": "Versatile",
+      "description": "Try 3 different drink types"
+    },
+    "coffee-addict": {
+      "name": "Coffeeholic",
+      "description": "Log 25 coffees"
+    },
+    "full-collection": {
+      "name": "Full Collection",
+      "description": "Log at least 10 of every drink"
+    },
+    "streak-5": {
+      "name": "Faithful",
+      "description": "Log at least one cup 5 days in a row"
+    },
+    "marathon": {
+      "name": "Marathon",
+      "description": "Log 5 cups in a single day"
+    },
+    "weekend-warrior": {
+      "name": "Weekend Warrior",
+      "description": "Log a cup on the weekend"
+    },
+    "total-250": {
+      "name": "Overdose",
+      "description": "Log 250 cups total"
+    },
+    "total-500": {
+      "name": "Caffeine Legend",
+      "description": "Log 500 cups total"
+    },
+    "total-1000": {
+      "name": "Immortal",
+      "description": "Log 1000 cups total"
+    },
+    "streak-3": {
+      "name": "Good Start",
+      "description": "Log at least one cup 3 days in a row"
+    },
+    "streak-10": {
+      "name": "Iron Will",
+      "description": "Log at least one cup 10 days in a row"
+    },
+    "streak-30": {
+      "name": "Month Without a Miss",
+      "description": "Log at least one cup 30 days in a row"
+    },
+    "day-3": {
+      "name": "Triple",
+      "description": "Log 3 cups in a single day"
+    },
+    "day-10": {
+      "name": "Overkill",
+      "description": "Log 10 cups in a single day"
+    },
+    "all-types": {
+      "name": "Taste Master",
+      "description": "Try all 5 drink types"
+    },
+    "tea-lover": {
+      "name": "Tea Queen",
+      "description": "Log 25 teas"
+    },
+    "cocoa-lover": {
+      "name": "Cocoa King",
+      "description": "Log 25 cocoas"
+    },
+    "hydrated": {
+      "name": "Hydrated",
+      "description": "Log 25 glasses of water"
+    },
+    "super-early": {
+      "name": "Crack of Dawn",
+      "description": "Log a cup before 06:00"
+    },
+    "midnight": {
+      "name": "Midnight Thirst",
+      "description": "Log a cup at 23:00 or later"
+    },
+    "explorer": {
+      "name": "Explorer",
+      "description": "Visit 3 different stations"
+    },
+    "tag-master": {
+      "name": "Tag Master",
+      "description": "Scan 5 different tags"
+    },
+    "nfc-native": {
+      "name": "NFC Native",
+      "description": "Log 50 cups via a tag"
+    },
+    "record-streak": {
+      "name": "Record Holder",
+      "description": "Reach a streak of 14 days in a row"
+    },
+    "regular": {
+      "name": "Regular",
+      "description": "Log on 30 different days total"
+    },
+    "round-the-clock": {
+      "name": "Round the Clock",
+      "description": "Log in 8 different hours of the day"
+    },
+    "lunch-break": {
+      "name": "Lunch Break",
+      "description": "Log a cup at 12:00"
+    }
   }
 }

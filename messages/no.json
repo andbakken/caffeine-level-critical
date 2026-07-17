@@ -105,8 +105,8 @@
       "Backup og oppdateringer inkludert",
       "Hostet i EU — GDPR-vennlig"
     ],
-    "startTrial": "Ta kontakt om hosting",
-    "trialNote": "Selvbetjent kjøp kommer snart · ta kontakt, så setter vi opp en instans for teamet ditt",
+    "startTrial": "Start gratis prøveperiode",
+    "trialNote": "14 dager gratis · si opp når som helst · ingen belastning før prøveperioden er over",
     "endTitle": "Klar til å koke i gang?",
     "endBody": "Sett opp %BRAND% for teamet ditt i dag — og finn ut hvem som egentlig holder kontoret i gang."
   },
@@ -207,8 +207,8 @@
     "installButton": "Slik installerer du",
     "hostedDesc": "Klar på minutter. Ingen drift, sikker innlogging, backup og oppdateringer inkludert — driftet i EU (GDPR).",
     "recommended": "ANBEFALT",
-    "startTrial": "Ta kontakt om hosting",
-    "trialNote": "Selvbetjent kjøp kommer snart. Ta kontakt, så oppretter vi en instans for teamet ditt og sender deg en innloggingslenke.",
+    "startTrial": "Start gratis prøveperiode",
+    "trialNote": "14 dager gratis, deretter {price}. Kortet belastes først når prøveperioden er over — si opp gratis når som helst før det.",
     "hostingHeading": "Rammene for hostingen",
     "hostingIntro": "Velger du den hostede versjonen, tar vi oss av hele driften — trygt, oppdatert og forutsigbart.",
     "hostingBullets": [
@@ -262,8 +262,8 @@
         "a": "Ja. Da må de fysiske brikkene skrives om én gang fordi domenet endres, men all funksjonalitet er den samme."
       },
       {
-        "q": "Hvordan kommer vi i gang med den hostede versjonen?",
-        "a": "Selvbetjent kjøp på nett er rett rundt hjørnet. I mellomtiden setter vi opp instansen manuelt: ta kontakt på e-post, så oppretter vi en instans for teamet ditt, sender deg en innloggingslenke og avtaler betaling direkte. Vil du heller starte i dag uten å vente, kan du alltid selvhoste gratis."
+        "q": "Hva betyr den gratis prøveperioden?",
+        "a": "Du får full tilgang til den hostede versjonen i 14 dager uten å betale. Du legger inn kort ved oppstart, men vi belaster ingenting før prøveperioden er over. Sier du opp før dag 14, betaler du ingenting. Etter prøveperioden fornyes abonnementet automatisk til vanlig månedspris, og du kan si opp når som helst."
       },
       {
         "q": "Samler dere inn statistikk om bruken?",
@@ -455,8 +455,14 @@
     "you": "Du",
     "youDept": "Besøkende",
     "rivals": [
-      { "name": "Kari", "dept": "Regnskap" },
-      { "name": "Jonas", "dept": "Utvikling" }
+      {
+        "name": "Kari",
+        "dept": "Regnskap"
+      },
+      {
+        "name": "Jonas",
+        "dept": "Utvikling"
+      }
     ],
     "badgeName": "Trippel",
     "badgeUnlocked": "Merke låst opp: {badge}!",
@@ -514,9 +520,21 @@
     "intro": "Demo-kontoret er ekte og lever hele dagen: fiktive kolleger logger kopper, topplista beveger seg. Bli med dem — rett fra din egen mobil.",
     "qrCaption": "Scan med mobilkameraet — akkurat som en NFC-brikke ved kaffemaskinen.",
     "steps": [
-      { "n": "1", "title": "Scan QR-koden", "body": "Mobilen åpner demo-kontorets kaffebrikke. Ingen app, ingen registrering." },
-      { "n": "2", "title": "Logg en kopp", "body": "Velg drikke og tapp — du blir en anonym gjest med egen pixel-avatar." },
-      { "n": "3", "title": "Se deg selv på topplista", "body": "Åpne demoen her på skjermen og se gjesten din klatre — live." }
+      {
+        "n": "1",
+        "title": "Scan QR-koden",
+        "body": "Mobilen åpner demo-kontorets kaffebrikke. Ingen app, ingen registrering."
+      },
+      {
+        "n": "2",
+        "title": "Logg en kopp",
+        "body": "Velg drikke og tapp — du blir en anonym gjest med egen pixel-avatar."
+      },
+      {
+        "n": "3",
+        "title": "Se deg selv på topplista",
+        "body": "Åpne demoen her på skjermen og se gjesten din klatre — live."
+      }
     ],
     "openButton": "Åpne demo-topplista →",
     "note": "Demoen nullstilles hver natt. Alt du gjør der er anonymt og forsvinner innen døgnet er omme."
@@ -573,21 +591,19 @@
     "compareNote": "Lurer du på forskjellene?",
     "compareLink": "Se full sammenligning av selvhostet og hostet →"
   },
-  "Contact": {
-    "metaTitle": "Ta kontakt om hosting — %BRAND_FULL%",
-    "metaDescription": "Ønsker du at vi drifter %BRAND% for teamet ditt? Ta kontakt, så setter vi opp en hostet instans for dere.",
-    "title": "Ta kontakt om hosting",
-    "intro": "Selvbetjent kjøp på nett er straks klart. I mellomtiden setter vi det gjerne opp manuelt — fyll ut skjemaet, så oppretter vi en instans for teamet ditt, sender deg en innloggingslenke og avtaler betaling direkte.",
-    "formName": "Navn",
-    "formCompany": "Firma / organisasjon",
-    "formEmail": "E-post (jobb)",
-    "formMessage": "Melding (valgfritt — f.eks. ønsket subdomene eller antall brukere)",
-    "formSubmit": "Send henvendelsen",
-    "formSuccessTitle": "Henvendelsen er sendt!",
-    "formSuccessBody": "Takk! Vi tar kontakt på e-post innen én virkedag og setter opp instansen for teamet ditt.",
-    "formError": "Noe gikk galt — prøv igjen, eller send oss en e-post.",
-    "responseNote": "Vi svarer normalt innen én virkedag.",
-    "orEmail": "Foretrekker du e-post? Skriv til",
+  "Onboarding": {
+    "metaTitle": "Start 14 dager gratis — %BRAND_FULL%",
+    "metaDescription": "Opprett din egen hostede %BRAND%-instans på minutter. 14 dager gratis prøveperiode, og ingen belastning før den er over.",
+    "title": "Start 14 dager gratis",
+    "intro": "Opprett din egen instans på minutter. Du legger inn kort nå for å komme i gang, men vi belaster ingenting før prøveperioden er over.",
+    "orgName": "Organisasjon",
+    "subdomain": "Ønsket nettadresse",
+    "email": "E-post (admin)",
+    "trialNote": "14 dager gratis, deretter 249 kr/mnd. Kortet belastes først når prøveperioden er over, og du kan si opp gratis når som helst før det.",
+    "submit": "Start gratis prøveperiode",
+    "submitting": "Sender deg videre…",
+    "genericError": "Noe gikk galt. Prøv igjen.",
+    "subdomainHint": "3–30 tegn: a–z, 0–9 og bindestrek.",
     "selfHostAlt": "Vil du heller starte i dag? %BRAND% er gratis å kjøre selv med Docker.",
     "selfHostCta": "Slik installerer du selv"
   },
@@ -620,38 +636,137 @@
     "contactSupport": "Kontakt support"
   },
   "Achievements": {
-    "first-sip": { "name": "Første slurk", "description": "Logg din aller første kopp" },
-    "ten-cups": { "name": "Tørst", "description": "Logg 10 kopper totalt" },
-    "fifty-cups": { "name": "Koffeinmisbruker", "description": "Logg 50 kopper totalt" },
-    "hundred-cups": { "name": "Koppmester", "description": "Logg 100 kopper totalt" },
-    "early-bird": { "name": "Morgenfugl", "description": "Logg en kopp før kl. 08" },
-    "night-owl": { "name": "Nattugle", "description": "Logg en kopp etter kl. 20" },
-    "variety": { "name": "Allsidig", "description": "Prøv 3 ulike drikketyper" },
-    "coffee-addict": { "name": "Kaffeholiker", "description": "Logg 25 kaffe" },
-    "full-collection": { "name": "Komplett samling", "description": "Logg minst 10 av hver drikke" },
-    "streak-5": { "name": "Trofast", "description": "Logg minst én kopp 5 dager på rad" },
-    "marathon": { "name": "Maraton", "description": "Logg 5 kopper på samme dag" },
-    "weekend-warrior": { "name": "Helgekriger", "description": "Logg en kopp i helgen" },
-    "total-250": { "name": "Overdose", "description": "Logg 250 kopper totalt" },
-    "total-500": { "name": "Koffein-legende", "description": "Logg 500 kopper totalt" },
-    "total-1000": { "name": "Udødelig", "description": "Logg 1000 kopper totalt" },
-    "streak-3": { "name": "God start", "description": "Logg minst én kopp 3 dager på rad" },
-    "streak-10": { "name": "Jernvilje", "description": "Logg minst én kopp 10 dager på rad" },
-    "streak-30": { "name": "Måned uten miss", "description": "Logg minst én kopp 30 dager på rad" },
-    "day-3": { "name": "Trippel", "description": "Logg 3 kopper på samme dag" },
-    "day-10": { "name": "Overdrivelse", "description": "Logg 10 kopper på samme dag" },
-    "all-types": { "name": "Smaksmester", "description": "Prøv alle 5 drikketyper" },
-    "tea-lover": { "name": "Tedronning", "description": "Logg 25 te" },
-    "cocoa-lover": { "name": "Kakaokonge", "description": "Logg 25 kakao" },
-    "hydrated": { "name": "Hydrert", "description": "Logg 25 glass vann" },
-    "super-early": { "name": "Grytidlig", "description": "Logg en kopp før kl. 06" },
-    "midnight": { "name": "Midnattstørst", "description": "Logg en kopp kl. 23 eller senere" },
-    "explorer": { "name": "Utforsker", "description": "Besøk 3 ulike stasjoner" },
-    "tag-master": { "name": "Brikkemester", "description": "Skann 5 ulike brikker" },
-    "nfc-native": { "name": "NFC-innfødt", "description": "Logg 50 kopper via brikke" },
-    "record-streak": { "name": "Rekordholder", "description": "Ha en rekke på 14 dager på rad" },
-    "regular": { "name": "Stamgjest", "description": "Logg på 30 ulike dager totalt" },
-    "round-the-clock": { "name": "Døgnvill", "description": "Logg i 8 ulike klokketimer" },
-    "lunch-break": { "name": "Lunsjpause", "description": "Logg en kopp kl. 12" }
+    "first-sip": {
+      "name": "Første slurk",
+      "description": "Logg din aller første kopp"
+    },
+    "ten-cups": {
+      "name": "Tørst",
+      "description": "Logg 10 kopper totalt"
+    },
+    "fifty-cups": {
+      "name": "Koffeinmisbruker",
+      "description": "Logg 50 kopper totalt"
+    },
+    "hundred-cups": {
+      "name": "Koppmester",
+      "description": "Logg 100 kopper totalt"
+    },
+    "early-bird": {
+      "name": "Morgenfugl",
+      "description": "Logg en kopp før kl. 08"
+    },
+    "night-owl": {
+      "name": "Nattugle",
+      "description": "Logg en kopp etter kl. 20"
+    },
+    "variety": {
+      "name": "Allsidig",
+      "description": "Prøv 3 ulike drikketyper"
+    },
+    "coffee-addict": {
+      "name": "Kaffeholiker",
+      "description": "Logg 25 kaffe"
+    },
+    "full-collection": {
+      "name": "Komplett samling",
+      "description": "Logg minst 10 av hver drikke"
+    },
+    "streak-5": {
+      "name": "Trofast",
+      "description": "Logg minst én kopp 5 dager på rad"
+    },
+    "marathon": {
+      "name": "Maraton",
+      "description": "Logg 5 kopper på samme dag"
+    },
+    "weekend-warrior": {
+      "name": "Helgekriger",
+      "description": "Logg en kopp i helgen"
+    },
+    "total-250": {
+      "name": "Overdose",
+      "description": "Logg 250 kopper totalt"
+    },
+    "total-500": {
+      "name": "Koffein-legende",
+      "description": "Logg 500 kopper totalt"
+    },
+    "total-1000": {
+      "name": "Udødelig",
+      "description": "Logg 1000 kopper totalt"
+    },
+    "streak-3": {
+      "name": "God start",
+      "description": "Logg minst én kopp 3 dager på rad"
+    },
+    "streak-10": {
+      "name": "Jernvilje",
+      "description": "Logg minst én kopp 10 dager på rad"
+    },
+    "streak-30": {
+      "name": "Måned uten miss",
+      "description": "Logg minst én kopp 30 dager på rad"
+    },
+    "day-3": {
+      "name": "Trippel",
+      "description": "Logg 3 kopper på samme dag"
+    },
+    "day-10": {
+      "name": "Overdrivelse",
+      "description": "Logg 10 kopper på samme dag"
+    },
+    "all-types": {
+      "name": "Smaksmester",
+      "description": "Prøv alle 5 drikketyper"
+    },
+    "tea-lover": {
+      "name": "Tedronning",
+      "description": "Logg 25 te"
+    },
+    "cocoa-lover": {
+      "name": "Kakaokonge",
+      "description": "Logg 25 kakao"
+    },
+    "hydrated": {
+      "name": "Hydrert",
+      "description": "Logg 25 glass vann"
+    },
+    "super-early": {
+      "name": "Grytidlig",
+      "description": "Logg en kopp før kl. 06"
+    },
+    "midnight": {
+      "name": "Midnattstørst",
+      "description": "Logg en kopp kl. 23 eller senere"
+    },
+    "explorer": {
+      "name": "Utforsker",
+      "description": "Besøk 3 ulike stasjoner"
+    },
+    "tag-master": {
+      "name": "Brikkemester",
+      "description": "Skann 5 ulike brikker"
+    },
+    "nfc-native": {
+      "name": "NFC-innfødt",
+      "description": "Logg 50 kopper via brikke"
+    },
+    "record-streak": {
+      "name": "Rekordholder",
+      "description": "Ha en rekke på 14 dager på rad"
+    },
+    "regular": {
+      "name": "Stamgjest",
+      "description": "Logg på 30 ulike dager totalt"
+    },
+    "round-the-clock": {
+      "name": "Døgnvill",
+      "description": "Logg i 8 ulike klokketimer"
+    },
+    "lunch-break": {
+      "name": "Lunsjpause",
+      "description": "Logg en kopp kl. 12"
+    }
   }
 }
