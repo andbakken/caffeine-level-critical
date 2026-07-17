@@ -5,7 +5,9 @@ med delt Postgres og en control-plane som provisjonerer på Stripe-webhook.
 
 ## Engangsoppsett
 
-1. **Kontoer (manuelt):** Hetzner (API-token), domene + DNS, Stripe, Resend, backup-mål.
+1. **Kontoer (manuelt):** Hetzner (API-token), domene + DNS, Stripe, Resend. Slå på
+   **Hetzner Cloud Backups** på serveren i konsollen – det er backupen som er i drift
+   (se «Daglig drift»). Eget backup-mål trengs først når/hvis restic tas i bruk.
 2. **Konfig:** `cp infra/.env.example infra/.env` og fyll inn. `infra/.env` er git-ignorert.
 3. **Provisjoner serveren (hcloud CLI):**
    ```bash
@@ -48,7 +50,16 @@ Aldri commit `infra/.env` i klartekst.
 - **Ny kunde:** skjer automatisk via Stripe-webhook → control-plane. Ingen manuelle steg.
 - **Oppgrader appen:** bygg nytt `TENANT_IMAGE`, rull tenant-containere én etter én (de selv-migrerer ved restart via `docker/entrypoint.sh`).
 - **Skaler opp:** `hcloud server change-type <navn> cx43` (én reboot, ingen migrering).
-- **Backup:** restic-timer (Fase 4). Verifiser med `restic snapshots`.
+- **Backup:** **Hetzner Cloud Backups** – daglige snapshots av *hele serveren*, 7 på
+  rullering. Slås av/på og verifiseres i Hetzner-konsollen (ikke fra serveren – en VM
+  ser ikke sine egne snapshots). Dette er det eneste som faktisk kjører, og det er
+  grunnlaget for «vi tar regelmessig sikkerhetskopi» i personvernerklæringen.
+  Restore = rull tilbake hele maskinen til et tidspunkt.
+- **Backup (restic) – IKKE i drift.** `infra/backup/` har `backup.sh` + systemd-units
+  klare, men `restic` er ikke installert, `RESTIC_REPOSITORY` er tom og unitene er ikke
+  installert. Verdien den ville gitt over Hetzner-snapshots: gjenoppretting av **én**
+  tenant-database uten å rulle tilbake alle andre kunder, og kopi utenfor samme
+  Hetzner-konto. Verdt å sette opp når det finnes kunder å miste.
 - **Logger:** `docker logs <container>`, Traefik-access-logg.
 - **Provisjoneringsfeil:** control-plane setter status `failed` og varsler `OWNER_EMAIL`.
   Retry kjører automatisk ved oppstart og hver time (idempotent) – som regel trengs
@@ -68,5 +79,7 @@ Aldri commit `infra/.env` i klartekst.
   docker exec "$CP" npx tsx src/deprovision.ts <subdomain>         # dry-run: viser hva som fjernes
   docker exec "$CP" npx tsx src/deprovision.ts <subdomain> --yes   # utfør: container, volum, DB, rolle, registry-rad
   ```
-  Skriptet er idempotent. **Merk:** backupen (`pg_dumpall`) inneholder fortsatt tenanten
-  inntil restic-rotasjonen (30 dager) har passert. Reell sletting = deprovision + 30 dager.
+  Skriptet er idempotent. **Merk:** Hetzners daglige server-snapshots inneholder fortsatt
+  tenanten til de er rotert ut. **Reell sletting = deprovision + inntil 7 dager.**
+  Tallet følger antall Hetzner-backups i konsollen – endres det, eller tas restic i bruk,
+  må denne fristen justeres (den er det vi ville lent oss på ved en slettebegjæring).
