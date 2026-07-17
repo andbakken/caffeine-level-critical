@@ -54,6 +54,18 @@ model LoginToken {
   @@index([userId])
 }
 
+// Vedvarende feil-teller for innlogging, per konto. Ligger i DB og ikke i minne
+// fordi containere re-skapes ved hver utrulling (control-plane/src/rollout.ts) –
+// en in-memory teller ville nullstilt låsen hver gang vi deployer.
+// IP-burst-grensen står fortsatt i minne (src/lib/rateLimit.ts); den skal være billig.
+model LoginThrottle {
+  key         String    @id // «login:acct:<kallenavn i lowercase>»
+  fails       Int       @default(0)
+  windowStart DateTime  @default(now())
+  lockedUntil DateTime?
+  updatedAt   DateTime  @updatedAt
+}
+
 model Drink {
   id           Int           @id @default(autoincrement())
   key          String        @unique // coffee | tea | cocoa ...

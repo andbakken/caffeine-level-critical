@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db";
 import { createSession, hashPin } from "@/lib/auth";
-import { registerSchema } from "@/lib/validation";
+import { registerSchema, validatePin } from "@/lib/validation";
 import { isInviteRequired, inviteCodeMatches } from "@/lib/orgProfile";
 import { rateLimit, clientIp } from "@/lib/rateLimit";
 import { fail, ok } from "@/lib/http";
@@ -23,6 +23,10 @@ export async function POST(req: Request) {
     return fail(parsed.error.issues[0]?.message ?? "Ugyldige data");
   }
   const { nickname, pin, departmentId, inviteCode } = parsed.data;
+
+  // Styrkekrav på PIN (6 sifre + ingen trivielle på tenant, 4 på selvhost).
+  const pinError = validatePin(pin);
+  if (pinError) return fail(pinError);
 
   // Hostet drift: krev en gyldig invitasjonskode fra admin før registrering.
   if (isInviteRequired()) {

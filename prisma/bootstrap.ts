@@ -65,6 +65,25 @@ async function main() {
     console.log(`Admin-bruker finnes allerede — hopper over.`);
   }
 
+  // --- Hostet: fjern PIN fra admins som har e-post ---
+  // På tenant logger e-post-admin inn med magic-link. En PIN i tillegg er netto
+  // svekkelse: kallenavnet er forutsigbart («GameMaster»), instansen ligger åpent
+  // på internett, og noen få sifre erstatter da en engangslenke til e-post.
+  // API-et nekter å sette en slik PIN (src/app/api/me/route.ts), men kontoer som
+  // fikk en FØR den regelen fantes, ville ellers beholdt den. Trygt å fjerne:
+  // brukeren har e-post og kommer alltid inn via magic-link.
+  if (process.env.IS_TENANT === "1") {
+    const cleared = await prisma.user.updateMany({
+      where: { isAdmin: true, email: { not: null }, pinHash: { not: null } },
+      data: { pinHash: null },
+    });
+    if (cleared.count > 0) {
+      console.log(
+        `Fjernet PIN fra ${cleared.count} e-post-admin(er) — de logger inn via innloggingslenke.`,
+      );
+    }
+  }
+
   // --- Invitasjonskode (kun hostet: REQUIRE_INVITE=1) ---
   // Generer én kode ved første oppstart hvis den mangler. Overskriv aldri en
   // eksisterende kode (admin kan ha rotert den bevisst). Samme forvekslingsvennlige

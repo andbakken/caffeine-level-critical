@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { getCurrentUser, hashPin } from "@/lib/auth";
-import { updateProfileSchema } from "@/lib/validation";
+import { updateProfileSchema, validatePin } from "@/lib/validation";
+import { isTenant } from "@/lib/deployment";
 import { fail, ok } from "@/lib/http";
 
 export async function PATCH(req: Request) {
@@ -32,7 +33,22 @@ export async function PATCH(req: Request) {
     if (!dept) return fail("Ukjent avdeling");
     data.departmentId = departmentId;
   }
-  if (pin) data.pinHash = hashPin(pin);
+  if (pin) {
+    // En e-post-admin på tenant logger inn med magic-link. Lar vi hen sette en PIN,
+    // byttes en engangslenke til e-post ut med noen få sifre – og kallenavnet er
+    // forutsigbart («GameMaster» fra bootstrap), så halve legitimasjonen er kjent.
+    // Da er PIN-en netto svekkelse, ikke bekvemmelighet. Selvhost er urørt.
+    if (isTenant() && user.email) {
+      return fail(
+        "Administratorer med e-post logger inn via innloggingslenke på e-post, og kan ikke sette PIN. " +
+          "Det er et bevisst valg: en PIN ville vært svakere enn lenken.",
+        403,
+      );
+    }
+    const pinError = validatePin(pin);
+    if (pinError) return fail(pinError);
+    data.pinHash = hashPin(pin);
+  }
 
   if (Object.keys(data).length === 0) return ok({ unchanged: true });
 

@@ -22,31 +22,9 @@ export function rateLimit(key: string, limit: number, windowMs: number): boolean
   return true;
 }
 
-// ── Feil-teller for innlogging ────────────────────────────────────────────────
-// Egen tracker der KUN mislykkede forsøk teller, og en vellykket innlogging
-// nullstiller. Slik bremses målrettet PIN-gjetting mot én konto uten at en ekte
-// bruker som taster feil et par ganger og så riktig, blir låst ute.
-const failures = new Map<string, Bucket>();
-
-/** true hvis kontoen har for mange nylige feilforsøk (skal blokkeres). Teller ikke opp. */
-export function tooManyFailures(key: string, limit: number, windowMs: number): boolean {
-  const b = failures.get(key);
-  if (!b || b.resetAt < Date.now()) return false;
-  return b.count >= limit;
-}
-
-/** Registrer ett feilforsøk for nøkkelen. */
-export function recordFailure(key: string, windowMs: number): void {
-  const now = Date.now();
-  const b = failures.get(key);
-  if (!b || b.resetAt < now) failures.set(key, { count: 1, resetAt: now + windowMs });
-  else b.count++;
-}
-
-/** Nullstill feilforsøk (kalles ved vellykket innlogging). */
-export function clearFailures(key: string): void {
-  failures.delete(key);
-}
+// Feil-telleren for innlogging lå tidligere her, i minne. Den bor nå i DB —
+// se src/lib/loginThrottle.ts. Grunnen: containere re-skapes ved hver utrulling,
+// og en teller i minne nullstiller låsen hver gang vi deployer.
 
 /** Henter klient-IP fra standard proxy-headere (Traefik setter X-Forwarded-For). */
 export function clientIp(req: Request): string {

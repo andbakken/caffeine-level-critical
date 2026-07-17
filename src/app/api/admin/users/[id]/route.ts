@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db";
 import { getCurrentUser, hashPin } from "@/lib/auth";
-import { nicknameSchema, pinSchema } from "@/lib/validation";
+import { nicknameSchema, validatePin } from "@/lib/validation";
 import { fail, ok } from "@/lib/http";
 
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }> }) {
@@ -48,10 +48,13 @@ export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }>
   }
 
   // --- PIN-reset ---
+  // Samme styrkekrav som når brukeren setter PIN selv – ellers ville admin-reset
+  // vært en vei rundt kravet, og en resatt PIN er nettopp den som deles muntlig.
   if (body.pin != null) {
-    const parsed = pinSchema.safeParse(body.pin);
-    if (!parsed.success) return fail(parsed.error.issues[0]?.message ?? "Ugyldig PIN");
-    data.pinHash = hashPin(parsed.data);
+    if (typeof body.pin !== "string") return fail("Ugyldig PIN");
+    const pinError = validatePin(body.pin);
+    if (pinError) return fail(pinError);
+    data.pinHash = hashPin(body.pin);
   }
 
   // --- Aktiv-status ---
